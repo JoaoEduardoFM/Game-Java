@@ -4,6 +4,7 @@ import java.awt.DisplayMode;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 
+import jogo.cenario.Cenario1;
 import jplay.GameImage;
 import jplay.Keyboard;
 import jplay.URL;
