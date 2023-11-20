@@ -34,7 +34,7 @@ public class Cenario2 extends Cenario{
 			cena.moveScene(jogador);
 			jogador.x += cena.getXOffset();
 			jogador.y += cena.getXOffset();
-			jogador.atirar(janela, cena, teclado, null);
+			jogador.atirarPistola(janela, cena, teclado, null);
 			jogador.draw();
 			janela.update();
 

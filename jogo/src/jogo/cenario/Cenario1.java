@@ -38,12 +38,15 @@ public class Cenario1 extends Cenario {
 		}
 
 		while (true) {
+
 			// controlador jogador
 			jogador.controle(janela, teclado);
 			jogador.caminho(cena);
 			cena.moveScene(jogador);
 			jogador.x += cena.getXOffset();
 			jogador.y += cena.getXOffset();
+			
+			
 
 			jogador.draw();
 
@@ -53,15 +56,16 @@ public class Cenario1 extends Cenario {
 				zumbi[i].x += cena.getXOffset();
 				zumbi[i].y += cena.getXOffset();
 				zumbi[i].draw();
-				jogador.atirar(janela, cena, teclado, zumbi[i]);
+				jogador.atirarPistola(janela, cena, teclado, zumbi[i]);
 				jogador.ataqueEspada(janela, cena, teclado, zumbi[i]);
 				zumbi[i].morrer();
 				zumbi[i].atacar(jogador);
 			}
 
+			
 			jogador.vida(janela);
 			janela.update();
-			mudarCenario();
+			// mudarCenario();
 			try {
 				Thread.sleep(05);
 			} catch (InterruptedException e) {

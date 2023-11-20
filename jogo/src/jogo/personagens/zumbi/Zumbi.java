@@ -14,34 +14,34 @@ public class Zumbi extends Ator {
 		this.x = x;
 		this.y = y;
 		this.setTotalDuration(2000);
-		this.valocidade = 0.3;
+		this.velocidade = 0.3;
 
 	}
 
 	public void perseguir(double x, double y) {
 
 		if (this.x > x && this.y <= y + 50 && this.y >= y - 50) {
-			moveTo(x, y, valocidade);
+			moveTo(x, y, velocidade);
 			if (direcao != 1) {
 				setSequence(5, 8);
 			}
 			movendo = true;
 		} else if (this.x < x && this.y <= y + 50 && this.y >= -50) {
-			moveTo(x, y, valocidade);
+			moveTo(x, y, velocidade);
 			if (direcao != 2) {
 				setSequence(9, 12);
 				direcao = 2;
 			}
 			movendo = true;
 		} else if (this.y > y) {
-			moveTo(x, y, valocidade);
+			moveTo(x, y, velocidade);
 			if (direcao != 4) {
 				setSequence(13, 16);
 				direcao = 4;
 			}
 			movendo = true;
 		} else if (this.y < y) {
-			moveTo(x, y, valocidade);
+			moveTo(x, y, velocidade);
 			if (direcao != 5) {
 				setSequence(1, 4);
 				direcao = 5;
@@ -59,7 +59,7 @@ public class Zumbi extends Ator {
 	public void morrer() {
 
 		if (energia <= 0) {
-			this.valocidade = 0;
+			this.velocidade = 0;
 			this.direcao = 0;
 			this.movendo = false;
 			this.x = 1_0000_000;

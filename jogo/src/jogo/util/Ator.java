@@ -10,7 +10,7 @@ import jplay.TileInfo;
 
 public class Ator extends Sprite {
 
-	public double valocidade = 1;
+	public double velocidade = 1;
 
 	public int direcao = 1;
 
@@ -72,6 +72,14 @@ public class Ator extends Sprite {
 
 	public Ator(String fileName, int numeFrames) {
 		super(fileName, numeFrames);
+	}
+
+	public double getVelocidade() {
+		return velocidade;
+	}
+
+	public void setVelocidade(double velocidade) {
+		this.velocidade = velocidade;
 	}
 
 }

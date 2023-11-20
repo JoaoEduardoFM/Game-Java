@@ -3,6 +3,8 @@ package jogo;
 import java.awt.DisplayMode;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 import jogo.cenario.Cenario1;
 import jplay.GameImage;
@@ -15,8 +17,8 @@ public class Main {
 	public static void main(String[] args) {
 
 		// resolucao do jogo
-		//Window janela = new Window(800, 600);
-		
+		// Window janela = new Window(800, 600);
+
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		GraphicsDevice gd = ge.getDefaultScreenDevice();
 		DisplayMode mode = gd.getDisplayMode();
