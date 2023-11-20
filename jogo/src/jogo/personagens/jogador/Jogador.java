@@ -13,7 +13,7 @@ import jplay.Scene;
 import jplay.URL;
 import jplay.Window;
 
-public class Jogador extends Ator{
+public class Jogador extends Ator {
 
 	public static double energia = 1000;
 
@@ -52,30 +52,9 @@ public class Jogador extends Ator{
 		controleEspadas.run(inimigo);
 	}
 
-	public void correr(Keyboard teclado) {
-
-	}
-
 	public void controle(Window janela, Keyboard teclado) {
 
-		janela.addKeyListener(new KeyAdapter() {
-			public void keyPressed(KeyEvent e) {
-				// Lógica para tratar a tecla pressionada
-				char keyChat = e.getKeyChar();
-				//int keyCode = e.getKeyCode();
-				System.out.println(keyChat);
-
-				if (keyChat == e.VK_SPACE && teclado.keyDown(Keyboard.LEFT_KEY) ||
-						keyChat == e.VK_SPACE && teclado.keyDown(Keyboard.RIGHT_KEY) ||
-						keyChat == e.VK_SPACE && teclado.keyDown(Keyboard.UP_KEY) ||
-						keyChat == e.VK_SPACE && teclado.keyDown(Keyboard.DOWN_KEY)) {
-					velocidade = 3;
-				} else {
-					velocidade = 1;
-				}
-
-			}
-		});
+		correrLogica(janela, teclado);
 
 		// movendo para esquerda
 		if (teclado.keyDown(Keyboard.LEFT_KEY)) {
@@ -130,6 +109,27 @@ public class Jogador extends Ator{
 			update();
 			movendo = false;
 		}
+	}
+
+	private void correrLogica(Window janela, Keyboard teclado) {
+		janela.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				// Lógica para tratar a tecla pressionada
+				char keyChat = e.getKeyChar();
+				// int keyCode = e.getKeyCode();
+				System.out.println(keyChat);
+
+				if (keyChat == KeyEvent.VK_SPACE && teclado.keyDown(Keyboard.LEFT_KEY)
+						|| keyChat == KeyEvent.VK_SPACE && teclado.keyDown(Keyboard.RIGHT_KEY)
+						|| keyChat == KeyEvent.VK_SPACE && teclado.keyDown(Keyboard.UP_KEY)
+						|| keyChat == KeyEvent.VK_SPACE && teclado.keyDown(Keyboard.DOWN_KEY)) {
+					velocidade = 3;
+				} else {
+					velocidade = 1;
+				}
+
+			}
+		});
 	}
 
 	public void vida(Window janela) {
