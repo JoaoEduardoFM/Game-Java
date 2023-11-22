@@ -3,8 +3,6 @@ package jogo;
 import java.awt.DisplayMode;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
 import jogo.cenario.Cenario1;
 import jplay.GameImage;
@@ -14,7 +12,7 @@ import jplay.Window;
 
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 
 		// resolucao do jogo
 		// Window janela = new Window(800, 600);

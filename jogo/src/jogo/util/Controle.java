@@ -12,5 +12,14 @@ public class Controle {
 		}
 		return false;
 	}
+	
+	public void threadSleeap(Integer valor) {
+		try {
+			// deixa o jogo mais fluido ao carregar sprites
+			Thread.sleep(valor);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
 
 }

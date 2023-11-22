@@ -1,7 +1,8 @@
 package jogo.cenario;
 
 import jogo.personagens.jogador.Jogador;
-import jogo.personagens.zumbi.Zumbi;
+import jogo.personagens.npc.Zumbi;
+import jogo.util.Controle;
 import jplay.Keyboard;
 import jplay.Scene;
 import jplay.URL;
@@ -19,7 +20,7 @@ public class Cenario1 extends Cenario {
 
 	private Zumbi zumbi[];
 
-	public Cenario1(Window window) {
+	public Cenario1(Window window) throws InterruptedException {
 		janela = window;
 		cena = new Scene();
 		cena.loadFromFile(URL.scenario("Cenario1.scn"));
@@ -30,52 +31,43 @@ public class Cenario1 extends Cenario {
 		run();
 	}
 
-	private void run() {
+	private void run() throws InterruptedException {
 
 		for (int i = 0; i < zumbi.length; i++) {
 			zumbi[i] = new Zumbi(100 * i, 100 * i);
-
 		}
 
 		while (true) {
-
 			// controlador jogador
 			jogador.controle(janela, teclado);
 			jogador.caminho(cena);
 			cena.moveScene(jogador);
 			jogador.x += cena.getXOffset();
 			jogador.y += cena.getXOffset();
-			
-			
-
 			jogador.draw();
 
 			for (int i = 0; i < zumbi.length; i++) {
 				zumbi[i].caminho(cena);
-				zumbi[i].perseguir(jogador.x, jogador.y);
+				if (zumbi[i].energia > 0) {
+					zumbi[i].perseguir(jogador.x, jogador.y);
+				}
 				zumbi[i].x += cena.getXOffset();
 				zumbi[i].y += cena.getXOffset();
 				zumbi[i].draw();
 				jogador.atirarPistola(janela, cena, teclado, zumbi[i]);
 				jogador.ataqueEspada(janela, cena, teclado, zumbi[i]);
-				zumbi[i].morrer();
 				zumbi[i].atacar(jogador);
 			}
 
-			
 			jogador.vida(janela);
 			janela.update();
 			// mudarCenario();
-			try {
-				Thread.sleep(05);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-
+			Controle thread = new Controle();
+			thread.threadSleeap(10);
 		}
 	}
 
-	private void mudarCenario() {
+	private void mudarCenario() throws InterruptedException {
 		if (tileCollision(4, jogador, cena) == true) {
 			new Cenario2(janela);
 		}

@@ -1,4 +1,4 @@
-package jogo.personagens.zumbi;
+package jogo.personagens.npc;
 
 import jogo.personagens.jogador.Jogador;
 import jogo.util.Ator;
@@ -11,10 +11,8 @@ public class Zumbi extends Ator {
 	public Zumbi(int fileName, int numeFrames) {
 		// arquivo + frames
 		super(URL.sprite("Zumbi00.png"), 16);
-		this.x = x;
-		this.y = y;
 		this.setTotalDuration(2000);
-		this.velocidade = 0.3;
+		this.velocidade = 0.50;
 
 	}
 
@@ -24,6 +22,7 @@ public class Zumbi extends Ator {
 			moveTo(x, y, velocidade);
 			if (direcao != 1) {
 				setSequence(5, 8);
+				direcao = 1;
 			}
 			movendo = true;
 		} else if (this.x < x && this.y <= y + 50 && this.y >= -50) {
@@ -47,7 +46,6 @@ public class Zumbi extends Ator {
 				direcao = 5;
 			}
 			movendo = true;
-
 		}
 
 		if (movendo) {
@@ -57,21 +55,28 @@ public class Zumbi extends Ator {
 	}
 
 	public void morrer() {
-
 		if (energia <= 0) {
 			this.velocidade = 0;
 			this.direcao = 0;
 			this.movendo = false;
-			this.x = 1_0000_000;
+			this.ataque = 0;
 		}
+
+		
+		
 	}
 
-	public void atacar(Jogador jogador) {
-		if(this.collided(jogador)) {
+	@SuppressWarnings("static-access")
+	public void atacar(Jogador jogador) throws InterruptedException {
+		if (this.collided(jogador) && movendo) {
 			jogador.energia -= this.ataque;
+			jogador.sofrerRecuo();
+		}else {
+			morrer();
 		}
 		
-		if(jogador.energia <=0) {
+
+		if (jogador.energia <= 0) {
 			System.exit(0);
 		}
 	}

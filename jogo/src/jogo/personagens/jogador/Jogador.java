@@ -33,7 +33,7 @@ public class Jogador extends Ator {
 
 	// Delay em milissegundos (exemplo: 500ms)
 
-	public void atirarPistola(Window janela, Scene cena, Keyboard teclado, Ator inimigo) {
+	public void atirarPistola(Window janela, Scene cena, Keyboard teclado, Ator inimigo) throws InterruptedException {
 		// Verifica se a tecla "A" está pressionada e se o tempo desde o último disparo
 		// é maior que o delay
 		if (teclado.keyDown(KeyEvent.VK_A) && System.currentTimeMillis() - ultimoDisparo > delayEntreTiros) {
@@ -54,7 +54,11 @@ public class Jogador extends Ator {
 
 	public void controle(Window janela, Keyboard teclado) {
 
-		correrLogica(janela, teclado);
+		
+		if (teclado.keyDown(Keyboard.LEFT_KEY) || teclado.keyDown(Keyboard.RIGHT_KEY)
+				|| teclado.keyDown(Keyboard.UP_KEY) || teclado.keyDown(Keyboard.DOWN_KEY)) {
+			correrLogica(janela, teclado);
+		}
 
 		// movendo para esquerda
 		if (teclado.keyDown(Keyboard.LEFT_KEY)) {

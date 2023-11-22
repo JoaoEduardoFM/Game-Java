@@ -16,7 +16,7 @@ public class Cenario2 extends Cenario{
 
 	private Keyboard teclado;
 
-	public Cenario2(Window window) {
+	public Cenario2(Window window) throws InterruptedException {
 		janela = window;
 		cena = new Scene();
 		cena.loadFromFile(URL.scenario("Cenario2.scn"));
@@ -25,7 +25,7 @@ public class Cenario2 extends Cenario{
 		run();
 	}
 
-	private void run() {
+	private void run() throws InterruptedException {
 		while (true) {
 			
 			// controlador jogador
