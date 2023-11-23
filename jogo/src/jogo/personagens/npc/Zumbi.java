@@ -61,9 +61,6 @@ public class Zumbi extends Ator {
 			this.movendo = false;
 			this.ataque = 0;
 		}
-
-		
-		
 	}
 
 	@SuppressWarnings("static-access")
@@ -71,13 +68,21 @@ public class Zumbi extends Ator {
 		if (this.collided(jogador)) {
 			jogador.vida -= this.ataque;
 			jogador.sofrerRecuo();
-		}else {
+		} else {
 			morrer();
 		}
-		
 
 		if (jogador.vida <= 0) {
 			System.exit(0);
 		}
+	}
+	
+	public void colisaoMob(Zumbi zumbi) throws InterruptedException {
+		if (this.collided(zumbi)) {
+			zumbi.sofrerRecuoMob();
+		} else {
+			morrer();
+		}
+
 	}
 }

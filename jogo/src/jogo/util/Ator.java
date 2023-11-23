@@ -85,16 +85,16 @@ public class Ator extends Sprite {
 		for (int i = 0; i < recuoTotal; i += recuoPorFrame) {
 			if (direcao == 1) {
 				this.x += recuoPorFrame; // Recua para a direita
-				somSofrerDano();
+				somSofrerDanoAudio();
 			} else if (direcao == 2) {
 				this.x -= recuoPorFrame; // Recua para a esquerda
-				somSofrerDano();
+				somSofrerDanoAudio();
 			} else if (direcao == 4) {
 				this.y += recuoPorFrame; // Recua para baixo
-				somSofrerDano();
+				somSofrerDanoAudio();
 			} else if (direcao == 5) {
 				this.y -= recuoPorFrame; // Recua para cima
-				somSofrerDano();
+				somSofrerDanoAudio();
 			}
 
 
@@ -109,8 +109,32 @@ public class Ator extends Sprite {
 			}
 		}
 	}
+	
+	long ultimoSpawn = System.currentTimeMillis();
+	public void sofrerRecuoMob() throws InterruptedException {
+		int recuoTotal = 50; // Quantidade total de recuo desejada
+		int recuoPorFrame = 100; // Ajuste conforme necessário
+		
 
-	private void somSofrerDano() throws InterruptedException {
+		for (int i = 0; i < recuoTotal; i += recuoPorFrame) {
+			if (direcao == 1) {
+				this.x += recuoPorFrame; // Recua para a direita
+			} else if (direcao == 2) {
+				this.x -= recuoPorFrame; // Recua para a esquerda
+			} else if (direcao == 4) {
+				this.y += recuoPorFrame; // Recua para baixo
+			} else if (direcao == 5) {
+				this.y -= recuoPorFrame; // Recua para cima
+			}
+			try {
+				Thread.sleep(100); 
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}	
+		}
+	}
+
+	private void somSofrerDanoAudio() throws InterruptedException {
 		new Sound(URL.audio("levarDano.wav")).play();
 	}
 

@@ -29,17 +29,24 @@ public class Cenario1 extends Cenario {
 		cena.loadFromFile(URL.scenario("Cenario1.scn"));
 		jogador = new Jogador(540, 350);
 		teclado = janela.getKeyboard();
-		zumbi = (Zumbi[]) new Zumbi[1];
+		zumbi = (Zumbi[]) new Zumbi[5];
 		//orc = (Orc[]) new Orc[1];
 		// Som.play("musica1.mid");
 		run();
 	}
 
+	long ultimoSpawn = System.currentTimeMillis();
+
 	private void run() throws InterruptedException {
 
 		for (int i = 0; i < zumbi.length; i++) {
-			zumbi[i] = new Zumbi(100 * i, 100 * i);
-			//orc[i] = new Orc(150 * i, 150 * i);
+			// Ajuste as posições iniciais dos zumbis para ficarem próximos entre si.
+			zumbi[i] = new Zumbi(200 + (i * 100), 200 + (i * 100));
+			if (System.currentTimeMillis() - ultimoSpawn >= 2000) {
+				zumbi[i] = new Zumbi(200 + (i * 100), 200 + (i * 100));
+			}
+			// Atualiza o marcador de tempo do último spawn.
+			ultimoSpawn = System.currentTimeMillis();
 		}
 
 		while (true) {
@@ -52,17 +59,25 @@ public class Cenario1 extends Cenario {
 			jogador.draw();
 
 			for (int i = 0; i < zumbi.length; i++) {
+				for (int j = i + 1; j < zumbi.length; j++) {
+					// Verifica colisões entre zumbis diferentes
+					if (zumbi[i].collided(zumbi[j])) {
+						zumbi[i].colisaoMob(zumbi[j]);
+						zumbi[j].colisaoMob(zumbi[i]);
+					}
+				}
+
 				zumbi[i].caminho(cena);
 				if (zumbi[i].vida > 0) {
 					zumbi[i].perseguir(jogador.x, jogador.y);
-				}				
+				}
 				zumbi[i].x += cena.getXOffset();
 				zumbi[i].y += cena.getXOffset();
 				zumbi[i].draw();
 				jogador.atirarPistola(janela, cena, teclado, zumbi[i]);
-				//jogador.ataqueEspada(janela, cena, teclado, zumbi[i]);
+				// jogador.ataqueEspada(janela, cena, teclado, zumbi[i]);
 				zumbi[i].atacar(jogador);
-				
+
 				/*
 				 * if (orc[i].vida > 0) { orc[i].perseguir(jogador.x, jogador.y); } orc[i].x +=
 				 * cena.getXOffset(); orc[i].y += cena.getXOffset(); orc[i].draw();
@@ -72,7 +87,7 @@ public class Cenario1 extends Cenario {
 			}
 
 			jogador.vida(janela);
-			
+
 			janela.update();
 			// mudarCenario();
 			Controle thread = new Controle();
