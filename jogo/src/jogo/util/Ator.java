@@ -3,7 +3,6 @@ package jogo.util;
 import java.awt.Point;
 import java.util.Vector;
 
-import jogo.cenario.Cenario;
 import jplay.GameObject;
 import jplay.Scene;
 import jplay.Sound;
@@ -21,7 +20,7 @@ public class Ator extends Sprite {
 
 	Controle controle = new Controle();
 
-	public double energia = 250;
+	public static double vida = 50000;
 
 	public void caminho(Scene cena) {
 		Point min = new Point((int) this.x, (int) this.y);
@@ -80,7 +79,7 @@ public class Ator extends Sprite {
 		int recuoTotal = 50; // Quantidade total de recuo desejada
 		int recuoPorFrame = 5; // Ajuste conforme necessário
 
-		energia -= 250; // Ajuste conforme necessário
+		vida -= 250; // Ajuste conforme necessário
 		// Adicione a lógica de recuo aqui
 
 		for (int i = 0; i < recuoTotal; i += recuoPorFrame) {

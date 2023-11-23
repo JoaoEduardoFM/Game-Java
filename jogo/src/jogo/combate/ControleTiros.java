@@ -29,9 +29,13 @@ public class ControleTiros {
 			// Colisao do tiro
 			if (tiro.collided(inimigo)) {
 				tiro.x = 10_000;
-				inimigo.energia -= 250;
+				inimigo.vida -= 250;
 				inimigo.sofrerRecuo();
-				inimigo.sofrerRecuo();
+				tiros.removeFirst();
+			}
+			
+			if(tiro.getAtingiuLimite()){
+				tiro.x = 10_000;
 				tiros.removeFirst();
 			}
 		}

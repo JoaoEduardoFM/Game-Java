@@ -4,8 +4,7 @@ import java.awt.Color;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-import jogo.armas.Espada;
-import jogo.combate.ControleEspadas;
+import jogo.combate.ControleEspada;
 import jogo.combate.ControleTiros;
 import jogo.util.Ator;
 import jplay.Keyboard;
@@ -15,7 +14,7 @@ import jplay.Window;
 
 public class Jogador extends Ator {
 
-	public static double energia = 1000;
+	public double vidaJogador = 1000;
 
 	private long ultimoDisparo = 0;
 	private long delayEntreTiros = 700;
@@ -28,10 +27,7 @@ public class Jogador extends Ator {
 	}
 
 	ControleTiros tiros = new ControleTiros();
-	Espada espada = new Espada(direcao);
-	private ControleEspadas controleEspadas = new ControleEspadas();
-
-	// Delay em milissegundos (exemplo: 500ms)
+	ControleEspada espada = new ControleEspada();
 
 	public void atirarPistola(Window janela, Scene cena, Keyboard teclado, Ator inimigo) throws InterruptedException {
 		// Verifica se a tecla "A" está pressionada e se o tempo desde o último disparo
@@ -43,13 +39,15 @@ public class Jogador extends Ator {
 
 		tiros.run(inimigo);
 	}
-
-	public void ataqueEspada(Window janela, Scene cena, Keyboard teclado, Ator inimigo) {
-		if (teclado.keyDown(KeyEvent.VK_S)) {
-			controleEspadas.adicionaEspada(x, y, direcao);
+	
+	public void ataqueEspada(Window janela, Scene cena, Keyboard teclado, Ator inimigo) throws InterruptedException {
+		// Verifica se a tecla "A" está pressionada e se o tempo desde o último disparo
+		// é maior que o delay
+		if (teclado.keyDown(KeyEvent.VK_S) && System.currentTimeMillis() - ultimoDisparo > delayEntreTiros) {
+			espada.adicionaEspada(x + 5, y + 12, direcao, cena);
+			ultimoDisparo = System.currentTimeMillis(); // Atualiza o tempo do último disparo
 		}
-
-		controleEspadas.run(inimigo);
+		espada.run(inimigo);
 	}
 
 	public void controle(Window janela, Keyboard teclado) {
@@ -137,6 +135,6 @@ public class Jogador extends Ator {
 	}
 
 	public void vida(Window janela) {
-		janela.drawText("Vida" + Jogador.energia, 30, 30, Color.BLUE);
+		janela.drawText("Vida" + Ator.vida, 30, 30, Color.BLUE);
 	}
 }

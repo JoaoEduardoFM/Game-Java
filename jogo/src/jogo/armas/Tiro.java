@@ -14,6 +14,8 @@ public class Tiro extends Sprite {
     protected boolean movendo = false;
     protected int direcao = 3;
     private boolean atingiuLimite = false;
+    private long tempoInicial;  // Tempo em que o tiro foi disparado
+    private static final long LimiteTempo = 400;  // Limite de tempo em milissegundos
 
     private double origemX;  // Coordenada x onde o tiro foi disparado
     private double origemY;  // Coordenada y onde o tiro foi disparado
@@ -25,6 +27,7 @@ public class Tiro extends Sprite {
         this.y = y;
         this.origemX = x;
         this.origemY = y;
+        this.tempoInicial = System.currentTimeMillis();
     }
 
     public void mover() {
@@ -59,13 +62,15 @@ public class Tiro extends Sprite {
             }
             movendo = true;
         }
-        
-        // Calcular a distância percorrida pelo tiro
-        double distanciaPercorrida = Math.sqrt(Math.pow(this.x - origemX, 2) + Math.pow(this.y - origemY, 2));
 
         // Validar se a distância percorrida atingiu o alcance máximo
-        if (distanciaPercorrida >= LimiteTiro) {
-            atingiuLimite = true;
+        long tempoAtual = System.currentTimeMillis();
+
+        // Validar se o tempo decorrido atingiu o limite
+        if (tempoAtual - tempoInicial > LimiteTempo) {
+            setAtingiuLimite(true);
+        } else {
+            setAtingiuLimite(false);
         }
         
 

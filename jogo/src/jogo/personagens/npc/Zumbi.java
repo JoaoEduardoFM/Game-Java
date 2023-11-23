@@ -55,7 +55,7 @@ public class Zumbi extends Ator {
 	}
 
 	public void morrer() {
-		if (energia <= 0) {
+		if (vida <= 0) {
 			this.velocidade = 0;
 			this.direcao = 0;
 			this.movendo = false;
@@ -68,15 +68,15 @@ public class Zumbi extends Ator {
 
 	@SuppressWarnings("static-access")
 	public void atacar(Jogador jogador) throws InterruptedException {
-		if (this.collided(jogador) && movendo) {
-			jogador.energia -= this.ataque;
+		if (this.collided(jogador)) {
+			jogador.vida -= this.ataque;
 			jogador.sofrerRecuo();
 		}else {
 			morrer();
 		}
 		
 
-		if (jogador.energia <= 0) {
+		if (jogador.vida <= 0) {
 			System.exit(0);
 		}
 	}
