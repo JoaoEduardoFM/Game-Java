@@ -38,7 +38,7 @@ public class Tiro extends Sprite {
 		if (caminho == LEFT && this.x > origemX - ALCANCE_TIRO) {
 			this.x -= VELOCIDADE_TIRO;
 			if (direcao != 1) {
-				setSequence(3, 7);
+				setSequence(4, 7);
 			}
 			movendo = true;
 		}
@@ -67,14 +67,15 @@ public class Tiro extends Sprite {
 			movendo = true;
 		}
 
-		// Diagonal superior esquerda
-		if (teclado.keyDown(KeyEvent.VK_UP) || teclado.keyDown(KeyEvent.VK_KP_LEFT)) {
+		// Diagonal superior
+		if (teclado.keyDown(KeyEvent.VK_UP)) {
 			this.y -= VELOCIDADE_TIRO;
 			movendo = true;
 		}
 
-		if (teclado.keyDown(KeyEvent.VK_DOWN) || teclado.keyDown(KeyEvent.VK_KP_LEFT)) {
-		    this.y += VELOCIDADE_TIRO;  // Corrigi para this.y +=
+		// Diagonal inferior
+		if (teclado.keyDown(KeyEvent.VK_DOWN)) {
+		    this.y += VELOCIDADE_TIRO;
 		    movendo = true;
 		}
 
