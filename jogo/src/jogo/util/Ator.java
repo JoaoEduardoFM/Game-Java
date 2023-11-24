@@ -97,7 +97,6 @@ public class Ator extends Sprite {
 				somSofrerDanoAudio();
 			}
 
-
 			// Aqui você pode adicionar uma pequena pausa entre os quadros
 			// para dar a sensação de animação mais lenta
 			try {

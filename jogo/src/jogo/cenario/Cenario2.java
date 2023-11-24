@@ -47,10 +47,7 @@ public class Cenario2 extends Cenario{
 			jogador.draw();
 
 			for (int i = 0; i < zumbi.length; i++) {
-				zumbi[i].caminho(cena);
-				if (zumbi[i].vida > 0) {
-					zumbi[i].perseguir(jogador.x, jogador.y);
-				}				
+				zumbi[i].caminho(cena);				
 				zumbi[i].x += cena.getXOffset();
 				zumbi[i].y += cena.getXOffset();
 				zumbi[i].draw();

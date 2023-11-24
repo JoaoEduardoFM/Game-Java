@@ -17,43 +17,49 @@ public class Zumbi extends Ator {
 	}
 
 	public void perseguir(double x, double y) {
+        double novaX = this.x;
+        double novaY = this.y;
 
-		if (this.x > x && this.y <= y + 50 && this.y >= y - 50) {
-			moveTo(x, y, velocidade);
-			if (direcao != 1) {
-				setSequence(5, 8);
-				direcao = 1;
-			}
-			movendo = true;
-		} else if (this.x < x && this.y <= y + 50 && this.y >= -50) {
-			moveTo(x, y, velocidade);
-			if (direcao != 2) {
-				setSequence(9, 12);
-				direcao = 2;
-			}
-			movendo = true;
-		} else if (this.y > y) {
-			moveTo(x, y, velocidade);
-			if (direcao != 4) {
-				setSequence(13, 16);
-				direcao = 4;
-			}
-			movendo = true;
-		} else if (this.y < y) {
-			moveTo(x, y, velocidade);
-			if (direcao != 5) {
-				setSequence(1, 4);
-				direcao = 5;
-			}
-			movendo = true;
-		}
+        if (this.x > x && this.y <= y + 50 && this.y >= y - 50) {
+            novaX -= velocidade;
+            if (direcao != 1) {
+                setSequence(5, 8);
+                direcao = 1;
+            }
+        } else if (this.x < x && this.y <= y + 50 && this.y >= -50) {
+            novaX += velocidade;
+            if (direcao != 2) {
+                setSequence(9, 12);
+                direcao = 2;
+            }
+        } else if (this.y > y) {
+            novaY -= velocidade;
+            if (direcao != 4) {
+                setSequence(13, 16);
+                direcao = 4;
+            }
+        } else if (this.y < y) {
+            novaY += velocidade;
+            if (direcao != 5) {
+                setSequence(1, 4);
+                direcao = 5;
+            }
+        }
 
-		if (movendo) {
-			update();
-			movendo = false;
-		}
-	}
+        // Verifica se a nova posição colide com outros zumbis
+		/*
+		 * boolean colidiuComOutroZumbi = false; for (Zumbi outroZumbi : zumbi) { if
+		 * (outroZumbi != this && collided(outroZumbi)) { colidiuComOutroZumbi = true;
+		 * break; } }
+		 * 
+		 * if (!colidiuComOutroZumbi) { this.x = novaX; this.y = novaY; }
+		 */
 
+        if (movendo) {
+            update();
+            movendo = false;
+        }
+    }
 	public void morrer() {
 		if (vida <= 0) {
 			this.velocidade = 0;
@@ -75,14 +81,5 @@ public class Zumbi extends Ator {
 		if (jogador.vida <= 0) {
 			System.exit(0);
 		}
-	}
-	
-	public void colisaoMob(Zumbi zumbi) throws InterruptedException {
-		if (this.collided(zumbi)) {
-			zumbi.sofrerRecuoMob();
-		} else {
-			morrer();
-		}
-
 	}
 }

@@ -20,8 +20,6 @@ public class Cenario1 extends Cenario {
 	private Keyboard teclado;
 
 	private Zumbi zumbi[];
-	
-	//private Orc orc[];
 
 	public Cenario1(Window window) throws InterruptedException {
 		janela = window;
@@ -30,8 +28,6 @@ public class Cenario1 extends Cenario {
 		jogador = new Jogador(540, 350);
 		teclado = janela.getKeyboard();
 		zumbi = (Zumbi[]) new Zumbi[5];
-		//orc = (Orc[]) new Orc[1];
-		// Som.play("musica1.mid");
 		run();
 	}
 
@@ -62,8 +58,6 @@ public class Cenario1 extends Cenario {
 				for (int j = i + 1; j < zumbi.length; j++) {
 					// Verifica colisões entre zumbis diferentes
 					if (zumbi[i].collided(zumbi[j])) {
-						zumbi[i].colisaoMob(zumbi[j]);
-						zumbi[j].colisaoMob(zumbi[i]);
 					}
 				}
 
@@ -78,12 +72,6 @@ public class Cenario1 extends Cenario {
 				// jogador.ataqueEspada(janela, cena, teclado, zumbi[i]);
 				zumbi[i].atacar(jogador);
 
-				/*
-				 * if (orc[i].vida > 0) { orc[i].perseguir(jogador.x, jogador.y); } orc[i].x +=
-				 * cena.getXOffset(); orc[i].y += cena.getXOffset(); orc[i].draw();
-				 * jogador.atirarPistola(janela, cena, teclado, orc[i]);
-				 * jogador.ataqueEspada(janela, cena, teclado, orc[i]); orc[i].atacar(jogador);
-				 */
 			}
 
 			jogador.vida(janela);

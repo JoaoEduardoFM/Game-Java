@@ -52,10 +52,30 @@ public class Jogador extends Ator {
 
 	public void controle(Window janela, Keyboard teclado) {
 
-		
+		// correr
 		if (teclado.keyDown(Keyboard.LEFT_KEY) || teclado.keyDown(Keyboard.RIGHT_KEY)
 				|| teclado.keyDown(Keyboard.UP_KEY) || teclado.keyDown(Keyboard.DOWN_KEY)) {
 			correrLogica(janela, teclado);
+		}
+		
+		// Diagonal Superior Direita
+		if (teclado.keyDown(KeyEvent.VK_UP) || teclado.keyDown(KeyEvent.VK_KP_RIGHT)) {
+			moverDiagonalSuperiorDireita(janela);
+		}
+		
+		// Diagonal Inferior Direita
+		if (teclado.keyDown(KeyEvent.VK_DOWN) || teclado.keyDown(KeyEvent.VK_KP_RIGHT)) {
+			moverDiagonalInferiorDireita(janela);
+		}
+		
+		// Diagonal superior esquerda
+		if (teclado.keyDown(KeyEvent.VK_UP) || teclado.keyDown(KeyEvent.VK_KP_LEFT)) {
+			moverDiagonalSuperiorEsquerda(janela);
+		}
+		
+		// Diagonal inferior esquerda
+		if (teclado.keyDown(KeyEvent.VK_DOWN) || teclado.keyDown(KeyEvent.VK_KP_LEFT)) {
+		moverDiagonalInferiorEsquerda(janela);
 		}
 
 		// movendo para esquerda
@@ -132,6 +152,55 @@ public class Jogador extends Ator {
 
 			}
 		});
+	}
+	
+	private void moverDiagonalSuperiorDireita(Window janela) {
+	    if (this.x < janela.getWidth() - 60 && this.y > 0) {
+	        this.x += velocidade / Math.sqrt(7);
+	        this.y -= velocidade / Math.sqrt(7);
+	    }
+	    if (direcao != 3) {
+	        setSequence(8, 11);
+	        direcao = 3;
+	    }
+	    movendo = true;
+	}
+	
+	private void moverDiagonalInferiorDireita(Window janela) {
+	    if (this.x < janela.getWidth() - 60 && this.y > 0) {
+	        this.x -= velocidade / Math.sqrt(7);
+	        this.y += velocidade / Math.sqrt(7);
+	    }
+	    if (direcao != 3) {
+	        setSequence(8, 11);
+	        direcao = 3;
+	    }
+	    movendo = true;
+	}
+	
+	private void moverDiagonalSuperiorEsquerda(Window janela) {
+	    if (this.x > 0 && this.y > 0) {
+	        this.x -= velocidade / Math.sqrt(7);
+	        this.y -= velocidade / Math.sqrt(7);
+	    }
+	    if (direcao != 6) {
+	    	setSequence(4, 8);
+	        direcao = 6;
+	        
+	    }
+	    movendo = true;
+	}
+	
+	private void moverDiagonalInferiorEsquerda(Window janela) {
+	    if (this.x > 0 && this.y > 0) {
+	        this.x += velocidade / Math.sqrt(7);
+	        this.y += velocidade / Math.sqrt(7);
+	    }
+	    if (direcao != 6) {
+	    	setSequence(4, 8);
+	        direcao = 6;
+	    }
+	    movendo = true;
 	}
 
 	public void vida(Window janela) {
