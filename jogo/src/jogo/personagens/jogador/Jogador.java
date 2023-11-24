@@ -37,7 +37,7 @@ public class Jogador extends Ator {
 			ultimoDisparo = System.currentTimeMillis(); // Atualiza o tempo do último disparo
 		}
 
-		tiros.run(inimigo);
+		tiros.run(inimigo, janela, teclado);
 	}
 	
 	public void ataqueEspada(Window janela, Scene cena, Keyboard teclado, Ator inimigo) throws InterruptedException {
@@ -155,52 +155,52 @@ public class Jogador extends Ator {
 	}
 	
 	private void moverDiagonalSuperiorDireita(Window janela) {
-	    if (this.x < janela.getWidth() - 60 && this.y > 0) {
-	        this.x += velocidade / Math.sqrt(7);
-	        this.y -= velocidade / Math.sqrt(7);
-	    }
-	    if (direcao != 3) {
-	        setSequence(8, 11);
-	        direcao = 3;
-	    }
-	    movendo = true;
+		if (this.x < janela.getWidth() - 60 && this.y > 0) {
+			this.x += velocidade / Math.sqrt(7);
+			this.y -= velocidade / Math.sqrt(7);
+		}
+		if (direcao != 7) {
+			setSequence(8, 11);
+			direcao = 7;
+		}
+		movendo = true;
 	}
-	
+
 	private void moverDiagonalInferiorDireita(Window janela) {
-	    if (this.x < janela.getWidth() - 60 && this.y > 0) {
-	        this.x -= velocidade / Math.sqrt(7);
-	        this.y += velocidade / Math.sqrt(7);
-	    }
-	    if (direcao != 3) {
-	        setSequence(8, 11);
-	        direcao = 3;
-	    }
-	    movendo = true;
+		if (this.x < janela.getWidth() - 60 && this.y > 0) {
+			this.x -= velocidade / Math.sqrt(7);
+			this.y += velocidade / Math.sqrt(7);
+		}
+		if (direcao != 9) {
+			setSequence(8, 11);
+			direcao = 9;
+		}
+		movendo = true;
 	}
-	
+
 	private void moverDiagonalSuperiorEsquerda(Window janela) {
-	    if (this.x > 0 && this.y > 0) {
-	        this.x -= velocidade / Math.sqrt(7);
-	        this.y -= velocidade / Math.sqrt(7);
-	    }
-	    if (direcao != 6) {
-	    	setSequence(4, 8);
-	        direcao = 6;
-	        
-	    }
-	    movendo = true;
+		if (this.x > 0 && this.y > 0) {
+			this.x -= velocidade / Math.sqrt(7);
+			this.y -= velocidade / Math.sqrt(7);
+		}
+		if (direcao != 8) {
+			setSequence(4, 8);
+			direcao = 8;
+
+		}
+		movendo = true;
 	}
-	
+
 	private void moverDiagonalInferiorEsquerda(Window janela) {
-	    if (this.x > 0 && this.y > 0) {
-	        this.x += velocidade / Math.sqrt(7);
-	        this.y += velocidade / Math.sqrt(7);
-	    }
-	    if (direcao != 6) {
-	    	setSequence(4, 8);
-	        direcao = 6;
-	    }
-	    movendo = true;
+		if (this.x > 0 && this.y > 0) {
+			this.x += velocidade / Math.sqrt(7);
+			this.y += velocidade / Math.sqrt(7);
+		}
+		if (direcao != 6) {
+			setSequence(4, 8);
+			direcao = 6;
+		}
+		movendo = true;
 	}
 
 	public void vida(Window janela) {

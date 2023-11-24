@@ -4,9 +4,11 @@ import java.util.LinkedList;
 
 import jogo.armas.Tiro;
 import jogo.util.Ator;
+import jplay.Keyboard;
 import jplay.Scene;
 import jplay.Sound;
 import jplay.URL;
+import jplay.Window;
 
 public class ControleTiros {
 
@@ -20,10 +22,10 @@ public class ControleTiros {
 		somDisparo();
 	}
 
-	public void run(Ator inimigo) throws InterruptedException {
+	public void run(Ator inimigo, Window janela, Keyboard teclado) throws InterruptedException {
 		for (int i = 0; i < tiros.size(); i++) {
 			Tiro tiro = tiros.removeFirst();
-			tiro.mover();
+			tiro.mover(janela, teclado, tiro);
 			tiros.addLast(tiro);
 
 			// Colisao do tiro
