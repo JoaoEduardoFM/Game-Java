@@ -1,6 +1,6 @@
 package jogo;
 
-import jogo.cenario.Cenario1;
+import jogo.cenario.Pantano;
 import jplay.GameImage;
 import jplay.Keyboard;
 import jplay.URL;
@@ -11,7 +11,7 @@ public class Main {
 	public static void main(String[] args) throws InterruptedException {
 
 		// resolucao do jogo
-		 Window janela = new Window(1920, 1080);
+		Window janela = new Window(800, 600);
 
 		/*
 		 * GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -30,7 +30,7 @@ public class Main {
 			janela.update();// atualiza em quanto percorre o loop
 
 			if (teclado.keyDown(Keyboard.ENTER_KEY)) {
-				new Cenario1(janela);
+				new Pantano(janela);
 			}
 		}
 	}

@@ -12,12 +12,14 @@ public class Mob extends Ator {
 	private double ataque = 1;
 	private double velocidade = 1;
 	public double vidaMob = 1000;
+	private long tempoInicial;
 
 	public Mob(int fileName, int numeFrames, String sprite) {
 		// arquivo + frames
 		super(URL.sprite(sprite), 20);
 		this.setTotalDuration(2000);
 		this.velocidade = 0.3;
+		this.tempoInicial = System.currentTimeMillis();
 	}
 
 	public void perseguir(double x, double y) {
@@ -58,7 +60,10 @@ public class Mob extends Ator {
 		}
 	}
 
+	boolean visible = false;
+
 	public void morrer() {
+		long tempoAtual = System.currentTimeMillis();
 
 		if (vidaMob <= 0) {
 			setSequence(19, 20);
@@ -66,15 +71,48 @@ public class Mob extends Ator {
 			this.velocidade = 0;
 			this.direcao = 0;
 			movendo = false;
+
+			/*
+			 * if (tempoAtual + tempoInicial > 5000) { this.visible = false; this.x = -1000;
+			 * this.y = -1000; }
+			 */
 		}
 	}
 
 	public void atacar(Jogador jogador, Mob mob) {
 		if (this.collided(jogador)) {
-			if (vida > 0) {
-				vida -= this.ataque;
+			if (vidaMob > 0) {
+				vidaMob -= this.ataque;
+				sofrerRecuo(20); // Adjust the value as needed for the intensity of the recoil
 			}
 		}
+	}
+
+	public void sofrerRecuo(double recuo) {
+		// Determine the direction of the recoil based on the current direction of
+		// movement
+		double recoilX = 0;
+		double recoilY = 0;
+
+		switch (direcao) {
+		case 1:
+			recoilX = recuo;
+			break;
+		case 2:
+			recoilX = -recuo;
+			break;
+		case 4:
+			recoilY = recuo;
+			break;
+		case 5:
+			recoilY = -recuo;
+			break;
+		// Add more cases if needed for other directions
+		}
+
+		// Apply the recoil
+		x += recoilX;
+		y += recoilY;
 	}
 
 	public void vida(Window janela) {

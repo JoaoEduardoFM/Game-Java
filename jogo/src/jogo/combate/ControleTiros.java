@@ -34,6 +34,7 @@ public class ControleTiros {
 				tiro.x = 10_000;
 				if(inimigo.vidaMob >0) {
 				inimigo.vidaMob -= 250;
+				inimigo.sofrerRecuo(20);
 				}
 				tiros.removeFirst();
 			}
