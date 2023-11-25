@@ -3,7 +3,7 @@ package jogo.combate;
 import java.util.LinkedList;
 
 import jogo.armas.Espada;
-import jogo.util.Ator;
+import jogo.personagens.npc.Mob;
 import jplay.Scene;
 import jplay.Sound;
 import jplay.URL;
@@ -20,7 +20,7 @@ public class ControleEspada {
 		somDisparo();
 	}
 
-	public void run(Ator inimigo) throws InterruptedException {
+	public void run(Mob inimigo) throws InterruptedException {
 		for (int i = 0; i < listEspada.size(); i++) {
 			Espada espada = listEspada.removeFirst();
 			espada.mover();
@@ -29,8 +29,7 @@ public class ControleEspada {
 			// Colisao do tiro
 			if (espada.collided(inimigo)) {
 				espada.x = 10_000;
-				inimigo.vida -= 250;
-				inimigo.sofrerRecuo();
+				inimigo.vidaMob -= 250;
 				listEspada.removeFirst();
 			}
 			

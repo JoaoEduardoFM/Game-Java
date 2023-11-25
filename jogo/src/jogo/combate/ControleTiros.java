@@ -3,6 +3,7 @@ package jogo.combate;
 import java.util.LinkedList;
 
 import jogo.armas.Tiro;
+import jogo.personagens.npc.Mob;
 import jogo.util.Ator;
 import jplay.Keyboard;
 import jplay.Scene;
@@ -22,7 +23,7 @@ public class ControleTiros {
 		somDisparo();
 	}
 
-	public void run(Ator inimigo, Window janela, Keyboard teclado) throws InterruptedException {
+	public void run(Mob inimigo, Window janela, Keyboard teclado) throws InterruptedException {
 		for (int i = 0; i < tiros.size(); i++) {
 			Tiro tiro = tiros.removeFirst();
 			tiro.mover(janela, teclado, tiro);
@@ -31,8 +32,9 @@ public class ControleTiros {
 			// Colisao do tiro
 			if (tiro.collided(inimigo)) {
 				tiro.x = 10_000;
-				inimigo.vida -= 250;
-				inimigo.sofrerRecuo();
+				if(inimigo.vidaMob >0) {
+				inimigo.vidaMob -= 250;
+				}
 				tiros.removeFirst();
 			}
 			

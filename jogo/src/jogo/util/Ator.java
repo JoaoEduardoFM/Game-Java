@@ -20,7 +20,7 @@ public class Ator extends Sprite {
 
 	Controle controle = new Controle();
 
-	public static double vida = 50000;
+	public static double vida = 1000;
 
 	public void caminho(Scene cena) {
 		Point min = new Point((int) this.x, (int) this.y);
@@ -72,7 +72,7 @@ public class Ator extends Sprite {
 		return true;
 	}
 
-	boolean dano = false;
+	protected boolean dano = false;
 
 	
 	public void sofrerRecuo() throws InterruptedException {

@@ -1,9 +1,7 @@
 package jogo.cenario;
 
 import jogo.personagens.jogador.Jogador;
-import jogo.personagens.npc.Orc;
-import jogo.personagens.npc.Zumbi;
-import jogo.util.Controle;
+import jogo.personagens.npc.Mob;
 import jplay.Keyboard;
 import jplay.Scene;
 import jplay.URL;
@@ -19,31 +17,22 @@ public class Cenario1 extends Cenario {
 
 	private Keyboard teclado;
 
-	private Zumbi zumbi[];
+	private Mob esqueleto;
 
-	public Cenario1(Window window) throws InterruptedException {
+	public Cenario1(Window window) {
 		janela = window;
 		cena = new Scene();
 		cena.loadFromFile(URL.scenario("Cenario1.scn"));
 		jogador = new Jogador(540, 350);
 		teclado = janela.getKeyboard();
-		zumbi = (Zumbi[]) new Zumbi[5];
+
+		// Som.play("musica1.mid");
 		run();
 	}
 
-	long ultimoSpawn = System.currentTimeMillis();
+	private void run() {
 
-	private void run() throws InterruptedException {
-
-		for (int i = 0; i < zumbi.length; i++) {
-			// Ajuste as posições iniciais dos zumbis para ficarem próximos entre si.
-			zumbi[i] = new Zumbi(200 + (i * 100), 200 + (i * 100));
-			if (System.currentTimeMillis() - ultimoSpawn >= 2000) {
-				zumbi[i] = new Zumbi(200 + (i * 100), 200 + (i * 100));
-			}
-			// Atualiza o marcador de tempo do último spawn.
-			ultimoSpawn = System.currentTimeMillis();
-		}
+		esqueleto = new Mob(300, 300, "esqueleto.png");
 
 		while (true) {
 			// controlador jogador
@@ -52,41 +41,33 @@ public class Cenario1 extends Cenario {
 			cena.moveScene(jogador);
 			jogador.x += cena.getXOffset();
 			jogador.y += cena.getXOffset();
+			jogador.atirarPistola(janela, cena, teclado, esqueleto);
 			jogador.draw();
+			esqueleto.caminho(cena);
+			esqueleto.perseguir(jogador.x, jogador.y);
+			esqueleto.x += cena.getXOffset();
+			esqueleto.y += cena.getXOffset();
+			esqueleto.morrer();
+			esqueleto.atacar(jogador);
+			esqueleto.draw();
+			
+			
 
-			for (int i = 0; i < zumbi.length; i++) {
-				for (int j = i + 1; j < zumbi.length; j++) {
-					// Verifica colisões entre zumbis diferentes
-					if (zumbi[i].collided(zumbi[j])) {
-					}
-				}
-
-				zumbi[i].caminho(cena);
-				if (zumbi[i].vida > 0) {
-					zumbi[i].perseguir(jogador.x, jogador.y);
-				}
-				zumbi[i].x += cena.getXOffset();
-				zumbi[i].y += cena.getXOffset();
-				zumbi[i].draw();
-				jogador.atirarPistola(janela, cena, teclado, zumbi[i]);
-				// jogador.ataqueEspada(janela, cena, teclado, zumbi[i]);
-				zumbi[i].atacar(jogador);
-
-			}
-
+			esqueleto.vida(janela);
 			jogador.vida(janela);
-
 			janela.update();
-			// mudarCenario();
-			Controle thread = new Controle();
-			thread.threadSleeap(10);
+			//mudarCenario();
+			try {
+				Thread.sleep(05);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
-	private void mudarCenario() throws InterruptedException {
-		if (tileCollision(4, jogador, cena) == true) {
-			new Cenario2(janela);
-		}
-	}
+	/*
+	 * private void mudarCenario() { if (tileCollision(4, jogador, cena) == true) {
+	 * new Cenario(janela); } }
+	 */
 
 }
