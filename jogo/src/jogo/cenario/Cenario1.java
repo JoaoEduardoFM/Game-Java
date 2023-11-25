@@ -48,7 +48,7 @@ public class Cenario1 extends Cenario {
 			esqueleto.x += cena.getXOffset();
 			esqueleto.y += cena.getXOffset();
 			esqueleto.morrer();
-			esqueleto.atacar(jogador);
+			esqueleto.atacar(jogador, esqueleto);
 			esqueleto.draw();
 			
 			

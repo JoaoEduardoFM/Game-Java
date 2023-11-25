@@ -4,7 +4,6 @@ import java.awt.Color;
 
 import jogo.personagens.jogador.Jogador;
 import jogo.util.Ator;
-import jplay.Sound;
 import jplay.URL;
 import jplay.Window;
 
@@ -66,56 +65,18 @@ public class Mob extends Ator {
 			this.ataque = 0;
 			this.velocidade = 0;
 			this.direcao = 0;
-			movendo = false;						
+			movendo = false;
 		}
 	}
-	
-	public void sofrerRecuo() throws InterruptedException {
-		int recuoTotal = 50; // Quantidade total de recuo desejada
-		int recuoPorFrame = 5; // Ajuste conforme necessário
 
-		vida -= 250; // Ajuste conforme necessário
-		// Adicione a lógica de recuo aqui
-
-		for (int i = 0; i < recuoTotal; i += recuoPorFrame) {
-			if (direcao == 1) {
-				this.x += recuoPorFrame; // Recua para a direita
-				somSofrerDanoAudio();
-			} else if (direcao == 2) {
-				this.x -= recuoPorFrame; // Recua para a esquerda
-				somSofrerDanoAudio();
-			} else if (direcao == 4) {
-				this.y += recuoPorFrame; // Recua para baixo
-				somSofrerDanoAudio();
-			} else if (direcao == 5) {
-				this.y -= recuoPorFrame; // Recua para cima
-				somSofrerDanoAudio();
-			}
-
-			// Aqui você pode adicionar uma pequena pausa entre os quadros
-			// para dar a sensação de animação mais lenta
-			try {
-				if(dano) {
-				Thread.sleep(05); // Ajuste conforme necessário	
-				}
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-	
-	private void somSofrerDanoAudio() throws InterruptedException {
-		new Sound(URL.audio("levarDano.wav")).play();
-	}
-
-	public void atacar(Jogador jogador) {
-		if(this.collided(jogador)) {
-			if(vida > 0) {
+	public void atacar(Jogador jogador, Mob mob) {
+		if (this.collided(jogador)) {
+			if (vida > 0) {
 				vida -= this.ataque;
 			}
 		}
 	}
-	
+
 	public void vida(Window janela) {
 		janela.drawText("Vida Mob: " + vidaMob, 30, 60, Color.RED);
 	}
