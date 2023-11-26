@@ -1,36 +1,33 @@
 package jogo.personagens.npc;
 
-import java.awt.Color;
-
 import jogo.personagens.jogador.Jogador;
 import jogo.util.Ator;
 import jplay.URL;
-import jplay.Window;
 
 public class Mob extends Ator {
 
 	private double ataque = 1;
 	private double velocidade = 1;
 	public double vidaMob = 1000;
-	private long tempoInicial;
 
-	public Mob(int fileName, int numeFrames, String sprite) {
+	public Mob(double x, double y, String sprite) {
 		// arquivo + frames
 		super(URL.sprite(sprite), 20);
 		this.setTotalDuration(2000);
 		this.velocidade = 0.3;
-		this.tempoInicial = System.currentTimeMillis();
+		this.x = x;
+		this.y = y;
 	}
 
 	public void perseguir(double x, double y) {
 
-		if (this.x > x && this.y <= y + 50 && this.y >= y - 50) {
+		if (this.x > x && this.y <= y + 50 && this.y >= y - 60) {
 			moveTo(x, y, velocidade);
 			if (direcao != 1) {
 				setSequence(5, 8);
 			}
 			movendo = true;
-		} else if (this.x < x && this.y <= y + 50 && this.y >= -50) {
+		} else if (this.x < x && this.y <= y + 50 && this.y >= -60) {
 			moveTo(x, y, velocidade);
 			if (direcao != 2) {
 				setSequence(8, 12);
@@ -63,34 +60,33 @@ public class Mob extends Ator {
 	boolean visible = false;
 
 	public void morrer() {
-		long tempoAtual = System.currentTimeMillis();
-
 		if (vidaMob <= 0) {
 			setSequence(19, 20);
 			this.ataque = 0;
 			this.velocidade = 0;
 			this.direcao = 0;
 			movendo = false;
-
-			/*
-			 * if (tempoAtual + tempoInicial > 5000) { this.visible = false; this.x = -1000;
-			 * this.y = -1000; }
-			 */
+			// x = -10_000_000;
 		}
 	}
 
+	boolean ataqueMob = false;
+
 	public void atacar(Jogador jogador, Mob mob) {
 		if (this.collided(jogador)) {
+
 			if (vidaMob > 0) {
-				vidaMob -= this.ataque;
-				sofrerRecuo(20); // Adjust the value as needed for the intensity of the recoil
+				ataqueMob = true;
+				vida -= this.ataque;
+			}
+
+			if (ataqueMob = true) {
+				ataqueMob = false;
 			}
 		}
 	}
 
 	public void sofrerRecuo(double recuo) {
-		// Determine the direction of the recoil based on the current direction of
-		// movement
 		double recoilX = 0;
 		double recoilY = 0;
 
@@ -107,15 +103,9 @@ public class Mob extends Ator {
 		case 5:
 			recoilY = -recuo;
 			break;
-		// Add more cases if needed for other directions
 		}
 
-		// Apply the recoil
 		x += recoilX;
 		y += recoilY;
-	}
-
-	public void vida(Window janela) {
-		janela.drawText("Vida Mob: " + vidaMob, 30, 60, Color.RED);
 	}
 }

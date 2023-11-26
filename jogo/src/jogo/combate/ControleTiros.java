@@ -4,7 +4,6 @@ import java.util.LinkedList;
 
 import jogo.armas.Tiro;
 import jogo.personagens.npc.Mob;
-import jogo.util.Ator;
 import jplay.Keyboard;
 import jplay.Scene;
 import jplay.Sound;
@@ -15,6 +14,9 @@ public class ControleTiros {
 
 	LinkedList<Tiro> tiros = new LinkedList<>();
 
+	private boolean npcMorto = false;
+	private long tempoMorteNPC = 0;
+
 	public void adicionaTiro(double x, double y, int caminho, Scene cena) {
 		Tiro tiro = new Tiro(x, y, caminho);
 		tiros.add(tiro);
@@ -23,28 +25,50 @@ public class ControleTiros {
 		somDisparo();
 	}
 
-	public void run(Mob inimigo, Window janela, Keyboard teclado) throws InterruptedException {
+	boolean ataqueMob = false;
+
+	public void run(Mob[] mobs, Window janela, Keyboard teclado) throws InterruptedException {
 		for (int i = 0; i < tiros.size(); i++) {
 			Tiro tiro = tiros.removeFirst();
 			tiro.mover(janela, teclado, tiro);
 			tiros.addLast(tiro);
 
 			// Colisao do tiro
-			if (tiro.collided(inimigo)) {
-				tiro.x = 10_000;
-				if(inimigo.vidaMob >0) {
-				inimigo.vidaMob -= 250;
-				inimigo.sofrerRecuo(20);
+			for (Mob inimigo : mobs) {
+				// Colisao do tiro com o inimigo
+				if (tiro.collided(inimigo)) {
+					tiro.x = 10_000;
+					if (inimigo.vidaMob > 0) {
+						inimigo.vidaMob -= 250;
+						ataqueMob = true;
+
+						// Verificar morte apenas do mob atingido
+						if (inimigo.vidaMob == 0) {
+							npcMorto = true;
+							tempoMorteNPC = System.currentTimeMillis();
+						}
+					}
+
+					tiros.removeFirst();
 				}
-				tiros.removeFirst();
+
+				// Aplicar recuo apenas ao mob atingido
+				if (ataqueMob) {
+					inimigo.sofrerRecuo(7);
+					ataqueMob = false; // Defina ataqueMob como false após o recuo
+				}
+
+				if (npcMorto && (System.currentTimeMillis() - tempoMorteNPC) > 300) {
+					inimigo.morrer();
+					npcMorto = false;
+				}
 			}
-			
-			if(tiro.getAtingiuLimite()){
+
+			if (tiro.getAtingiuLimite()) {
 				tiro.x = 10_000;
 				tiros.removeFirst();
 			}
 		}
-
 	}
 
 	private void somDisparo() {

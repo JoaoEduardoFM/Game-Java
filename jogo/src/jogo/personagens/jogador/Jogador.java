@@ -30,7 +30,7 @@ public class Jogador extends Ator {
 	ControleTiros tiros = new ControleTiros();
 	ControleEspada espada = new ControleEspada();
 
-	public void atirarPistola(Window janela, Scene cena, Keyboard teclado, Mob inimigo){
+	public void atirarPistola(Window janela, Scene cena, Keyboard teclado, Mob[] mobs){
 		// Verifica se a tecla "A" está pressionada e se o tempo desde o último disparo
 		// é maior que o delay
 		if (teclado.keyDown(KeyEvent.VK_A) && System.currentTimeMillis() - ultimoDisparo > delayEntreTiros) {
@@ -39,7 +39,7 @@ public class Jogador extends Ator {
 		}
 
 		try {
-			tiros.run(inimigo, janela, teclado);
+			tiros.run(mobs, janela, teclado);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

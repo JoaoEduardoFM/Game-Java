@@ -1,7 +1,5 @@
 package jogo.armas;
 
-import java.awt.event.KeyEvent;
-
 import jplay.Keyboard;
 import jplay.Sprite;
 import jplay.URL;
@@ -67,17 +65,13 @@ public class Tiro extends Sprite {
 			movendo = true;
 		}
 
-		// Diagonal superior
-		if (teclado.keyDown(KeyEvent.VK_UP)) {
-			this.y -= VELOCIDADE_TIRO;
-			movendo = true;
-		}
-
-		// Diagonal inferior
-		if (teclado.keyDown(KeyEvent.VK_DOWN)) {
-		    this.y += VELOCIDADE_TIRO;
-		    movendo = true;
-		}
+		/*
+		 * // Diagonal superior if (teclado.keyDown(KeyEvent.VK_UP)) { this.y -=
+		 * VELOCIDADE_TIRO; movendo = true; }
+		 * 
+		 * // Diagonal inferior if (teclado.keyDown(KeyEvent.VK_DOWN)) { this.y +=
+		 * VELOCIDADE_TIRO; movendo = true; }
+		 */
 
 		// Validar se a distância percorrida atingiu o alcance máximo
 		long tempoAtual = System.currentTimeMillis();
