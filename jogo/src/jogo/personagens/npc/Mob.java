@@ -13,35 +13,23 @@ public class Mob extends Ator {
 	public Mob(double x, double y, String sprite) {
 		// arquivo + frames
 		super(URL.sprite(sprite), 20);
-		this.setTotalDuration(2000);
-		this.velocidade = 0.3;
 		this.x = x;
 		this.y = y;
+		this.setTotalDuration(2000);
+		this.velocidade = 0.3;
+
 	}
 
 	public void perseguir(double x, double y) {
 
-		if (this.x > x && this.y <= y + 50 && this.y >= y - 60) {
+		if (esquerda(x, y) && !direita(x, y)) {
 			moveTo(x, y, velocidade);
 			if (direcao != 1) {
 				setSequence(5, 8);
+				direcao = 1;
 			}
 			movendo = true;
-		} else if (this.x < x && this.y <= y + 50 && this.y >= -60) {
-			moveTo(x, y, velocidade);
-			if (direcao != 2) {
-				setSequence(8, 12);
-				direcao = 2;
-			}
-			movendo = true;
-		} else if (this.y > y) {
-			moveTo(x, y, velocidade);
-			if (direcao != 4) {
-				setSequence(12, 16);
-				direcao = 4;
-			}
-			movendo = true;
-		} else if (this.y < y) {
+		} else if (paraBaixo(y) && !paraCima(y) && !esquerda(x, y) && !direita(x, y)) {
 			moveTo(x, y, velocidade);
 			if (direcao != 5) {
 				setSequence(1, 4);
@@ -49,6 +37,20 @@ public class Mob extends Ator {
 			}
 			movendo = true;
 
+		} else if (direita(x, y) && !esquerda(x, y)) {
+			moveTo(x, y, velocidade);
+			if (direcao != 2) {
+				setSequence(8, 12);
+				direcao = 2;
+			}
+			movendo = true;
+		} else if (paraCima(y) && !paraBaixo(y) && !direita(x, y)) {
+			moveTo(x, y, velocidade);
+			if (direcao != 4) {
+				setSequence(12, 16);
+				direcao = 4;
+			}
+			movendo = true;
 		}
 
 		if (movendo) {
@@ -107,5 +109,21 @@ public class Mob extends Ator {
 
 		x += recoilX;
 		y += recoilY;
+	}
+
+	private boolean esquerda(double x, double y) {
+		return this.x > x && this.y <= y + 50 && this.y >= y - 60;
+	}
+
+	private boolean direita(double x, double y) {
+		return this.x < x && this.y < y + 50 && this.y >= y - 60;
+	}
+
+	private boolean paraCima(double y) {
+		return this.y > y;
+	}
+
+	private boolean paraBaixo(double y) {
+		return this.y < y;
 	}
 }

@@ -30,7 +30,7 @@ public class Jogador extends Ator {
 	ControleTiros tiros = new ControleTiros();
 	ControleEspada espada = new ControleEspada();
 
-	public void atirarPistola(Window janela, Scene cena, Keyboard teclado, Mob[] mobs){
+	public void atirarPistola(Window janela, Scene cena, Keyboard teclado, Mob[] mobs) {
 		// Verifica se a tecla "A" está pressionada e se o tempo desde o último disparo
 		// é maior que o delay
 		if (teclado.keyDown(KeyEvent.VK_A) && System.currentTimeMillis() - ultimoDisparo > delayEntreTiros) {
@@ -41,12 +41,11 @@ public class Jogador extends Ator {
 		try {
 			tiros.run(mobs, janela, teclado);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
-	public void ataqueEspada(Window janela, Scene cena, Keyboard teclado, Mob inimigo){
+	public void ataqueEspada(Window janela, Scene cena, Keyboard teclado, Mob inimigo) {
 		// Verifica se a tecla "A" está pressionada e se o tempo desde o último disparo
 		// é maior que o delay
 		if (teclado.keyDown(KeyEvent.VK_S) && System.currentTimeMillis() - ultimoDisparo > delayEntreTiros) {
@@ -166,28 +165,27 @@ public class Jogador extends Ator {
 	}
 
 	private void moverDiagonalSuperiorDireita(Window janela) {
-	    if (this.x < janela.getWidth() - 60 && this.y > 0) {
-	        this.x += velocidade / Math.sqrt(3);
-	        this.y -= velocidade / Math.sqrt(3);
-	    }
-	    if (direcao != 7) {
-	        setSequence(8, 11);
-	        direcao = 7;
-	    }
-	    movendo = true;
+		if (this.x < janela.getWidth() - 60 && this.y > 0) {
+			this.x += velocidade / Math.sqrt(3);
+			this.y -= velocidade / Math.sqrt(3);
+		}
+		if (direcao != 7) {
+			setSequence(8, 11);
+			direcao = 7;
+		}
+		movendo = true;
 	}
 
-	
 	private void moverDiagonalSuperiorEsquerda(Window janela) {
-	    if (this.x > 0 && this.y > 0) {
-	        this.x -= velocidade / Math.sqrt(7);
-	        this.y -= velocidade / Math.sqrt(7);
-	    }
-	    if (direcao != 8) {
-	        setSequence(4, 8);
-	        direcao = 8;
-	    }
-	    movendo = true;
+		if (this.x > 0 && this.y > 0) {
+			this.x -= velocidade / Math.sqrt(7);
+			this.y -= velocidade / Math.sqrt(7);
+		}
+		if (direcao != 8) {
+			setSequence(4, 8);
+			direcao = 8;
+		}
+		movendo = true;
 	}
 
 	private void moverDiagonalInferiorDireita(Window janela) {
