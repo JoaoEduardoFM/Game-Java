@@ -31,8 +31,8 @@ public class Pantano extends Cenario {
 
 	private void inicializarMobs() {
 		mobs = new Mob[] { new Mob(500, 300, "esqueleto.png")};
+		
 	}
-
 	private void run() {
 		while (true) {
 			jogadorLogica(jogador);
@@ -74,7 +74,7 @@ public class Pantano extends Cenario {
 		long tempoAtual = System.currentTimeMillis();
 		long tempoDecorrido = (tempoAtual - tempoInicialCenario) / 1000; // converta para segundos
 
-		if (tempoDecorrido >= 3) {
+		if (tempoDecorrido >= 4) {
 			// Altere o cenário
 			indiceCenarioAtual = (indiceCenarioAtual + 1) % nomesCenarios.length;
 			cena.loadFromFile(URL.scenario(nomesCenarios[indiceCenarioAtual]));

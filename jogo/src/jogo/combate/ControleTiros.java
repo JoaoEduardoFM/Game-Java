@@ -13,9 +13,7 @@ import jplay.Window;
 public class ControleTiros {
 
 	LinkedList<Tiro> tiros = new LinkedList<>();
-
 	private boolean npcMorto = false;
-	private long tempoMorteNPC = 30000;
 
 	public Tiro adicionaTiro(double x, double y, int caminho, Scene cena) {
 		Tiro tiro = new Tiro(x, y, caminho);
@@ -46,11 +44,10 @@ public class ControleTiros {
 						// Verificar morte apenas do mob atingido
 						if (inimigo.vidaMob >= 0) {
 							npcMorto = true;
-							tempoMorteNPC = System.currentTimeMillis();
 						}
 					}
 
-					if (npcMorto && (System.currentTimeMillis() - tempoMorteNPC) > 300) {
+					if (npcMorto) {
 						inimigo.morrer();
 						npcMorto = false;
 					}
