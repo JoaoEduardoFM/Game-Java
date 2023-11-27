@@ -1,6 +1,5 @@
 package jogo.personagens.npc;
 
-import jogo.armas.Tiro;
 import jogo.personagens.jogador.Jogador;
 import jogo.util.Ator;
 import jplay.URL;
@@ -9,7 +8,7 @@ public class Mob extends Ator {
 
 	private double ataque = 1;
 	private double velocidade = 1;
-	public double vidaMob = 250;
+	public double vidaMob = 750;
 	private long tempoInicial = System.currentTimeMillis();
 
 	public Mob(double x, double y, String sprite) {
@@ -61,25 +60,23 @@ public class Mob extends Ator {
 		}
 	}
 
-	boolean visible = false;
-
 	public void morrer() {
 		long tempoAtual = System.currentTimeMillis();
-		long tempoDecorrido = (tempoAtual - getTempoInicial()) / 1000; // converta para segundos
+		long tempoDecorrido = (tempoAtual - getTempoInicial()) / 1000;
 		if (vidaMob <= 0) {
 			setSequence(19, 20);
 			this.ataque = 0;
 			this.velocidade = 0;
 			this.direcao = 0;
 			movendo = false;
-			if (tempoDecorrido >= 4) {
+			// Ao morrer o mob é teleportado
+			if (tempoDecorrido >= 7) {
 			x = -10_000_000;
 			}
 		}
 	}
 
 	boolean ataqueMob = false;
-
 	public void atacar(Jogador jogador, Mob mob) {
 		if (this.collided(jogador)) {
 

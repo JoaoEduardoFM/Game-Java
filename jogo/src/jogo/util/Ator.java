@@ -5,10 +5,8 @@ import java.util.Vector;
 
 import jplay.GameObject;
 import jplay.Scene;
-import jplay.Sound;
 import jplay.Sprite;
 import jplay.TileInfo;
-import jplay.URL;
 
 public class Ator extends Sprite {
 
