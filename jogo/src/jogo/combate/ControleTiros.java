@@ -15,14 +15,15 @@ public class ControleTiros {
 	LinkedList<Tiro> tiros = new LinkedList<>();
 
 	private boolean npcMorto = false;
-	private long tempoMorteNPC = 0;
+	private long tempoMorteNPC = 30000;
 
-	public void adicionaTiro(double x, double y, int caminho, Scene cena) {
+	public Tiro adicionaTiro(double x, double y, int caminho, Scene cena) {
 		Tiro tiro = new Tiro(x, y, caminho);
 		tiros.add(tiro);
 		// adiciona tiro da tela
 		cena.addOverlay(tiro);
 		somDisparo();
+		return tiro;
 	}
 
 	boolean ataqueMob = false;
@@ -43,24 +44,22 @@ public class ControleTiros {
 						ataqueMob = true;
 
 						// Verificar morte apenas do mob atingido
-						if (inimigo.vidaMob == 0) {
+						if (inimigo.vidaMob >= 0) {
 							npcMorto = true;
 							tempoMorteNPC = System.currentTimeMillis();
 						}
 					}
 
-					tiros.removeFirst();
+					if (npcMorto && (System.currentTimeMillis() - tempoMorteNPC) > 300) {
+						inimigo.morrer();
+						npcMorto = false;
+					}
 				}
 
 				// Aplicar recuo apenas ao mob atingido
 				if (ataqueMob) {
 					inimigo.sofrerRecuo(7);
-					ataqueMob = false; // Defina ataqueMob como false após o recuo
-				}
-
-				if (npcMorto && (System.currentTimeMillis() - tempoMorteNPC) > 300) {
-					inimigo.morrer();
-					npcMorto = false;
+					ataqueMob = false;
 				}
 			}
 

@@ -94,7 +94,7 @@ public class Jogador extends Ator {
 				this.x -= velocidade;// impede que não saia da jenela
 			}
 			if (direcao != 1) {
-				setSequence(4, 8);// sprite 4 e 8 do personagem
+				setSequence(5, 8);// sprite 4 e 8 do personagem
 				direcao = 1;
 
 			}
@@ -105,7 +105,7 @@ public class Jogador extends Ator {
 				this.x += velocidade;
 			}
 			if (direcao != 2) {
-				setSequence(8, 11);
+				setSequence(9, 12);
 				direcao = 2;
 
 			}
@@ -116,7 +116,7 @@ public class Jogador extends Ator {
 				this.y -= velocidade;
 			}
 			if (direcao != 4) {
-				setSequence(12, 16);
+				setSequence(13, 16);
 				direcao = 4;
 
 			}
@@ -128,7 +128,7 @@ public class Jogador extends Ator {
 				this.y += velocidade;
 			}
 			if (direcao != 5) {
-				setSequence(0, 4);
+				setSequence(1, 4);
 				direcao = 5;
 
 			}

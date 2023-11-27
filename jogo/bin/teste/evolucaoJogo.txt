@@ -1,5 +1,0 @@
-Corrigir bug de sprites da esquerda para direita
-
-corrigir ao mob morrer ele deve ser retirado da lista ou teleportado 
-
-corrigir ao personagem andar para direita não puxar para esquerda quando ficar parado

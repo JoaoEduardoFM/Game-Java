@@ -1,5 +1,6 @@
 package jogo.personagens.npc;
 
+import jogo.armas.Tiro;
 import jogo.personagens.jogador.Jogador;
 import jogo.util.Ator;
 import jplay.URL;
@@ -8,7 +9,8 @@ public class Mob extends Ator {
 
 	private double ataque = 1;
 	private double velocidade = 1;
-	public double vidaMob = 1000;
+	public double vidaMob = 250;
+	private long tempoInicial = System.currentTimeMillis();
 
 	public Mob(double x, double y, String sprite) {
 		// arquivo + frames
@@ -62,13 +64,17 @@ public class Mob extends Ator {
 	boolean visible = false;
 
 	public void morrer() {
+		long tempoAtual = System.currentTimeMillis();
+		long tempoDecorrido = (tempoAtual - getTempoInicial()) / 1000; // converta para segundos
 		if (vidaMob <= 0) {
 			setSequence(19, 20);
 			this.ataque = 0;
 			this.velocidade = 0;
 			this.direcao = 0;
 			movendo = false;
-			// x = -10_000_000;
+			if (tempoDecorrido >= 4) {
+			x = -10_000_000;
+			}
 		}
 	}
 
@@ -126,4 +132,14 @@ public class Mob extends Ator {
 	private boolean paraBaixo(double y) {
 		return this.y < y;
 	}
+
+	public long getTempoInicial() {
+		return tempoInicial;
+	}
+
+	public void setTempoInicial(long tempoInicial) {
+		this.tempoInicial = tempoInicial;
+	}
+	
+	
 }

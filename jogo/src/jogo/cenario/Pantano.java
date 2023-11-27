@@ -74,7 +74,7 @@ public class Pantano extends Cenario {
 		long tempoAtual = System.currentTimeMillis();
 		long tempoDecorrido = (tempoAtual - tempoInicialCenario) / 1000; // converta para segundos
 
-		if (tempoDecorrido >= 1) {
+		if (tempoDecorrido >= 3) {
 			// Altere o cenário
 			indiceCenarioAtual = (indiceCenarioAtual + 1) % nomesCenarios.length;
 			cena.loadFromFile(URL.scenario(nomesCenarios[indiceCenarioAtual]));
