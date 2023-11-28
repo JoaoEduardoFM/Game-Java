@@ -71,12 +71,13 @@ public class Mob extends Ator {
 			movendo = false;
 			// Ao morrer o mob é teleportado
 			if (tempoDecorrido > 5) {
-			x = -10_000_000;
+				x = -10_000_000;
 			}
 		}
 	}
 
 	boolean ataqueMob = false;
+
 	public void atacar(Jogador jogador, Mob mob) {
 		if (this.collided(jogador)) {
 
@@ -137,6 +138,5 @@ public class Mob extends Ator {
 	public void setTempoInicial(long tempoInicial) {
 		this.tempoInicial = tempoInicial;
 	}
-	
-	
+
 }
