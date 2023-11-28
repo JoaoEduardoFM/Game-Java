@@ -16,7 +16,7 @@ public class Tiro extends Sprite {
 	protected int direcao = 3;
 	private boolean atingiuLimite = false;
 	private long tempoInicial; // Tempo em que o tiro foi disparado
-	private static final long LimiteTempo = 700; // Limite de tempo em milissegundos
+	private static final long LimiteTempo = 100; // Limite de tempo em milissegundos
 
 	private double origemX; // Coordenada x onde o tiro foi disparado
 	private double origemY; // Coordenada y onde o tiro foi disparado
@@ -81,7 +81,7 @@ public class Tiro extends Sprite {
 
 		// Validar se o tempo decorrido atingiu o limite
 		if (tempoAtual - tempoInicial > LimiteTempo) {
-			setSequence(-1, -1);
+			setAtingiuLimite(true);
 		} else {
 			setAtingiuLimite(false);
 		}

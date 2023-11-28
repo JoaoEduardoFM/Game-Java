@@ -59,6 +59,11 @@ public class ControleTiros {
 					ataqueMob = false;
 				}
 			}
+
+			if (tiro.getAtingiuLimite()) {
+				tiro.x = 10_000;
+				tiros.removeFirst();
+			}
 		}
 	}
 

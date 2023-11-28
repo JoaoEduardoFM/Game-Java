@@ -86,7 +86,7 @@ public class Jogador extends Ator {
 		}
 
 		// movendo para esquerda
-		if (teclado.keyDown(Keyboard.LEFT_KEY)) {
+		if (teclado.keyDown(Keyboard.LEFT_KEY) && !teclado.keyDown(Keyboard.RIGHT_KEY)) {
 			if (this.x > 0) {
 				this.x -= velocidade;// impede que não saia da jenela
 			}
@@ -97,7 +97,7 @@ public class Jogador extends Ator {
 			}
 			movendo = true;
 			// movendo para direta
-		} else if (teclado.keyDown(Keyboard.RIGHT_KEY) == true) {
+		} else if (teclado.keyDown(Keyboard.RIGHT_KEY) && !teclado.keyDown(Keyboard.LEFT_KEY)) {
 			if (this.x < janela.getWidth() - 60) {
 				this.x += velocidade;
 			}
@@ -108,7 +108,7 @@ public class Jogador extends Ator {
 			}
 			movendo = true;
 			// movendo para cima
-		} else if (teclado.keyDown(Keyboard.UP_KEY) == true) {
+		} else if (teclado.keyDown(Keyboard.UP_KEY) && !teclado.keyDown(Keyboard.DOWN_KEY)) {
 			if (this.y > 0) {
 				this.y -= velocidade;
 			}
@@ -120,7 +120,7 @@ public class Jogador extends Ator {
 			movendo = true;
 
 			// movendo para baixo
-		} else if (teclado.keyDown(Keyboard.DOWN_KEY) == true) {
+		} else if (teclado.keyDown(Keyboard.DOWN_KEY) && !teclado.keyDown(Keyboard.UP_KEY)) {
 			if (this.y < janela.getHeight() - 60) {
 				this.y += velocidade;
 			}
