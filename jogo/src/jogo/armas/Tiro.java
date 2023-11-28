@@ -35,7 +35,7 @@ public class Tiro extends Sprite {
 		if (caminho == LEFT && this.x > origemX - ALCANCE_TIRO) {
 			this.x -= VELOCIDADE_TIRO;
 			if (direcao != 1) {
-				setSequence(4, 7);
+				setSequence(5, 8);
 			}
 			movendo = true;
 		}
@@ -43,7 +43,7 @@ public class Tiro extends Sprite {
 		if (caminho == RIGHT && this.x < origemX + ALCANCE_TIRO) {
 			this.x += VELOCIDADE_TIRO;
 			if (direcao != 2) {
-				setSequence(8, 11);
+				setSequence(9, 12);
 			}
 			movendo = true;
 		}
@@ -51,7 +51,7 @@ public class Tiro extends Sprite {
 		if (caminho == UP && this.y > origemY - ALCANCE_TIRO) {
 			this.y -= VELOCIDADE_TIRO;
 			if (direcao != 4) {
-				setSequence(12, 15);
+				setSequence(13, 16);
 			}
 			movendo = true;
 		}
@@ -59,7 +59,7 @@ public class Tiro extends Sprite {
 		if (caminho == DOWN && this.y < origemY + ALCANCE_TIRO) {
 			this.y += VELOCIDADE_TIRO;
 			if (direcao != 5) {
-				setSequence(0, 3);
+				setSequence(1, 4);
 			}
 			movendo = true;
 		}

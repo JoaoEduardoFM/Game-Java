@@ -2,4 +2,10 @@ Corrigir bug de sprites da esquerda para direita - OK
 
 Ao mob morrer ele deve ser retirado da lista ou teleportado - OK
 
-Ao personagem andar para direita não puxar para esquerda quando ficar parado
+Ao personagem andar para direita não puxar para esquerda quando ficar parado - OK 
+
+Ao morrer o mob deve rodar a animação completa da queda 
+
+Fazer com que o jogo respawne varioas mobs em locais diferentes
+
+Fazer a parte lógica da vida. Ao passar em cima do coração regenera avida e implementar os corracoes como vida.

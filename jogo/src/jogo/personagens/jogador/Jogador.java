@@ -63,8 +63,10 @@ public class Jogador extends Ator {
 	public void controle(Window janela, Keyboard teclado) {
 
 		// correr
-		if (teclado.keyDown(Keyboard.LEFT_KEY) || teclado.keyDown(Keyboard.RIGHT_KEY)
-				|| teclado.keyDown(Keyboard.UP_KEY) || teclado.keyDown(Keyboard.DOWN_KEY)) {
+		if (teclado.keyDown(Keyboard.LEFT_KEY) && teclado.keyDown(KeyEvent.VK_SPACE)
+				|| teclado.keyDown(Keyboard.RIGHT_KEY) && teclado.keyDown(KeyEvent.VK_SPACE)
+				|| teclado.keyDown(Keyboard.UP_KEY) && teclado.keyDown(KeyEvent.VK_SPACE)
+				|| teclado.keyDown(Keyboard.DOWN_KEY)) {
 			correrLogica(janela, teclado);
 		}
 

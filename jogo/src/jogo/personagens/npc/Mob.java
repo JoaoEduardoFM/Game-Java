@@ -64,13 +64,17 @@ public class Mob extends Ator {
 		long tempoAtual = System.currentTimeMillis();
 		long tempoDecorrido = (tempoAtual - getTempoInicial()) / 1000;
 		if (vidaMob <= 0) {
-			setSequence(19, 20);
+			moveTo(x, y, velocidade);
+			for (int i = 17; i < 20; i++) {
+				setSequence(17, 20);
+			}
+			
 			this.ataque = 0;
 			this.velocidade = 0;
 			this.direcao = 0;
 			movendo = false;
 			// Ao morrer o mob é teleportado
-			if (tempoDecorrido >= 7) {
+			if (tempoDecorrido > 5) {
 			x = -10_000_000;
 			}
 		}
