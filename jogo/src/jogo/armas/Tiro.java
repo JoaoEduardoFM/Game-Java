@@ -34,6 +34,7 @@ public class Tiro extends Sprite {
 	public void mover(Window janela, Keyboard teclado, Tiro tiro) {
 		if (caminho == LEFT && this.x > origemX - ALCANCE_TIRO) {
 			this.x -= VELOCIDADE_TIRO;
+			moveTo(x, y, VELOCIDADE_TIRO);
 			if (direcao != 1) {
 				setSequence(5, 8);
 			}
@@ -42,6 +43,7 @@ public class Tiro extends Sprite {
 
 		if (caminho == RIGHT && this.x < origemX + ALCANCE_TIRO) {
 			this.x += VELOCIDADE_TIRO;
+			moveTo(x, y, VELOCIDADE_TIRO);
 			if (direcao != 2) {
 				setSequence(9, 12);
 			}
@@ -50,6 +52,7 @@ public class Tiro extends Sprite {
 
 		if (caminho == UP && this.y > origemY - ALCANCE_TIRO) {
 			this.y -= VELOCIDADE_TIRO;
+			moveTo(x, y, VELOCIDADE_TIRO);
 			if (direcao != 4) {
 				setSequence(13, 16);
 			}
@@ -58,6 +61,7 @@ public class Tiro extends Sprite {
 
 		if (caminho == DOWN && this.y < origemY + ALCANCE_TIRO) {
 			this.y += VELOCIDADE_TIRO;
+			moveTo(x, y, VELOCIDADE_TIRO);
 			if (direcao != 5) {
 				setSequence(1, 4);
 			}

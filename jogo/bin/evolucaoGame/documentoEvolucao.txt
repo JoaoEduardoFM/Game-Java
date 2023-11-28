@@ -2,9 +2,9 @@ Corrigir bug de sprites da esquerda para direita - OK
 
 Ao mob morrer ele deve ser retirado da lista ou teleportado - OK
 
-Ao personagem andar para direita não puxar para esquerda quando ficar parado - OK 
+Ao personagem andar para direita não puxar para esquerda quando ficar parado 
 
-Corrigir bug ao iniciar o personagem fica travado na tela
+Corrigir bug ao iniciar o personagem fica travado na tela - OK
 
 Ao morrer o mob deve rodar a animação completa da queda 
 

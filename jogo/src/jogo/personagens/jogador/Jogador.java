@@ -63,12 +63,7 @@ public class Jogador extends Ator {
 	public void controle(Window janela, Keyboard teclado) {
 
 		// correr
-		if (teclado.keyDown(Keyboard.LEFT_KEY) && teclado.keyDown(KeyEvent.VK_SPACE)
-				|| teclado.keyDown(Keyboard.RIGHT_KEY) && teclado.keyDown(KeyEvent.VK_SPACE)
-				|| teclado.keyDown(Keyboard.UP_KEY) && teclado.keyDown(KeyEvent.VK_SPACE)
-				|| teclado.keyDown(Keyboard.DOWN_KEY) && teclado.keyDown(KeyEvent.VK_SPACE)) {
-			correrLogica(janela, teclado);
-		}
+		correrLogica(janela, teclado);
 
 		// Diagonal Superior Direita
 		if (teclado.keyDown(KeyEvent.VK_UP) && teclado.keyDown(Keyboard.RIGHT_KEY)) {
@@ -153,10 +148,7 @@ public class Jogador extends Ator {
 				// int keyCode = e.getKeyCode();
 				System.out.println(keyChat);
 
-				if (keyChat == KeyEvent.VK_SPACE && teclado.keyDown(Keyboard.LEFT_KEY)
-						|| keyChat == KeyEvent.VK_SPACE && teclado.keyDown(Keyboard.RIGHT_KEY)
-						|| keyChat == KeyEvent.VK_SPACE && teclado.keyDown(Keyboard.UP_KEY)
-						|| keyChat == KeyEvent.VK_SPACE && teclado.keyDown(Keyboard.DOWN_KEY)) {
+				if (keyChat == KeyEvent.VK_SPACE) {
 					velocidade = 6;
 				} else {
 					velocidade = 3;
