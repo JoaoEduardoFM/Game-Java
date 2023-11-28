@@ -81,7 +81,7 @@ public class Tiro extends Sprite {
 
 		// Validar se o tempo decorrido atingiu o limite
 		if (tempoAtual - tempoInicial > LimiteTempo) {
-			setAtingiuLimite(true);
+			setSequence(-1, -1);
 		} else {
 			setAtingiuLimite(false);
 		}
