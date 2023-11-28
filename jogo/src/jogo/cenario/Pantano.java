@@ -21,8 +21,8 @@ public class Pantano extends Cenario {
 	public Pantano(Window window) {
 		janela = window;
 		cena = new Scene();
+		jogador = new Jogador(500, 350);
 		cena.loadFromFile(URL.scenario(nomesCenarios[1]));
-		jogador = new Jogador(540, 350);
 		teclado = janela.getKeyboard();
 		inicializarMobs();
 		// Som.play("musica1.mid");

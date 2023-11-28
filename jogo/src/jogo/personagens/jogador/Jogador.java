@@ -55,6 +55,7 @@ public class Jogador extends Ator {
 		try {
 			espada.run(inimigo);
 		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -70,27 +71,27 @@ public class Jogador extends Ator {
 		}
 
 		// Diagonal Superior Direita
-		if (teclado.keyDown(Keyboard.UP_KEY) && teclado.keyDown(KeyEvent.VK_RIGHT)) {
+		if (teclado.keyDown(KeyEvent.VK_UP) && teclado.keyDown(Keyboard.RIGHT_KEY)) {
 			moverDiagonalSuperiorDireita(janela);
 		}
 
 		// Diagonal superior esquerda
-		if (teclado.keyDown(Keyboard.UP_KEY) && teclado.keyDown(KeyEvent.VK_LEFT)) {
+		if (teclado.keyDown(KeyEvent.VK_UP) && teclado.keyDown(Keyboard.LEFT_KEY)) {
 			moverDiagonalSuperiorEsquerda(janela);
 		}
 
 		// Diagonal Inferior Direita
-		if (teclado.keyDown(Keyboard.DOWN_KEY) && teclado.keyDown(KeyEvent.VK_RIGHT)) {
+		if (teclado.keyDown(KeyEvent.VK_DOWN) && teclado.keyDown(Keyboard.RIGHT_KEY)) {
 			moverDiagonalInferiorDireita(janela);
 		}
 
 		// Diagonal inferior esquerda
-		if (teclado.keyDown(Keyboard.DOWN_KEY) && teclado.keyDown(KeyEvent.VK_LEFT)) {
+		if (teclado.keyDown(KeyEvent.VK_DOWN) && teclado.keyDown(Keyboard.LEFT_KEY)) {
 			moverDiagonalInferiorEsquerda(janela);
 		}
 
 		// movendo para esquerda
-		if (teclado.keyDown(KeyEvent.VK_LEFT)) {
+		if (teclado.keyDown(Keyboard.LEFT_KEY)) {
 			if (this.x > 0) {
 				this.x -= velocidade;// impede que não saia da jenela
 			}
@@ -101,7 +102,7 @@ public class Jogador extends Ator {
 			}
 			movendo = true;
 			// movendo para direta
-		} else if (teclado.keyDown(KeyEvent.VK_RIGHT) == true) {
+		} else if (teclado.keyDown(Keyboard.RIGHT_KEY) == true) {
 			if (this.x < janela.getWidth() - 60) {
 				this.x += velocidade;
 			}
@@ -112,7 +113,7 @@ public class Jogador extends Ator {
 			}
 			movendo = true;
 			// movendo para cima
-		} else if (teclado.keyDown(KeyEvent.VK_UP) == true) {
+		} else if (teclado.keyDown(Keyboard.UP_KEY) == true) {
 			if (this.y > 0) {
 				this.y -= velocidade;
 			}
@@ -124,7 +125,7 @@ public class Jogador extends Ator {
 			movendo = true;
 
 			// movendo para baixo
-		} else if (teclado.keyDown(KeyEvent.VK_DOWN) == true) {
+		} else if (teclado.keyDown(Keyboard.DOWN_KEY) == true) {
 			if (this.y < janela.getHeight() - 60) {
 				this.y += velocidade;
 			}
