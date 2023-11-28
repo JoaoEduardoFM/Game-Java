@@ -59,28 +59,34 @@ public class Mob extends Ator {
 			movendo = false;
 		}
 	}
-
+	int currentFrame;
 	public void morrer() {
-		long tempoAtual = System.currentTimeMillis();
-		long tempoDecorrido = (tempoAtual - getTempoInicial()) / 1000;
-		if (vidaMob <= 0) {
-			moveTo(x, y, velocidade);
-			for (int i = 17; i < 20; i++) {
-				setSequence(17, 20);
-			}
-			
-			this.ataque = 0;
-			this.velocidade = 0;
-			this.direcao = 0;
-			movendo = false;
-			// Ao morrer o mob é teleportado
-			if (tempoDecorrido > 5) {
-			x = -10_000_000;
-			}
-		}
+	    int startFrame = 17;
+	    int endFrame = 20;
+	    long tempoAtual = System.currentTimeMillis();
+	    long tempoDecorrido = (tempoAtual - getTempoInicial()) / 1000;
+
+	    if (vidaMob <= 0) {
+	        // Verifica se a animação ainda não chegou ao fim
+	        if (currentFrame <= endFrame) {
+	            setSequence(startFrame, endFrame);
+	            currentFrame++;
+	            this.ataque = 0;
+	            this.velocidade = 0;
+	            this.direcao = 0;
+	            movendo = false;
+
+	            // Ao morrer o mob é teleportado
+	            if (tempoDecorrido > 5) {
+	                x = -10_000_000;
+	            }
+	        }
+	    }
 	}
 
+
 	boolean ataqueMob = false;
+
 	public void atacar(Jogador jogador, Mob mob) {
 		if (this.collided(jogador)) {
 
@@ -141,6 +147,5 @@ public class Mob extends Ator {
 	public void setTempoInicial(long tempoInicial) {
 		this.tempoInicial = tempoInicial;
 	}
-	
-	
+
 }
