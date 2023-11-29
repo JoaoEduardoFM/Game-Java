@@ -7,5 +7,6 @@
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="Jogo-Java/lib/JPlay.jar"/>
+	<classpathentry kind="lib" path="Jogo-Java/lib/JPlay2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
