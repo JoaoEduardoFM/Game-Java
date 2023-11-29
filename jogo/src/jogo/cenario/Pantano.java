@@ -1,5 +1,7 @@
 package jogo.cenario;
 
+import java.util.Arrays;
+
 import jogo.personagens.jogador.Jogador;
 import jogo.personagens.npc.Mob;
 import jplay.Keyboard;
@@ -37,13 +39,25 @@ public class Pantano extends Cenario {
 		while (true) {
 			jogadorLogica(jogador);
 			mobLogica(jogador);
-			mudarCenario();
+			spawnarMob();
+			//mudarCenario();
 			try {
 				Thread.sleep(16); // 60 FPS
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	private void adicionarNovoMob(String mob) {
+	    // Gera coordenadas aleatórias para o novo mob dentro da resolução 800x600
+	    int randomX = (int) (Math.random() * (janela.getWidth() - 50)); // 50 é a largura do mob
+	    int randomY = (int) (Math.random() * (janela.getHeight() - 50)); // 50 é a altura do mob
+
+	    // Adiciona um novo mob ao array com coordenadas aleatórias
+	    Mob novoMob = new Mob(randomX, randomY, mob);
+	    mobs = Arrays.copyOf(mobs, mobs.length + 1);
+	    mobs[mobs.length - 1] = novoMob;
 	}
 
 	private void jogadorLogica(Jogador personagem) {
@@ -70,6 +84,7 @@ public class Pantano extends Cenario {
 		janela.update();
 	}
 
+
 	private void mudarCenario() {
 		long tempoAtual = System.currentTimeMillis();
 		long tempoDecorrido = (tempoAtual - tempoInicialCenario) / 1000; // converta para segundos
@@ -80,6 +95,16 @@ public class Pantano extends Cenario {
 			cena.loadFromFile(URL.scenario(nomesCenarios[indiceCenarioAtual]));
 
 			// Reinicia o tempo inicial para permitir futuras mudanças de cenário
+			tempoInicialCenario = System.currentTimeMillis();
+		}
+	}
+	
+	private void spawnarMob() {
+		long tempoAtual = System.currentTimeMillis();
+		long tempoDecorrido = (tempoAtual - tempoInicialCenario) / 1000; // converta para segundos
+
+		if (tempoDecorrido >= 1) {
+			adicionarNovoMob("esqueleto.png");
 			tempoInicialCenario = System.currentTimeMillis();
 		}
 	}

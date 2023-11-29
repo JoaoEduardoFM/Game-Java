@@ -62,15 +62,19 @@ public class Mob extends Ator {
 
 	public void morrer() {
 		long tempoAtual = System.currentTimeMillis();
-		long tempoDecorrido = (tempoAtual - getTempoInicial()) / 1000;
+		long tempoDecorrido = (tempoAtual - tempoInicial) / 1000; // converta para segundos
+
+		
 		if (vidaMob <= 0) {
+			moveTo(x, y, velocidade);
 			setSequence(19, 20);
+			update();
 			this.ataque = 0;
 			this.velocidade = 0;
 			this.direcao = 0;
 			movendo = false;
 			// Ao morrer o mob é teleportado
-			if (tempoDecorrido > 3) {
+			if (tempoDecorrido >= 3) {
 				hide();
 				x = -10_000_000;
 			}
