@@ -8,7 +8,7 @@ public class Mob extends Ator {
 
 	private double ataque = 1;
 	private double velocidade = 1;
-	public double vidaMob = 750;
+	public double vidaMob = 250;
 	private long tempoInicial = System.currentTimeMillis();
 
 	public Mob(double x, double y, String sprite) {
@@ -71,13 +71,14 @@ public class Mob extends Ator {
 			movendo = false;
 			// Ao morrer o mob é teleportado
 			if (tempoDecorrido > 3) {
-				setSequence(-1, -1);
-			x = -10_000_000;
+				hide();
+				x = -10_000_000;
 			}
 		}
 	}
 
 	boolean ataqueMob = false;
+
 	public void atacar(Jogador jogador, Mob mob) {
 		if (this.collided(jogador)) {
 
@@ -139,6 +140,5 @@ public class Mob extends Ator {
 	public void setTempoInicial(long tempoInicial) {
 		this.tempoInicial = tempoInicial;
 	}
-	
-	
+
 }

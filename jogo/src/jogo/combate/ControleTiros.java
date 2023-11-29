@@ -61,7 +61,6 @@ public class ControleTiros {
 			}
 
 			if (tiro.getAtingiuLimite()) {
-				tiro.x = 10_000;
 				tiros.removeFirst();
 			}
 		}
