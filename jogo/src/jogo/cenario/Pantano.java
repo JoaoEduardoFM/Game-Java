@@ -41,7 +41,7 @@ public class Pantano extends Cenario {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-		}
+			}
 	}
 	
 	private void adicionarNovoMob(String mob) {
@@ -90,6 +90,7 @@ public class Pantano extends Cenario {
 	private void mobLogica(Jogador player) {
 	    for (Mob mob : mobs) {
 	    	mob.morrer();
+	    	mob.pontosMorteMob(janela);
 	        mob.caminho(cena);
 	        mob.perseguir(player.x, player.y);
 	        mob.x += cena.getXOffset();

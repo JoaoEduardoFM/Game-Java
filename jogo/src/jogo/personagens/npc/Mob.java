@@ -1,15 +1,20 @@
 package jogo.personagens.npc;
 
+import java.awt.Color;
+
 import jogo.personagens.jogador.Jogador;
 import jogo.util.Ator;
 import jplay.URL;
+import jplay.Window;
 
 public class Mob extends Ator {
 
 	private double ataque = 1;
 	private double velocidade = 1;
 	public double vidaMob = 250;
+	public Integer pontos = 1;
 	private long tempoInicial = System.currentTimeMillis();
+	private boolean isDead = false;
 
 	public Mob(double x, double y, String sprite) {
 		// arquivo + frames
@@ -18,7 +23,6 @@ public class Mob extends Ator {
 		this.y = y;
 		this.setTotalDuration(2000);
 		this.velocidade = 0.3;
-
 	}
 
 	public void perseguir(double x, double y) {
@@ -61,25 +65,31 @@ public class Mob extends Ator {
 	}
 
 	public void morrer() {
-		long tempoAtual = System.currentTimeMillis();
-		long tempoDecorrido = (tempoAtual - tempoInicial) / 5000; // converta para segundos
+	    if (vidaMob <= 0) {
+	        long tempoAtual = System.currentTimeMillis();
+	        long tempoDecorrido = (tempoAtual - tempoInicial) / 5000; // convert to seconds
 
-		
-		if (vidaMob <= 0) {
-			moveTo(x, y, velocidade);	
-			setSequence(19, 20);
-			update();
-			this.ataque = 0;
-			this.velocidade = 0;
-			this.direcao = 0;
-			movendo = false;
-			// Ao morrer o mob é teleportado
-			if (tempoDecorrido > 6) {
-				hide();
-				x = -10_000_000;
-			}
-		}
+	        if (!isDead) {
+	            setPontos(getPontos() + 1);;
+	            isDead = true;  // Set a flag to ensure points are added only once
+	        }
+
+	        moveTo(x, y, velocidade);
+	        setSequence(19, 20);
+	        update();
+	        this.ataque = 0;
+	        this.velocidade = 0;
+	        this.direcao = 0;
+	        movendo = false;
+
+	        // When the mob dies, teleport it after 6 seconds
+	        if (tempoDecorrido > 6) {
+	            hide();
+	            x = -10_000_000;
+	        }
+	    }
 	}
+
 
 	boolean ataqueMob = false;
 
@@ -143,5 +153,20 @@ public class Mob extends Ator {
 	public void setTempoInicial(long tempoInicial) {
 		this.tempoInicial = tempoInicial;
 	}
+	
+	public void pontosMorteMob(Window janela) { // Change Color.BLACK to the background color of your game
+	    janela.drawText("Pontos: " + pontos, 60, 60, Color.BLUE);
+	}
+
+
+	public Integer getPontos() {
+		return pontos;
+	}
+
+	public void setPontos(Integer pontos) {
+		this.pontos = pontos;
+	}
+	
+	
 
 }
