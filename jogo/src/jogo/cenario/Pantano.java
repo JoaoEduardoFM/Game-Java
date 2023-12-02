@@ -24,16 +24,11 @@ public class Pantano extends Cenario {
 		janela = window;
 		cena = new Scene();
 		jogador = new Jogador(500, 350);
+		mobs = new Mob[] { new Mob(800, 900, "esqueleto.png")};
 		cena.loadFromFile(URL.scenario("Cenario1.scn"));
 		teclado = janela.getKeyboard();
-		inicializarMobs();
 		// Som.play("musica1.mid");
 		run();
-	}
-
-	private void inicializarMobs() {
-		mobs = new Mob[] { new Mob(500, 300, "esqueleto.png")};
-		
 	}
 	private void run() {
 		while (true) {
