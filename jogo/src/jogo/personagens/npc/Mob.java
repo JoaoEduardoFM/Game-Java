@@ -62,11 +62,11 @@ public class Mob extends Ator {
 
 	public void morrer() {
 		long tempoAtual = System.currentTimeMillis();
-		long tempoDecorrido = (tempoAtual - tempoInicial) / 1000; // converta para segundos
+		long tempoDecorrido = (tempoAtual - tempoInicial) / 5000; // converta para segundos
 
 		
 		if (vidaMob <= 0) {
-			moveTo(x, y, velocidade);
+			moveTo(x, y, velocidade);	
 			setSequence(19, 20);
 			update();
 			this.ataque = 0;
@@ -74,7 +74,7 @@ public class Mob extends Ator {
 			this.direcao = 0;
 			movendo = false;
 			// Ao morrer o mob é teleportado
-			if (tempoDecorrido >= 3) {
+			if (tempoDecorrido > 6) {
 				hide();
 				x = -10_000_000;
 			}
@@ -84,19 +84,18 @@ public class Mob extends Ator {
 	boolean ataqueMob = false;
 
 	public void atacar(Jogador jogador, Mob mob) {
-		if (this.collided(jogador)) {
+	    if (this.collided(jogador)) {
+	        if (vidaMob > 0) {
+	            ataqueMob = true;
+	            vida -= this.ataque;
+	        }
 
-			if (vidaMob > 0) {
-				ataqueMob = true;
-				vida -= this.ataque;
-			}
-
-			if (ataqueMob = true) {
-				ataqueMob = false;
-			}
-
-		}
+	        if (ataqueMob) {
+	            ataqueMob = false;
+	        }
+	    }
 	}
+
 
 	public void sofrerRecuo(double recuo) {
 		double recoilX = 0;

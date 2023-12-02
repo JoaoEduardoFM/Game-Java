@@ -24,7 +24,7 @@ public class Pantano extends Cenario {
 		janela = window;
 		cena = new Scene();
 		jogador = new Jogador(500, 350);
-		cena.loadFromFile(URL.scenario(nomesCenarios[1]));
+		cena.loadFromFile(URL.scenario("Cenario1.scn"));
 		teclado = janela.getKeyboard();
 		inicializarMobs();
 		// Som.play("musica1.mid");
@@ -50,15 +50,36 @@ public class Pantano extends Cenario {
 	}
 	
 	private void adicionarNovoMob(String mob) {
-	    // Gera coordenadas aleatórias para o novo mob dentro da resolução 800x600
-	    int randomX = (int) (Math.random() * (janela.getWidth() - 50)); // 50 é a largura do mob
-	    int randomY = (int) (Math.random() * (janela.getHeight() - 50)); // 50 é a altura do mob
+	    int randomEdge = (int) (Math.random() * 4); // 0: topo, 1: base, 2: esquerda, 3: direita
 
-	    // Adiciona um novo mob ao array com coordenadas aleatórias
+	    int randomX = 0;
+	    int randomY = 0;
+
+	    switch (randomEdge) {
+	        case 0: // Topo
+	            randomX = (int) (Math.random() * janela.getWidth());
+	            randomY = -50; // Altura do Mob é 50
+	            break;
+	        case 1: // Base
+	            randomX = (int) (Math.random() * janela.getWidth());
+	            randomY = janela.getHeight();
+	            break;
+	        case 2: // Esquerda
+	            randomX = -50; // Largura do Mob é 50
+	            randomY = (int) (Math.random() * janela.getHeight());
+	            break;
+	        case 3: // Direita
+	            randomX = janela.getWidth();
+	            randomY = (int) (Math.random() * janela.getHeight());
+	            break;
+	    }
+
+	    // Adiciona um novo mob ao array com as coordenadas aleatórias
 	    Mob novoMob = new Mob(randomX, randomY, mob);
 	    mobs = Arrays.copyOf(mobs, mobs.length + 1);
 	    mobs[mobs.length - 1] = novoMob;
 	}
+
 
 	private void jogadorLogica(Jogador personagem) {
 		personagem.controle(janela, teclado);
@@ -72,17 +93,27 @@ public class Pantano extends Cenario {
 	}
 
 	private void mobLogica(Jogador player) {
-		for (Mob mob : mobs) {
-			mob.caminho(cena);
-			mob.perseguir(player.x, player.y);
-			mob.x += cena.getXOffset();
-			mob.y += cena.getYOffset();
-			mob.morrer();
-			mob.atacar(player, mob);
-			mob.draw();
-		}
-		janela.update();
+	    for (Mob mob : mobs) {
+	    	mob.morrer();
+	        mob.caminho(cena);
+	        mob.perseguir(player.x, player.y);
+	        mob.x += cena.getXOffset();
+	        mob.y += cena.getYOffset();
+	        mob.morrer();
+	        mob.atacar(player, mob);
+	        mob.draw();
+	    }
+
+	    // Desenha o jogador por último
+	    player.x += cena.getXOffset();
+	    player.y += cena.getYOffset();
+	    player.atirarPistola(janela, cena, teclado, mobs);
+	    player.draw();
+	    player.vida(janela);
+
+	    janela.update();
 	}
+
 
 
 	private void mudarCenario() {
