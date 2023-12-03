@@ -42,11 +42,9 @@ public class Main {
 
 				if (currentMenu == menuStart) {
 					currentMenu = menuExit;
-				}
-				if (currentMenu == menuOptions) {
+				} else if (currentMenu == menuOptions) {
 					currentMenu = menuStart;
-				}
-				if (currentMenu == menuExit) {
+				} else if (currentMenu == menuExit) {
 					currentMenu = menuOptions;
 				}
 

@@ -37,19 +37,13 @@ public class Jogador extends Ator {
 			tiros.adicionaTiro(x + 5, y + 12, direcao, cena);
 			ultimoDisparo = System.currentTimeMillis(); // Atualiza o tempo do último disparo
 
-			if (teclado.keyDown(Keyboard.LEFT_KEY)) {
+			if (direcao == 1 && teclado.keyDown(KeyEvent.VK_LEFT)) {
 				setSequence(17, 18);
-			}
-
-			if (teclado.keyDown(Keyboard.RIGHT_KEY)) {
+			} else if (direcao == 2 && teclado.keyDown(KeyEvent.VK_RIGHT)) {
 				setSequence(18, 19);
-			}
-
-			if (teclado.keyDown(Keyboard.DOWN_KEY)) {
+			} else if (direcao == 5 && teclado.keyDown(KeyEvent.VK_DOWN)) {
 				setSequence(16, 17);
-			}
-
-			if (teclado.keyDown(Keyboard.UP_KEY)) {
+			} else if (direcao == 4 && teclado.keyDown(KeyEvent.VK_UP)) {
 				setSequence(19, 20);
 			}
 		}
@@ -76,7 +70,10 @@ public class Jogador extends Ator {
 	public void controle(Window janela, Keyboard teclado) {
 
 		// correr
-		correrLogica(janela, teclado);
+		if (teclado.keyDown(Keyboard.RIGHT_KEY) || teclado.keyDown(Keyboard.LEFT_KEY)
+				|| teclado.keyDown(Keyboard.DOWN_KEY) || teclado.keyDown(Keyboard.UP_KEY)) {
+			correrLogica(janela, teclado);
+		}
 
 		// Diagonal Superior Direita
 		if (teclado.keyDown(KeyEvent.VK_UP) && teclado.keyDown(Keyboard.RIGHT_KEY)) {
