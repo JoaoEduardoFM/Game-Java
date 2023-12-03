@@ -42,15 +42,15 @@ public class Jogador extends Ator {
 			}
 
 			if (teclado.keyDown(Keyboard.RIGHT_KEY)) {
-				setSequence(18, 19);	
+				setSequence(18, 19);
 			}
-			
+
 			if (teclado.keyDown(Keyboard.DOWN_KEY)) {
-				setSequence(16, 17);	
+				setSequence(16, 17);
 			}
-			
+
 			if (teclado.keyDown(Keyboard.UP_KEY)) {
-				setSequence(19, 20);	
+				setSequence(19, 20);
 			}
 		}
 
@@ -145,9 +145,23 @@ public class Jogador extends Ator {
 			movendo = true;
 
 		}
-		
-		if(!movendo) {
+
+		if (!movendo) {
 			setSequence(0, 3);
+
+			if (direcao == 5) {
+				setSequence(1, 4);
+			}
+
+			if (direcao == 4) {
+				setSequence(13, 16);
+			}
+			if (direcao == 2) {
+				setSequence(9, 12);
+			}
+			if (direcao == 1) {
+				setSequence(5, 8);
+			}
 		}
 
 		if (movendo) {
