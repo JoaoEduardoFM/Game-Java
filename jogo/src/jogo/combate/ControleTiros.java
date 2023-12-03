@@ -20,13 +20,13 @@ public class ControleTiros {
 		tiros.add(tiro);
 		// adiciona tiro da tela
 		cena.addOverlay(tiro);
-		somDisparo();
+		//somDisparo();
 		return tiro;
 	}
 
 	boolean ataqueMob = false;
 
-	public void run(Mob[] mobs, Window janela, Keyboard teclado) throws InterruptedException {
+	public void run(Mob[] mobs, Window janela, Keyboard teclado){
 		for (int i = 0; i < tiros.size(); i++) {
 			Tiro tiro = tiros.removeFirst();
 			tiro.mover(janela, teclado, tiro);

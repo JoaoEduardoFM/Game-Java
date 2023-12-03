@@ -6,6 +6,8 @@ Ao personagem andar para direita não puxar para esquerda quando ficar parado - 
 
 Corrigir bug ao iniciar o personagem fica travado na tela - OK
 
+Configurar a barra de vida
+
 Ao morrer o mob deve rodar a animação completa da morte 
 
 Fazer com que o jogo respawne varioas mobs em locais diferentes

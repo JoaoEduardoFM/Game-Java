@@ -21,7 +21,7 @@ public class Jogador extends Ator {
 	private long delayEntreTiros = 700;
 
 	public Jogador(int x, int y) {
-		super(URL.sprite("jogador.png"), 20);
+		super(URL.sprite("magoMarrom.png"), 20);
 		this.x = x;
 		this.y = y;
 		this.setTotalDuration(2000);
@@ -36,13 +36,25 @@ public class Jogador extends Ator {
 		if (teclado.keyDown(KeyEvent.VK_A) && System.currentTimeMillis() - ultimoDisparo > delayEntreTiros) {
 			tiros.adicionaTiro(x + 5, y + 12, direcao, cena);
 			ultimoDisparo = System.currentTimeMillis(); // Atualiza o tempo do último disparo
+
+			if (teclado.keyDown(Keyboard.LEFT_KEY)) {
+				setSequence(17, 18);
+			}
+
+			if (teclado.keyDown(Keyboard.RIGHT_KEY)) {
+				setSequence(18, 19);	
+			}
+			
+			if (teclado.keyDown(Keyboard.DOWN_KEY)) {
+				setSequence(16, 17);	
+			}
+			
+			if (teclado.keyDown(Keyboard.UP_KEY)) {
+				setSequence(19, 20);	
+			}
 		}
 
-		try {
-			tiros.run(mobs, janela, teclado);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		tiros.run(mobs, janela, teclado);
 	}
 
 	public void ataqueEspada(Window janela, Scene cena, Keyboard teclado, Mob inimigo) {
@@ -51,6 +63,7 @@ public class Jogador extends Ator {
 		if (teclado.keyDown(KeyEvent.VK_S) && System.currentTimeMillis() - ultimoDisparo > delayEntreTiros) {
 			espada.adicionaEspada(x + 5, y + 12, direcao, cena);
 			ultimoDisparo = System.currentTimeMillis(); // Atualiza o tempo do último disparo
+
 		}
 		try {
 			espada.run(inimigo);
@@ -131,6 +144,10 @@ public class Jogador extends Ator {
 			}
 			movendo = true;
 
+		}
+		
+		if(!movendo) {
+			setSequence(0, 3);
 		}
 
 		if (movendo) {
