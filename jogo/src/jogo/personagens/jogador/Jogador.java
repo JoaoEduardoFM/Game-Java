@@ -39,12 +39,16 @@ public class Jogador extends Ator {
 
 			if (direcao == 1 && teclado.keyDown(KeyEvent.VK_LEFT)) {
 				setSequence(17, 18);
+				movendo = false;
 			} else if (direcao == 2 && teclado.keyDown(KeyEvent.VK_RIGHT)) {
 				setSequence(18, 19);
+				movendo = false;
 			} else if (direcao == 5 && teclado.keyDown(KeyEvent.VK_DOWN)) {
 				setSequence(16, 17);
+				movendo = false;
 			} else if (direcao == 4 && teclado.keyDown(KeyEvent.VK_UP)) {
 				setSequence(19, 20);
+				movendo = false;
 			}
 		}
 
@@ -69,29 +73,25 @@ public class Jogador extends Ator {
 
 	public void controle(Window janela, Keyboard teclado) {
 
-		// correr
-		if (teclado.keyDown(Keyboard.RIGHT_KEY) || teclado.keyDown(Keyboard.LEFT_KEY)
-				|| teclado.keyDown(Keyboard.DOWN_KEY) || teclado.keyDown(Keyboard.UP_KEY)) {
-			correrLogica(janela, teclado);
-		}
+		correrLogica(janela, teclado);
 
 		// Diagonal Superior Direita
-		if (teclado.keyDown(KeyEvent.VK_UP) && teclado.keyDown(Keyboard.RIGHT_KEY)) {
+		if (teclado.keyDown(Keyboard.UP_KEY) && teclado.keyDown(Keyboard.RIGHT_KEY)) {
 			moverDiagonalSuperiorDireita(janela);
 		}
 
 		// Diagonal superior esquerda
-		if (teclado.keyDown(KeyEvent.VK_UP) && teclado.keyDown(Keyboard.LEFT_KEY)) {
+		if (teclado.keyDown(Keyboard.UP_KEY) && teclado.keyDown(Keyboard.LEFT_KEY)) {
 			moverDiagonalSuperiorEsquerda(janela);
 		}
 
 		// Diagonal Inferior Direita
-		if (teclado.keyDown(KeyEvent.VK_DOWN) && teclado.keyDown(Keyboard.RIGHT_KEY)) {
+		if (teclado.keyDown(Keyboard.DOWN_KEY) && teclado.keyDown(Keyboard.RIGHT_KEY)) {
 			moverDiagonalInferiorDireita(janela);
 		}
 
 		// Diagonal inferior esquerda
-		if (teclado.keyDown(KeyEvent.VK_DOWN) && teclado.keyDown(Keyboard.LEFT_KEY)) {
+		if (teclado.keyDown(Keyboard.DOWN_KEY) && teclado.keyDown(Keyboard.LEFT_KEY)) {
 			moverDiagonalInferiorEsquerda(janela);
 		}
 
@@ -169,21 +169,20 @@ public class Jogador extends Ator {
 	}
 
 	private void correrLogica(Window janela, Keyboard teclado) {
-		janela.addKeyListener(new KeyAdapter() {
-			public void keyPressed(KeyEvent e) {
-				// Lógica para tratar a tecla pressionada
-				char keyChat = e.getKeyChar();
-				// int keyCode = e.getKeyCode();
-				System.out.println(keyChat);
+			janela.addKeyListener(new KeyAdapter() {
+				public void keyPressed(KeyEvent e) {
+					// Lógica para tratar a tecla pressionada
+					char keyChat = e.getKeyChar();
+					// int keyCode = e.getKeyCode();
+					System.out.println(keyChat);
 
-				if (keyChat == KeyEvent.VK_SPACE) {
-					velocidade = 6;
-				} else {
-					velocidade = 3;
+					if (keyChat == KeyEvent.VK_SPACE) {
+						velocidade = 6;
+					} else {
+						velocidade = 3;
+					}
 				}
-
-			}
-		});
+			});
 	}
 
 	private void moverDiagonalSuperiorDireita(Window janela) {
