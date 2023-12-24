@@ -1,9 +1,11 @@
 package jogo.cenario;
 
+import java.awt.event.KeyEvent;
 import java.util.Arrays;
 
 import jogo.personagens.jogador.Jogador;
 import jogo.personagens.npc.Mob;
+import jogo.util.Menu;
 import jplay.Keyboard;
 import jplay.Scene;
 import jplay.URL;
@@ -19,23 +21,38 @@ public class Pantano extends Cenario {
 	private String[] nomesCenarios = { "Cenario1.scn", "Cenario2.scn", "Cenario3.scn" };
 	private int indiceCenarioAtual = 0;
 	private long tempoInicialCenario = System.currentTimeMillis();
+	private Boolean pause = true;
+	private Jogador backupJogador;
+	private Mob[] backupMobs;
+	private String[] backupNomesCenarios;
+	private int backupIndiceCenarioAtual = 0;
+	private long backupTempoInicialCenario = System.currentTimeMillis();
 
-	public Pantano(Window window) {
+	public Pantano(Window window, Jogador backupJogador2, Mob[] backupMobs2, String[] backupNomesCenarios2, long backupTempoInicialCenario2) {
 		janela = window;
 		cena = new Scene();
 		jogador = new Jogador(500, 350);
 		mobs = new Mob[] { new Mob(800, 900, "esqueleto.png") };
 		cena.loadFromFile(URL.scenario("Cenario1.scn"));
 		teclado = janela.getKeyboard();
+		 // Inicialize as variáveis de backup
+        backupJogador = backupJogador2;
+        backupMobs = backupMobs2;
+        backupNomesCenarios = backupNomesCenarios2;
+        backupTempoInicialCenario = backupTempoInicialCenario2;
 		// Som.play("musica1.mid");
-		run();
+		run(backupJogador2);
 	}
 
-	private void run() {
-		while (true) {
-			jogadorLogica(jogador);
-			mobLogica(jogador);
+	private void run(Jogador backupJogador2) {
+		while (getPause()) {
+			jogadorLogica(backupJogador != null ? backupJogador : jogador);
+			mobLogica(backupJogador != null ? backupJogador : jogador);
+			if(backupJogador != null) {
+				setJogador(backupJogador);
+			}
 			spawnarMob();
+			pause();
 			// mudarCenario();
 			try {
 				Thread.sleep(16); // 60 FPS
@@ -43,7 +60,29 @@ public class Pantano extends Cenario {
 				e.printStackTrace();
 			}
 		}
+		
+		if(getPause().equals(false));
+			try {
+				Menu.manuLogica(janela, teclado, getJogador(), getMobs(), getNomesCenarios(), 0);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	}
+
+	public void pause() {
+		if (teclado.keyDown(KeyEvent.VK_ESCAPE) && getPause().equals(true)) {
+			setPause(false);
+		}
+	}
+
+	public void pauseOff() {
+        setJogador(backupJogador);
+        setMobs(backupMobs);
+        setNomesCenarios(backupNomesCenarios);
+        setIndiceCenarioAtual(backupIndiceCenarioAtual);
+        setTempoInicialCenario(backupTempoInicialCenario);
+    }
 
 	private void adicionarNovoMob(String mob) {
 		int randomEdge = (int) (Math.random() * 4); // 0: topo, 1: base, 2: esquerda, 3: direita
@@ -133,4 +172,77 @@ public class Pantano extends Cenario {
 			tempoInicialCenario = System.currentTimeMillis();
 		}
 	}
+
+	public Boolean getPause() {
+		return pause;
+	}
+
+	public void setPause(Boolean pause) {
+		this.pause = pause;
+	}
+
+	public Window getJanela() {
+		return janela;
+	}
+
+	public void setJanela(Window janela) {
+		this.janela = janela;
+	}
+
+	public Scene getCena() {
+		return cena;
+	}
+
+	public void setCena(Scene cena) {
+		this.cena = cena;
+	}
+
+	public Jogador getJogador() {
+		return jogador;
+	}
+
+	public void setJogador(Jogador jogador) {
+		this.jogador = jogador;
+	}
+
+	public Keyboard getTeclado() {
+		return teclado;
+	}
+
+	public void setTeclado(Keyboard teclado) {
+		this.teclado = teclado;
+	}
+
+	public Mob[] getMobs() {
+		return mobs;
+	}
+
+	public void setMobs(Mob[] mobs) {
+		this.mobs = mobs;
+	}
+
+	public String[] getNomesCenarios() {
+		return nomesCenarios;
+	}
+
+	public void setNomesCenarios(String[] nomesCenarios) {
+		this.nomesCenarios = nomesCenarios;
+	}
+
+	public int getIndiceCenarioAtual() {
+		return indiceCenarioAtual;
+	}
+
+	public void setIndiceCenarioAtual(int indiceCenarioAtual) {
+		this.indiceCenarioAtual = indiceCenarioAtual;
+	}
+
+	public long getTempoInicialCenario() {
+		return tempoInicialCenario;
+	}
+
+	public void setTempoInicialCenario(long tempoInicialCenario) {
+		this.tempoInicialCenario = tempoInicialCenario;
+	}
+
 }

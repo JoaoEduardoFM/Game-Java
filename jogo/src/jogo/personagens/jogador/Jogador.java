@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+import jogo.cenario.Pantano;
 import jogo.combate.ControleEspada;
 import jogo.combate.ControleTiros;
 import jogo.personagens.npc.Mob;
@@ -26,7 +27,6 @@ public class Jogador extends Ator {
 		this.y = y;
 		this.setTotalDuration(2000);
 	}
-
 	ControleTiros tiros = new ControleTiros();
 	ControleEspada espada = new ControleEspada();
 
@@ -66,7 +66,6 @@ public class Jogador extends Ator {
 		try {
 			espada.run(inimigo);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

@@ -16,7 +16,7 @@ public class Mob extends Ator {
 	private long tempoInicial = System.currentTimeMillis();
 	private boolean isDead = false;
 
-	public Mob(double x, double y, String sprite) {
+	public Mob(int x, int y, String sprite) {
 		// arquivo + frames
 		super(URL.sprite(sprite), 20);
 		this.x = x;

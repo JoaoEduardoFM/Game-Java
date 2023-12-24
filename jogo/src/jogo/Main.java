@@ -1,6 +1,6 @@
 package jogo;
 
-import jogo.cenario.Pantano;
+import jogo.util.Menu;
 import jplay.GameImage;
 import jplay.Keyboard;
 import jplay.URL;
@@ -16,53 +16,10 @@ public class Main {
 		// imagem do menu
 		Keyboard teclado = janela.getKeyboard();
 
-		GameImage menuStart = menu("menu1Start.png");
-		GameImage menuOptions = menu("menu1Options.png");
-		GameImage menuExit = menu("menu1Exit.png");
-
-		GameImage currentMenu = menuStart;
-
-		while (true) {
-			currentMenu.draw();
-			janela.update();
-
-			if (teclado.keyDown(Keyboard.DOWN_KEY)) {
-				if (currentMenu == menuStart) {
-					currentMenu = menuOptions;
-				} else if (currentMenu == menuOptions) {
-					currentMenu = menuExit;
-				} else if (currentMenu == menuExit) {
-					currentMenu = menuStart;
-				}
-
-				while (teclado.keyDown(Keyboard.DOWN_KEY)) {
-					Thread.sleep(10);
-				}
-			} else if (teclado.keyDown(Keyboard.UP_KEY)) {
-
-				if (currentMenu == menuStart) {
-					currentMenu = menuExit;
-				} else if (currentMenu == menuOptions) {
-					currentMenu = menuStart;
-				} else if (currentMenu == menuExit) {
-					currentMenu = menuOptions;
-				}
-
-				while (teclado.keyDown(Keyboard.UP_KEY)) {
-					Thread.sleep(10);
-				}
-			}
-
-			if (teclado.keyDown(Keyboard.ENTER_KEY)) {
-				if (currentMenu == menuStart) {
-					new Pantano(janela);
-				} else if (currentMenu == menuOptions) {
-					// logica options
-				} else if (currentMenu == menuExit) {
-					System.exit(0);
-				}
-
-			}
+		try {
+			Menu.manuLogicainicial(janela, teclado);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 
