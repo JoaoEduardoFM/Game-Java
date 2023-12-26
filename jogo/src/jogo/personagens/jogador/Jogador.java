@@ -17,7 +17,7 @@ import jplay.Window;
 public class Jogador extends Ator {
 
 	public double vidaJogador = 1000;
-
+	private boolean movendo = true;
 	private long ultimoDisparo = 0;
 	private long delayEntreTiros = 700;
 
@@ -29,30 +29,35 @@ public class Jogador extends Ator {
 	}
 	ControleTiros tiros = new ControleTiros();
 	ControleEspada espada = new ControleEspada();
+	
+	private int proximaSequencia = -1;
+	private float interpolacao = 0.0f;
+	private static final float VELOCIDADE_INTERPOLACAO = 0.1f;
+
+	public void atualizarAnimacao() {
+	    if (proximaSequencia != -1) {
+	        interpolacao += VELOCIDADE_INTERPOLACAO;
+	        setSequence(proximaSequencia, proximaSequencia + 1);
+	        draw();
+	        if (interpolacao >= 2.0f) {
+	            proximaSequencia = -1;
+	            interpolacao = 0.0f;
+	        }
+	    }
+	}
 
 	public void atirarPistola(Window janela, Scene cena, Keyboard teclado, Mob[] mobs) {
-		// Verifica se a tecla "A" está pressionada e se o tempo desde o último disparo
-		// é maior que o delay
-		if (teclado.keyDown(KeyEvent.VK_A) && System.currentTimeMillis() - ultimoDisparo > delayEntreTiros) {
-			tiros.adicionaTiro(x + 5, y + 12, direcao, cena);
-			ultimoDisparo = System.currentTimeMillis(); // Atualiza o tempo do último disparo
+	    // ... seu código anterior ...
 
-			if (direcao == 1 && teclado.keyDown(KeyEvent.VK_LEFT)) {
-				setSequence(17, 18);
-				movendo = false;
-			} else if (direcao == 2 && teclado.keyDown(KeyEvent.VK_RIGHT)) {
-				setSequence(18, 19);
-				movendo = false;
-			} else if (direcao == 5 && teclado.keyDown(KeyEvent.VK_DOWN)) {
-				setSequence(16, 17);
-				movendo = false;
-			} else if (direcao == 4 && teclado.keyDown(KeyEvent.VK_UP)) {
-				setSequence(19, 20);
-				movendo = false;
-			}
-		}
+	    if (teclado.keyDown(KeyEvent.VK_A) && System.currentTimeMillis() - ultimoDisparo > delayEntreTiros) {
+	        proximaSequencia = (direcao == 1) ? 17 : (direcao == 2) ? 18 : (direcao == 5) ? 16 : (direcao == 4) ? 19 : null;
+	        tiros.adicionaTiro(x + 5, y + 12, direcao, cena);
+	        ultimoDisparo = System.currentTimeMillis(); // Atualiza o tempo do último disparo
+	        movendo = false;
+	    }
 
-		tiros.run(mobs, janela, teclado);
+	    tiros.run(mobs, janela, teclado);
+	    atualizarAnimacao();
 	}
 
 	public void ataqueEspada(Window janela, Scene cena, Keyboard teclado, Mob inimigo) {
@@ -139,23 +144,23 @@ public class Jogador extends Ator {
 
 			}
 			movendo = true;
-
+		}else {
+		movendo = false;
 		}
 
+		
 		if (!movendo) {
-			setSequence(0, 3);
+			for (int i = 0; i < 100; i++) {
+				setSequence(1, 20);
+			}
 
 			if (direcao == 5) {
 				setSequence(1, 4);
-			}
-
-			if (direcao == 4) {
+			} else if (direcao == 4) {
 				setSequence(13, 16);
-			}
-			if (direcao == 2) {
+			} else if (direcao == 2) {
 				setSequence(9, 12);
-			}
-			if (direcao == 1) {
+			} else if (direcao == 1) {
 				setSequence(5, 8);
 			}
 		}

@@ -9,14 +9,14 @@ public class Tiro extends Sprite {
 
 	public static final int LEFT = 1, RIGHT = 2, STOP = 3, UP = 4, DOWN = 5;
 
-	protected static final int VELOCIDADE_TIRO = 30;
-	protected static final int ALCANCE_TIRO = 300; // Ajuste conforme necessário
+	protected static final int VELOCIDADE_TIRO = 10;
+	protected static final int ALCANCE_TIRO = 500; // Ajuste conforme necessário
 	public int caminho = STOP;
 	protected boolean movendo = false;
 	protected int direcao = 3;
 	private boolean atingiuLimite = false;
 	private long tempoInicial; // Tempo em que o tiro foi disparado
-	private static final long LimiteTempo = 100; // Limite de tempo em milissegundos
+	private static final long LimiteTempo = 500; // Limite de tempo em milissegundos
 
 	private double origemX; // Coordenada x onde o tiro foi disparado
 	private double origemY; // Coordenada y onde o tiro foi disparado
