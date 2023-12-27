@@ -22,36 +22,44 @@ public class Pantano extends Cenario {
 	private int indiceCenarioAtual = 0;
 	private long tempoInicialCenario = System.currentTimeMillis();
 	private Boolean pause = true;
-	private Jogador backupJogador;
-	private Mob[] backupMobs;
-	private String[] backupNomesCenarios;
-	private int backupIndiceCenarioAtual = 0;
-	private long backupTempoInicialCenario = System.currentTimeMillis();
 
-	public Pantano(Window window, Jogador backupJogador2, Mob[] backupMobs2, String[] backupNomesCenarios2, long backupTempoInicialCenario2) {
+	public Pantano(Window window, Jogador backupJogador, Mob[] backupMobs, String[] backupNomesCenarios,
+			long backupTempoInicialCenario) {
 		janela = window;
 		cena = new Scene();
 		jogador = new Jogador(500, 350);
 		mobs = new Mob[] { new Mob(800, 900, "esqueleto.png") };
 		cena.loadFromFile(URL.scenario("Cenario1.scn"));
 		teclado = janela.getKeyboard();
-		 // Inicialize as variáveis de backup
-        backupJogador = backupJogador2;
-        backupMobs = backupMobs2;
-        backupNomesCenarios = backupNomesCenarios2;
-        backupTempoInicialCenario = backupTempoInicialCenario2;
 		// Som.play("musica1.mid");
-		run(backupJogador2);
+		run(window, backupJogador, backupMobs, backupNomesCenarios, backupTempoInicialCenario);
 	}
 
-	private void run(Jogador backupJogador2) {
+	private void run(Window window, Jogador backupJogador, Mob[] backupMobs, String[] backupNomesCenarios,
+			long backupTempoInicialCenario) {
 		while (getPause()) {
 			jogadorLogica(backupJogador != null ? backupJogador : jogador);
 			mobLogica(backupJogador != null ? backupJogador : jogador);
-			if(backupJogador != null) {
+			spawnarMob(backupMobs);
+
+			if (window != null) {
+				setJanela(window);
+			}
+
+			if (backupNomesCenarios != null) {
+				setNomesCenarios(backupNomesCenarios);
+			}
+
+			if (backupTempoInicialCenario != 0) {
+				setTempoInicialCenario(backupTempoInicialCenario);
+			}
+			if (backupJogador != null) {
 				setJogador(backupJogador);
 			}
-			spawnarMob();
+			if (backupMobs != null) {
+	            setMobs(Arrays.copyOf(backupMobs, backupMobs.length));
+	            backupMobs = null; // Evita a reinicialização repetida
+	        }
 			pause();
 			// mudarCenario();
 			try {
@@ -60,14 +68,15 @@ public class Pantano extends Cenario {
 				e.printStackTrace();
 			}
 		}
-		
-		if(getPause().equals(false));
+
+		if (getPause().equals(false)) {
 			try {
 				Menu.manuLogica(janela, teclado, getJogador(), getMobs(), getNomesCenarios(), 0);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		}
+
 	}
 
 	public void pause() {
@@ -76,15 +85,7 @@ public class Pantano extends Cenario {
 		}
 	}
 
-	public void pauseOff() {
-        setJogador(backupJogador);
-        setMobs(backupMobs);
-        setNomesCenarios(backupNomesCenarios);
-        setIndiceCenarioAtual(backupIndiceCenarioAtual);
-        setTempoInicialCenario(backupTempoInicialCenario);
-    }
-
-	private void adicionarNovoMob(String mob) {
+	private void adicionarNovoMob(String mob, Mob[] backupMobs) {
 		int randomEdge = (int) (Math.random() * 4); // 0: topo, 1: base, 2: esquerda, 3: direita
 
 		int randomX = 0;
@@ -110,9 +111,18 @@ public class Pantano extends Cenario {
 		}
 
 		// Adiciona um novo mob ao array com as coordenadas aleatórias
-		Mob novoMob = new Mob(randomX, randomY, mob);
-		mobs = Arrays.copyOf(mobs, mobs.length + 1);
-		mobs[mobs.length - 1] = novoMob;
+
+		if (backupMobs != null) {
+			Mob novoMob = new Mob(randomX, randomY, mob);
+			backupMobs = Arrays.copyOf(backupMobs, backupMobs.length + 1);
+			backupMobs[backupMobs.length - 1] = novoMob;
+		}
+
+		if (mobs != null) {
+			Mob novoMob = new Mob(randomX, randomY, mob);
+			mobs = Arrays.copyOf(mobs, mobs.length + 1);
+			mobs[mobs.length - 1] = novoMob;
+		}
 	}
 
 	private void jogadorLogica(Jogador personagem) {
@@ -163,12 +173,12 @@ public class Pantano extends Cenario {
 		}
 	}
 
-	private void spawnarMob() {
+	private void spawnarMob(Mob[] backupMobs) {
 		long tempoAtual = System.currentTimeMillis();
 		long tempoDecorrido = (tempoAtual - tempoInicialCenario) / 1000; // converta para segundos
 
 		if (tempoDecorrido >= 1) {
-			adicionarNovoMob("esqueleto.png");
+			adicionarNovoMob("esqueleto.png", backupMobs);
 			tempoInicialCenario = System.currentTimeMillis();
 		}
 	}

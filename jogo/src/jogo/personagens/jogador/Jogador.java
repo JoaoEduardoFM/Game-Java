@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-import jogo.cenario.Pantano;
 import jogo.combate.ControleEspada;
 import jogo.combate.ControleTiros;
 import jogo.personagens.npc.Mob;
@@ -53,7 +52,6 @@ public class Jogador extends Ator {
 	        proximaSequencia = (direcao == 1) ? 17 : (direcao == 2) ? 18 : (direcao == 5) ? 16 : (direcao == 4) ? 19 : null;
 	        tiros.adicionaTiro(x + 5, y + 12, direcao, cena);
 	        ultimoDisparo = System.currentTimeMillis(); // Atualiza o tempo do último disparo
-	        movendo = false;
 	    }
 
 	    tiros.run(mobs, janela, teclado);
