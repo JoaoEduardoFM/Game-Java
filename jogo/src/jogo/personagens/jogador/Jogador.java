@@ -50,7 +50,7 @@ public class Jogador extends Ator {
 
 		if (teclado.keyDown(KeyEvent.VK_A) && System.currentTimeMillis() - ultimoDisparo > delayEntreTiros) {
 			proximaSequencia = (direcao == 1) ? 17
-					: (direcao == 2) ? 18 : (direcao == 5) ? 16 : (direcao == 4) ? 19 : null;
+					: (direcao == 2) ? 18 : (direcao == 5) ? 16 : (direcao == 4) ? 19 : 1;
 			tiros.adicionaTiro(x + 5, y + 12, direcao, cena);
 			ultimoDisparo = System.currentTimeMillis(); // Atualiza o tempo do último disparo
 		}
@@ -78,23 +78,25 @@ public class Jogador extends Ator {
 
 		correrLogica(janela, teclado);
 
-		/*
-		 * // Diagonal Superior Direita if (teclado.keyDown(Keyboard.UP_KEY) &&
-		 * teclado.keyDown(Keyboard.RIGHT_KEY)) { moverDiagonalSuperiorDireita(janela);
-		 * }
-		 * 
-		 * // Diagonal superior esquerda if (teclado.keyDown(Keyboard.UP_KEY) &&
-		 * teclado.keyDown(Keyboard.LEFT_KEY)) { moverDiagonalSuperiorEsquerda(janela);
-		 * }
-		 * 
-		 * // Diagonal Inferior Direita if (teclado.keyDown(Keyboard.DOWN_KEY) &&
-		 * teclado.keyDown(Keyboard.RIGHT_KEY)) { moverDiagonalInferiorDireita(janela);
-		 * }
-		 * 
-		 * // Diagonal inferior esquerda if (teclado.keyDown(Keyboard.DOWN_KEY) &&
-		 * teclado.keyDown(Keyboard.LEFT_KEY)) { moverDiagonalInferiorEsquerda(janela);
-		 * }
-		 */
+		// Diagonal Superior Direita
+		if (teclado.keyDown(Keyboard.UP_KEY) && teclado.keyDown(Keyboard.RIGHT_KEY)) {
+			moverDiagonalSuperiorDireita(janela);
+		}
+
+		// Diagonal superior esquerda
+		if (teclado.keyDown(Keyboard.UP_KEY) && teclado.keyDown(Keyboard.LEFT_KEY)) {
+			moverDiagonalSuperiorEsquerda(janela);
+		}
+
+		// Diagonal Inferior Direita
+		if (teclado.keyDown(Keyboard.DOWN_KEY) && teclado.keyDown(Keyboard.RIGHT_KEY)) {
+			moverDiagonalInferiorDireita(janela);
+		}
+
+		// Diagonal inferior esquerda
+		if (teclado.keyDown(Keyboard.DOWN_KEY) && teclado.keyDown(Keyboard.LEFT_KEY)) {
+			moverDiagonalInferiorEsquerda(janela);
+		}
 
 		// movendo para esquerda
 		if (teclado.keyDown(Keyboard.LEFT_KEY) && !teclado.keyDown(Keyboard.RIGHT_KEY)) {

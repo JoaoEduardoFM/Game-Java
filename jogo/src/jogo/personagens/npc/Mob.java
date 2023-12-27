@@ -166,11 +166,6 @@ public class Mob extends Ator {
 	public void setTempoInicial(long tempoInicial) {
 		this.tempoInicial = tempoInicial;
 	}
-	
-	public void pontosMobs(Window janela) {
-	    janela.drawText("Pontos: " + pontos, 30, 60, Color.YELLOW);
-	}
-
 
 	public Integer getPontos() {
 		return pontos;
