@@ -12,9 +12,10 @@ public class Mob extends Ator {
 	private double ataque = 1;
 	private double velocidade = 1;
 	public double vidaMob = 250;
-	public Integer pontos = 1;
+	public Integer pontos = 0;
 	private long tempoInicial = System.currentTimeMillis();
 	private boolean isDead = false;
+	private boolean morto;
 
 	public Mob(int x, int y, String sprite) {
 		// arquivo + frames
@@ -64,31 +65,37 @@ public class Mob extends Ator {
 		}
 	}
 
-	public void morrer() {
-	    if (vidaMob <= 0) {
-	        long tempoAtual = System.currentTimeMillis();
-	        long tempoDecorrido = (tempoAtual - tempoInicial) / 5000; // convert to seconds
-
-	        if (!isDead) {
-	            setPontos(getPontos() + 1);;
-	            isDead = true;  // Set a flag to ensure points are added only once
-	        }
-
-	        moveTo(x, y, velocidade);
-	        setSequence(19, 20);
-	        update();
-	        this.ataque = 0;
-	        this.velocidade = 0;
-	        this.direcao = 0;
-	        movendo = false;
-
-	        // When the mob dies, teleport it after 6 seconds
-	        if (tempoDecorrido > 6) {
-	            hide();
-	            x = -10_000_000;
-	        }
-	    }
-	}
+		public Boolean morrer() {
+		    if (vidaMob <= 0) {
+		        long tempoAtual = System.currentTimeMillis();
+		        long tempoDecorrido = (tempoAtual - tempoInicial) / 5000; // convert to seconds
+	
+		        if (!isDead) {
+		            isDead = true;  // Set a flag to ensure points are added only once
+		            pontos += 1;  
+		            System.out.println(pontos);
+		        }else {
+		        	isDead = false;
+		        }
+	
+		        moveTo(x, y, velocidade);
+		        setSequence(19, 20);
+		        update();
+		        this.ataque = 0;
+		        this.velocidade = 0;
+		        this.direcao = 0;
+		        movendo = false;
+	
+		        // When the mob dies, teleport it after 6 seconds
+		        if (tempoDecorrido > 6) {
+		            hide();
+		            x = -10_000_000;
+		        }
+		    }else {
+		    	isDead = false;
+		    }
+			return isDead;
+		}
 
 
 	boolean ataqueMob = false;
@@ -129,6 +136,12 @@ public class Mob extends Ator {
 		x += recoilX;
 		y += recoilY;
 	}
+	
+	// Construtor e outros métodos...
+
+		public boolean estaMorto() {
+			return morto;
+		}
 
 	private boolean esquerda(double x, double y) {
 		return this.x > x && this.y <= y + 50 && this.y >= y - 60;
@@ -154,8 +167,8 @@ public class Mob extends Ator {
 		this.tempoInicial = tempoInicial;
 	}
 	
-	public void pontosMorteMob(Window janela) { // Change Color.BLACK to the background color of your game
-	    janela.drawText("Pontos: " + pontos, 60, 60, Color.BLUE);
+	public void pontosMobs(Window janela) {
+	    janela.drawText("Pontos: " + pontos, 30, 60, Color.YELLOW);
 	}
 
 

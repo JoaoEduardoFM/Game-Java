@@ -26,36 +26,37 @@ public class Jogador extends Ator {
 		this.y = y;
 		this.setTotalDuration(2000);
 	}
+
 	ControleTiros tiros = new ControleTiros();
 	ControleEspada espada = new ControleEspada();
-	
+
 	private int proximaSequencia = -1;
 	private float interpolacao = 0.0f;
 	private static final float VELOCIDADE_INTERPOLACAO = 0.1f;
 
 	public void atualizarAnimacao() {
-	    if (proximaSequencia != -1) {
-	        interpolacao += VELOCIDADE_INTERPOLACAO;
-	        setSequence(proximaSequencia, proximaSequencia + 1);
-	        draw();
-	        if (interpolacao >= 2.0f) {
-	            proximaSequencia = -1;
-	            interpolacao = 0.0f;
-	        }
-	    }
+		if (proximaSequencia != -1) {
+			interpolacao += VELOCIDADE_INTERPOLACAO;
+			setSequence(proximaSequencia, proximaSequencia + 1);
+			draw();
+			if (interpolacao >= 2.0f) {
+				proximaSequencia = -1;
+				interpolacao = 0.0f;
+			}
+		}
 	}
 
 	public void atirarPistola(Window janela, Scene cena, Keyboard teclado, Mob[] mobs) {
-	    // ... seu código anterior ...
 
-	    if (teclado.keyDown(KeyEvent.VK_A) && System.currentTimeMillis() - ultimoDisparo > delayEntreTiros) {
-	        proximaSequencia = (direcao == 1) ? 17 : (direcao == 2) ? 18 : (direcao == 5) ? 16 : (direcao == 4) ? 19 : null;
-	        tiros.adicionaTiro(x + 5, y + 12, direcao, cena);
-	        ultimoDisparo = System.currentTimeMillis(); // Atualiza o tempo do último disparo
-	    }
+		if (teclado.keyDown(KeyEvent.VK_A) && System.currentTimeMillis() - ultimoDisparo > delayEntreTiros) {
+			proximaSequencia = (direcao == 1) ? 17
+					: (direcao == 2) ? 18 : (direcao == 5) ? 16 : (direcao == 4) ? 19 : null;
+			tiros.adicionaTiro(x + 5, y + 12, direcao, cena);
+			ultimoDisparo = System.currentTimeMillis(); // Atualiza o tempo do último disparo
+		}
 
-	    tiros.run(mobs, janela, teclado);
-	    atualizarAnimacao();
+		tiros.run(mobs, janela, teclado);
+		atualizarAnimacao();
 	}
 
 	public void ataqueEspada(Window janela, Scene cena, Keyboard teclado, Mob inimigo) {
@@ -77,25 +78,23 @@ public class Jogador extends Ator {
 
 		correrLogica(janela, teclado);
 
-		// Diagonal Superior Direita
-		if (teclado.keyDown(Keyboard.UP_KEY) && teclado.keyDown(Keyboard.RIGHT_KEY)) {
-			moverDiagonalSuperiorDireita(janela);
-		}
-
-		// Diagonal superior esquerda
-		if (teclado.keyDown(Keyboard.UP_KEY) && teclado.keyDown(Keyboard.LEFT_KEY)) {
-			moverDiagonalSuperiorEsquerda(janela);
-		}
-
-		// Diagonal Inferior Direita
-		if (teclado.keyDown(Keyboard.DOWN_KEY) && teclado.keyDown(Keyboard.RIGHT_KEY)) {
-			moverDiagonalInferiorDireita(janela);
-		}
-
-		// Diagonal inferior esquerda
-		if (teclado.keyDown(Keyboard.DOWN_KEY) && teclado.keyDown(Keyboard.LEFT_KEY)) {
-			moverDiagonalInferiorEsquerda(janela);
-		}
+		/*
+		 * // Diagonal Superior Direita if (teclado.keyDown(Keyboard.UP_KEY) &&
+		 * teclado.keyDown(Keyboard.RIGHT_KEY)) { moverDiagonalSuperiorDireita(janela);
+		 * }
+		 * 
+		 * // Diagonal superior esquerda if (teclado.keyDown(Keyboard.UP_KEY) &&
+		 * teclado.keyDown(Keyboard.LEFT_KEY)) { moverDiagonalSuperiorEsquerda(janela);
+		 * }
+		 * 
+		 * // Diagonal Inferior Direita if (teclado.keyDown(Keyboard.DOWN_KEY) &&
+		 * teclado.keyDown(Keyboard.RIGHT_KEY)) { moverDiagonalInferiorDireita(janela);
+		 * }
+		 * 
+		 * // Diagonal inferior esquerda if (teclado.keyDown(Keyboard.DOWN_KEY) &&
+		 * teclado.keyDown(Keyboard.LEFT_KEY)) { moverDiagonalInferiorEsquerda(janela);
+		 * }
+		 */
 
 		// movendo para esquerda
 		if (teclado.keyDown(Keyboard.LEFT_KEY) && !teclado.keyDown(Keyboard.RIGHT_KEY)) {
@@ -142,11 +141,10 @@ public class Jogador extends Ator {
 
 			}
 			movendo = true;
-		}else {
-		movendo = false;
+		} else {
+			movendo = false;
 		}
 
-		
 		if (!movendo) {
 			for (int i = 0; i < 100; i++) {
 				setSequence(1, 20);
@@ -171,20 +169,20 @@ public class Jogador extends Ator {
 	}
 
 	private void correrLogica(Window janela, Keyboard teclado) {
-			janela.addKeyListener(new KeyAdapter() {
-				public void keyPressed(KeyEvent e) {
-					// Lógica para tratar a tecla pressionada
-					char keyChat = e.getKeyChar();
-					// int keyCode = e.getKeyCode();
-					System.out.println(keyChat);
+		janela.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				// Lógica para tratar a tecla pressionada
+				char keyChat = e.getKeyChar();
+				// int keyCode = e.getKeyCode();
+				System.out.println(keyChat);
 
-					if (keyChat == KeyEvent.VK_SPACE) {
-						velocidade = 6;
-					} else {
-						velocidade = 3;
-					}
+				if (keyChat == KeyEvent.VK_SPACE) {
+					velocidade = 6;
+				} else {
+					velocidade = 3;
 				}
-			});
+			}
+		});
 	}
 
 	private void moverDiagonalSuperiorDireita(Window janela) {
@@ -236,6 +234,6 @@ public class Jogador extends Ator {
 	}
 
 	public void vida(Window janela) {
-		janela.drawText("Vida Jogador: " + Ator.vida, 30, 30, Color.BLUE);
+		janela.drawText("Vida: " + Ator.vida, 30, 30, Color.green);
 	}
 }

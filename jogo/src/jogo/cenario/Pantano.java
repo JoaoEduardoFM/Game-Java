@@ -139,8 +139,8 @@ public class Pantano extends Cenario {
 	private void mobLogica(Jogador player) {
 		for (Mob mob : mobs) {
 			mob.morrer();
-			mob.pontosMorteMob(janela);
 			mob.caminho(cena);
+			mob.pontosMobs(janela);
 			mob.perseguir(player.x, player.y);
 			mob.x += cena.getXOffset();
 			mob.y += cena.getYOffset();
