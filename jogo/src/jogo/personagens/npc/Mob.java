@@ -1,11 +1,8 @@
 package jogo.personagens.npc;
 
-import java.awt.Color;
-
 import jogo.personagens.jogador.Jogador;
 import jogo.util.Ator;
 import jplay.URL;
-import jplay.Window;
 
 public class Mob extends Ator {
 

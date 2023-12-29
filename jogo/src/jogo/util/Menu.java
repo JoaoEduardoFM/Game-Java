@@ -56,7 +56,7 @@ public class Menu {
 
 			if (teclado.keyDown(Keyboard.ENTER_KEY)) {
 				if (currentMenu == menuStart) {
-					new Pantano(janela, backupJogador, backupMobs, backupNomesCenarios, backupTempoInicialCenario);
+					new Pantano(janela, null, null, null, 0);
 				} else if (currentMenu == menuOptions) {
 					// logica options
 				} else if (currentMenu == menuExit) {
