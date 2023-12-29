@@ -19,11 +19,15 @@ public class Jogador extends Ator {
 	private boolean movendo = true;
 	private long ultimoDisparo = 0;
 	private long delayEntreTiros = 700;
+	private long lastUpdateTime = System.currentTimeMillis();
+	private long animationDelay = 1000; // Ajuste conforme necessário (em milissegundos)
+	private String sprite;
 
 	public Jogador(int x, int y) {
 		super(URL.sprite("magoMarrom.png"), 20);
 		this.x = x;
 		this.y = y;
+		this.sprite = getSprite();
 		this.setTotalDuration(2000);
 	}
 
@@ -52,7 +56,7 @@ public class Jogador extends Ator {
 					setSequence(5, 8);
 				}
 			}
-			
+
 		}
 	}
 
@@ -82,7 +86,7 @@ public class Jogador extends Ator {
 		}
 	}
 
-	public void controle(Window janela, Keyboard teclado) {
+	public Boolean controle(Window janela, Keyboard teclado) {
 
 		if (teclado.keyDown(Keyboard.UP_KEY) || teclado.keyDown(Keyboard.DOWN_KEY)
 				|| teclado.keyDown(Keyboard.RIGHT_KEY) || teclado.keyDown(Keyboard.LEFT_KEY)) {
@@ -155,23 +159,22 @@ public class Jogador extends Ator {
 			}
 			movendo = true;
 		} else {
+			// parado
 			movendo = false;
+			if (direcao != 125) {
+				setSequence(1, 4);
+				direcao = 125;
+
+			}
 		}
 
 		if (!movendo) {
-			for (int i = 0; i < 100; i++) {
-				setSequence(1, 20);
+			long currentTime = System.currentTimeMillis();			
+			if (currentTime - lastUpdateTime > animationDelay) {		
+				update();
+				lastUpdateTime = currentTime;
 			}
-
-			if (direcao == 5) {
-				setSequence(1, 4);
-			} else if (direcao == 4) {
-				setSequence(13, 16);
-			} else if (direcao == 2) {
-				setSequence(9, 12);
-			} else if (direcao == 1) {
-				setSequence(5, 8);
-			}
+			movendo = false;
 		}
 
 		if (movendo) {
@@ -179,6 +182,7 @@ public class Jogador extends Ator {
 			update();
 			movendo = false;
 		}
+		return movendo;
 	}
 
 	private void correrLogica(Window janela, Keyboard teclado) {
@@ -246,4 +250,13 @@ public class Jogador extends Ator {
 	public void vida(Window janela) {
 		janela.drawText("Vida: " + Ator.vida, 30, 30, Color.green);
 	}
+
+	public String getSprite() {
+		return sprite;
+	}
+
+	public void setSprite(String sprite) {
+		this.sprite = sprite;
+	}
+
 }
