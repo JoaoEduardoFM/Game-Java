@@ -38,30 +38,30 @@ public class Jogador extends Ator {
 		if (proximaSequencia != -1) {
 			interpolacao += VELOCIDADE_INTERPOLACAO;
 			setSequence(proximaSequencia, proximaSequencia + 1);
-			draw();
+			update();
 			if (interpolacao >= 2.0f) {
 				proximaSequencia = -1;
 				interpolacao = 0.0f;
+				if (direcao == 5) {
+					setSequence(1, 4);
+				} else if (direcao == 4) {
+					setSequence(13, 16);
+				} else if (direcao == 2) {
+					setSequence(9, 12);
+				} else if (direcao == 1) {
+					setSequence(5, 8);
+				}
 			}
+			
 		}
 	}
 
 	public void atirarPistola(Window janela, Scene cena, Keyboard teclado, Mob[] mobs) {
-
 		if (teclado.keyDown(KeyEvent.VK_A) && System.currentTimeMillis() - ultimoDisparo > delayEntreTiros) {
 			proximaSequencia = (direcao == 1) ? 17
 					: (direcao == 2) ? 18 : (direcao == 5) ? 16 : (direcao == 4) ? 19 : 1;
 			tiros.adicionaTiro(x + 5, y + 12, direcao, cena);
-			ultimoDisparo = System.currentTimeMillis(); // Atualiza o tempo do último disparo
-			if (direcao == 5) {
-				setSequence(1, 4);
-			} else if (direcao == 4) {
-				setSequence(13, 16);
-			} else if (direcao == 2) {
-				setSequence(9, 12);
-			} else if (direcao == 1) {
-				setSequence(5, 8);
-			}
+			ultimoDisparo = System.currentTimeMillis();
 		}
 
 		tiros.run(mobs, janela, teclado);
