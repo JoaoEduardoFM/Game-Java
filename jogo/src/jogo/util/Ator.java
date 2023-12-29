@@ -10,7 +10,7 @@ import jplay.TileInfo;
 
 public class Ator extends Sprite {
 
-	public double velocidade = 0.01;
+	public double velocidade = 3;
 
 	public int direcao = 0;
 

@@ -53,6 +53,15 @@ public class Jogador extends Ator {
 					: (direcao == 2) ? 18 : (direcao == 5) ? 16 : (direcao == 4) ? 19 : 1;
 			tiros.adicionaTiro(x + 5, y + 12, direcao, cena);
 			ultimoDisparo = System.currentTimeMillis(); // Atualiza o tempo do último disparo
+			if (direcao == 5) {
+				setSequence(1, 4);
+			} else if (direcao == 4) {
+				setSequence(13, 16);
+			} else if (direcao == 2) {
+				setSequence(9, 12);
+			} else if (direcao == 1) {
+				setSequence(5, 8);
+			}
 		}
 
 		tiros.run(mobs, janela, teclado);
@@ -65,7 +74,6 @@ public class Jogador extends Ator {
 		if (teclado.keyDown(KeyEvent.VK_S) && System.currentTimeMillis() - ultimoDisparo > delayEntreTiros) {
 			espada.adicionaEspada(x + 5, y + 12, direcao, cena);
 			ultimoDisparo = System.currentTimeMillis(); // Atualiza o tempo do último disparo
-
 		}
 		try {
 			espada.run(inimigo);
@@ -76,7 +84,10 @@ public class Jogador extends Ator {
 
 	public void controle(Window janela, Keyboard teclado) {
 
-		correrLogica(janela, teclado);
+		if (teclado.keyDown(Keyboard.UP_KEY) || teclado.keyDown(Keyboard.DOWN_KEY)
+				|| teclado.keyDown(Keyboard.RIGHT_KEY) || teclado.keyDown(Keyboard.LEFT_KEY)) {
+			correrLogica(janela, teclado);
+		}
 
 		// Diagonal Superior Direita
 		if (teclado.keyDown(Keyboard.UP_KEY) && teclado.keyDown(Keyboard.RIGHT_KEY)) {
@@ -175,9 +186,6 @@ public class Jogador extends Ator {
 			public void keyPressed(KeyEvent e) {
 				// Lógica para tratar a tecla pressionada
 				char keyChat = e.getKeyChar();
-				// int keyCode = e.getKeyCode();
-				System.out.println(keyChat);
-
 				if (keyChat == KeyEvent.VK_SPACE) {
 					velocidade = 6;
 				} else {
