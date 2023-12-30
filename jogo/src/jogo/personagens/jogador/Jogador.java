@@ -153,7 +153,7 @@ public class Jogador extends Ator {
 				this.y += velocidade;
 			}
 			if (direcao != 5) {
-				setSequence(1, 4);
+				setSequence(1, 3);
 				direcao = 5;
 
 			}
@@ -161,11 +161,9 @@ public class Jogador extends Ator {
 		} else {
 			// parado
 			movendo = false;
-			if (direcao != 125) {
-				setSequence(1, 4);
-				direcao = 125;
-
-			}
+			/*
+			 * if (direcao != 125) { setSequence(1, 3); direcao = 125; }
+			 */
 		}
 
 		if (!movendo) {

@@ -28,7 +28,7 @@ public class Pantano extends Cenario {
 		janela = window;
 		cena = new Scene();
 		jogador = new Jogador(500, 350);
-		mobs = new Mob[] { new Mob(800, 900, "esqueleto.png") };
+		mobs = new Mob[] { new Mob(800, 900, "esqueleto.png", 1.0) };
 		cena.loadFromFile(URL.scenario("Cenario1.scn"));
 		teclado = janela.getKeyboard();
 		// Som.play("musica1.mid");
@@ -85,7 +85,7 @@ public class Pantano extends Cenario {
 		}
 	}
 
-	private void adicionarNovoMob(String mob, Mob[] backupMobs) {
+	private void adicionarNovoMob(String mob, Mob[] backupMobs, Double velocidade) {
 		int randomEdge = (int) (Math.random() * 4); // 0: topo, 1: base, 2: esquerda, 3: direita
 
 		int randomX = 0;
@@ -113,13 +113,13 @@ public class Pantano extends Cenario {
 		// Adiciona um novo mob ao array com as coordenadas aleatórias
 
 		if (backupMobs != null) {
-			Mob novoMob = new Mob(randomX, randomY, mob);
+			Mob novoMob = new Mob(randomX, randomY, mob, velocidade);
 			backupMobs = Arrays.copyOf(backupMobs, backupMobs.length + 1);
 			backupMobs[backupMobs.length - 1] = novoMob;
 		}
 
 		if (mobs != null) {
-			Mob novoMob = new Mob(randomX, randomY, mob);
+			Mob novoMob = new Mob(randomX, randomY, mob, velocidade);
 			mobs = Arrays.copyOf(mobs, mobs.length + 1);
 			mobs[mobs.length - 1] = novoMob;
 		}
@@ -177,7 +177,8 @@ public class Pantano extends Cenario {
 		long tempoDecorrido = (tempoAtual - tempoInicialCenario) / 1000; // converta para segundos
 
 		if (tempoDecorrido >= 1) {
-			adicionarNovoMob("esqueleto.png", backupMobs);
+			adicionarNovoMob("esqueleto.png", backupMobs,1.0);
+			adicionarNovoMob("orcPequeno.png", backupMobs,2.0);
 			tempoInicialCenario = System.currentTimeMillis();
 		}
 	}
