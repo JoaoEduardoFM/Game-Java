@@ -23,12 +23,13 @@ public class Jogador extends Ator {
 	private long animationDelay = 1000; // Ajuste conforme necessário (em milissegundos)
 	private String sprite;
 
-	public Jogador(int x, int y) {
+	public Jogador(int x, int y, double vida) {
 		super(URL.sprite("magoMarrom.png"), 20);
 		this.x = x;
 		this.y = y;
 		this.sprite = getSprite();
 		this.setTotalDuration(2000);
+		this.vidaJogador = vida;
 	}
 
 	ControleTiros tiros = new ControleTiros();

@@ -14,13 +14,14 @@ public class Mob extends Ator {
 	private boolean isDead = false;
 	private boolean morto;
 
-	public Mob(int x, int y, String sprite, Double velocidade) {
+	public Mob(int x, int y, String sprite, Double velocidade, double vidaMob) {
 		// arquivo + frames
 		super(URL.sprite(sprite), 20);
 		this.x = x;
 		this.y = y;
 		this.setTotalDuration(2000);
 		this.velocidade = velocidade;
+		this.vidaMob = vidaMob;
 	}
 
 	public void perseguir(double x, double y) {
