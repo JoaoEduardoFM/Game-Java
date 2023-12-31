@@ -24,7 +24,7 @@ public class Pantano extends Cenario {
 	private Boolean pause = true;
 
 	public Pantano(Window window, Jogador backupJogador, Mob[] backupMobs, String[] backupNomesCenarios,
-			long backupTempoInicialCenario) {
+			int backupTempoInicialCenario) {
 		janela = window;
 		cena = new Scene();
 		jogador = new Jogador(500, 350);

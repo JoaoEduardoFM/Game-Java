@@ -51,7 +51,7 @@ public class Menu {
 			}
 
 			if (teclado.keyDown(KeyEvent.VK_ESCAPE)) {
-				new Pantano(janela, backupJogador, backupMobs, backupNomesCenarios, backupTempoInicialCenario);
+				new Pantano(janela, backupJogador, backupMobs, backupNomesCenarios, 0);
 			}
 
 			if (teclado.keyDown(Keyboard.ENTER_KEY)) {
