@@ -15,7 +15,7 @@ import jplay.Window;
 
 public class Jogador extends Ator {
 
-	public double vidaJogador = 1000;
+	public double vidaJogador;
 	private boolean movendo = true;
 	private long ultimoDisparo = 0;
 	private long delayEntreTiros = 700;
@@ -23,13 +23,13 @@ public class Jogador extends Ator {
 	private long animationDelay = 1000; // Ajuste conforme necessário (em milissegundos)
 	private String sprite;
 
-	public Jogador(int x, int y, double vida) {
+	public Jogador(int x, int y, double vidaJogador) {
 		super(URL.sprite("magoMarrom.png"), 20);
 		this.x = x;
 		this.y = y;
 		this.sprite = getSprite();
 		this.setTotalDuration(2000);
-		this.vidaJogador = vida;
+		Ator.vida = vidaJogador;
 	}
 
 	ControleTiros tiros = new ControleTiros();

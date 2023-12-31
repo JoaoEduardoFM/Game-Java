@@ -18,7 +18,7 @@ public class Menu {
 
 	static GameImage currentMenu = menuStart;
 
-	public static void manuLogica(Window janela, Keyboard teclado, Jogador backupJogador, Mob[] backupMobs, String[] backupNomesCenarios, long backupTempoInicialCenario) throws InterruptedException {
+	public static void manuLogica(Window janela, Keyboard teclado, Jogador backupJogador, Mob[] backupMobs, String[] backupNomesCenarios, long backupTempoInicialCenario, double vidaJogador) throws InterruptedException {
 		while (true) {
 			currentMenu.draw();
 			janela.update();
@@ -51,12 +51,12 @@ public class Menu {
 			}
 
 			if (teclado.keyDown(KeyEvent.VK_ESCAPE)) {
-				new Pantano(janela, backupJogador, backupMobs, backupNomesCenarios, 0);
+				new Pantano(janela, backupJogador, backupMobs, backupNomesCenarios, 0, vidaJogador);
 			}
 
 			if (teclado.keyDown(Keyboard.ENTER_KEY)) {
 				if (currentMenu == menuStart) {
-					new Pantano(janela, null, null, null, 0);
+					new Pantano(janela, null, null, null, 0, 1500);
 				} else if (currentMenu == menuOptions) {
 					// logica options
 				} else if (currentMenu == menuExit) {
@@ -101,7 +101,7 @@ public class Menu {
 
 			if (teclado.keyDown(Keyboard.ENTER_KEY)) {
 				if (currentMenu == menuStart) {
-					new Pantano(janela, null, null, null, 0);
+					new Pantano(janela, null, null, null, 0, 1500);
 				} else if (currentMenu == menuOptions) {
 					// logica options
 				} else if (currentMenu == menuExit) {

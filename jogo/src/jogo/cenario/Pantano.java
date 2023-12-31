@@ -24,19 +24,23 @@ public class Pantano extends Cenario {
 	private Boolean pause = true;
 
 	public Pantano(Window window, Jogador backupJogador, Mob[] backupMobs, String[] backupNomesCenarios,
-			long backupTempoInicialCenario) {
+			long backupTempoInicialCenario, double vidaJogador) {
 		janela = window;
 		cena = new Scene();
-		jogador = new Jogador(500, 350, 1000);
+		if(backupJogador != null) {
+		jogador = new Jogador(500, 350, vidaJogador);
+		}else {
+		jogador = new Jogador(500, 350, 1500);	
+		}
 		mobs = new Mob[] { new Mob(800, 900, "esqueleto.png", 0.5, 250.0) };
 		cena.loadFromFile(URL.scenario("Cenario1.scn"));
 		teclado = janela.getKeyboard();
 		// Som.play("musica1.mid");
-		run(window, backupJogador, backupMobs, backupNomesCenarios, backupTempoInicialCenario);
+		run(window, backupJogador, backupMobs, backupNomesCenarios, backupTempoInicialCenario, vidaJogador);
 	}
 
 	private void run(Window window, Jogador backupJogador, Mob[] backupMobs, String[] backupNomesCenarios,
-			long backupTempoInicialCenario) {
+			long backupTempoInicialCenario, double vidaJogador) {
 		while (getPause()) {
 			jogadorLogica(backupJogador != null ? backupJogador : jogador);
 			mobLogica(backupJogador != null ? backupJogador : jogador);
@@ -71,7 +75,7 @@ public class Pantano extends Cenario {
 
 		if (getPause().equals(false)) {
 			try {
-				Menu.manuLogica(janela, teclado, getJogador(), getMobs(), getNomesCenarios(), 0);
+				Menu.manuLogica(janela, teclado, getJogador(), getMobs(), getNomesCenarios(), 0, vidaJogador);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
