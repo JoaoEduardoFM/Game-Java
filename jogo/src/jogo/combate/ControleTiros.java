@@ -39,7 +39,7 @@ public class ControleTiros {
 						tiro.x = 10_000;
 						inimigo.vidaMob -= 250;
 
-						if (inimigo.vidaMob <= 0) {
+						if (inimigo.vidaMob >= 0) {
 							inimigo.morrer();
 							inimigo.sofrerRecuo(7);
 						}
