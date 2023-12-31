@@ -177,6 +177,7 @@ public class Pantano extends Cenario {
 		if (tempoDecorrido >= 1) {
 			adicionarNovoMob("esqueleto.png", backupMobs,0.5);
 			adicionarNovoMob("orcPequeno.png", backupMobs,2.0);
+			adicionarNovoMob("javali.png", backupMobs,1.0);
 			tempoInicialCenario = System.currentTimeMillis();
 		}
 	}
