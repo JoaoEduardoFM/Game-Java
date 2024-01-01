@@ -20,9 +20,9 @@ public class ControleAtaqueEmArea {
 	public AtaqueEmArea atacarEmArea(double x, double y, int caminho, Scene cena) {
 		AtaqueEmArea tiro = new AtaqueEmArea(x, y, caminho);
 		atkArea.add(tiro);
-		// adiciona tiro da tela
+		// adiciona animação na tela
 		cena.addOverlay(tiro);
-		// somDisparo();
+		// somAtaque();
 		return tiro;
 	}
 
@@ -42,7 +42,7 @@ public class ControleAtaqueEmArea {
 
 						if (inimigo.vidaMob >= 0) {
 							inimigo.morrer();
-							inimigo.sofrerRecuo(7);
+							inimigo.sofrerRecuo(50);
 						}
 
 						tirosToRemove.add(tiro);
@@ -50,12 +50,11 @@ public class ControleAtaqueEmArea {
 				}
 			}
 		}
-
-		// Remove bullets after processing collisions
+		
 		atkArea.removeAll(tirosToRemove);
 	}
 
-	private void somDisparo() {
+	private void somAtaque() {
 		new Sound(URL.audio("tiro.WAV")).play();
 	}
 }

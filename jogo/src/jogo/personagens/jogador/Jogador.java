@@ -65,8 +65,7 @@ public class Jogador extends Ator {
 
 	public void atirarPistola(Window janela, Scene cena, Keyboard teclado, Mob[] mobs) {
 		if (teclado.keyDown(KeyEvent.VK_A) && System.currentTimeMillis() - ultimoDisparo > delayEntreTiros) {
-			proximaSequencia = (direcao == 1) ? 17
-					: (direcao == 2) ? 18 : (direcao == 5) ? 16 : (direcao == 4) ? 19 : 1;
+			proximaSequencia = (direcao == 1) ? 17 : (direcao == 2) ? 18 : (direcao == 5) ? 16 : (direcao == 4) ? 19 : 1;
 			tiros.adicionaTiro(x + 5, y + 12, direcao, cena);
 			ultimoDisparo = System.currentTimeMillis();
 		}
@@ -77,28 +76,12 @@ public class Jogador extends Ator {
 	
 	public void ataqueEmArea(Window janela, Scene cena, Keyboard teclado, Mob[] mobs) {
 		if (teclado.keyDown(KeyEvent.VK_S) && System.currentTimeMillis() - ultimoDisparo > delayEntreTiros) {
-			proximaSequencia = (direcao == 1) ? 17
-					: (direcao == 2) ? 18 : (direcao == 5) ? 16 : (direcao == 4) ? 19 : 1;
-			atkArea.atacarEmArea(x + 5, y + 12, direcao, cena);
+			atkArea.atacarEmArea(x - 25, y - 40, direcao, cena);
 			ultimoDisparo = System.currentTimeMillis();
 		}
 
 		atkArea.run(mobs, janela, teclado);
 		atualizarAnimacao();
-	}
-
-	public void ataqueEspada(Window janela, Scene cena, Keyboard teclado, Mob inimigo) {
-		// Verifica se a tecla "A" está pressionada e se o tempo desde o último disparo
-		// é maior que o delay
-		if (teclado.keyDown(KeyEvent.VK_S) && System.currentTimeMillis() - ultimoDisparo > delayEntreTiros) {
-			espada.adicionaEspada(x + 5, y + 12, direcao, cena);
-			ultimoDisparo = System.currentTimeMillis(); // Atualiza o tempo do último disparo
-		}
-		try {
-			espada.run(inimigo);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
 	}
 
 	public Boolean controle(Window janela, Keyboard teclado) {

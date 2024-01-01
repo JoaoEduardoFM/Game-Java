@@ -16,7 +16,7 @@ public class AtaqueEmArea extends Sprite {
 	protected int direcao = 3;
 	private boolean atingiuLimite = false;
 	private long tempoInicial;
-	private static final long LimiteTempo = 500; 
+	private static final long LimiteTempo = 500;
 	private double origemX;
 	private double origemY;
 
@@ -31,40 +31,39 @@ public class AtaqueEmArea extends Sprite {
 	}
 
 	public void mover(Window janela, Keyboard teclado, AtaqueEmArea tiro) {
-		if (caminho == LEFT && this.x > origemX - ALCANCE_TIRO) {
-			this.x -= VELOCIDADE_TIRO;
-			moveTo(x, y, VELOCIDADE_TIRO);
-			if (direcao != 1) {
-				setSequence(1, 5);
-			}
-			movendo = true;
-		}
+		
+		for (int i = 1; i <= 6; i++) {
+		    if (caminho == LEFT && this.x > origemX - ALCANCE_TIRO) {
+		    	if (direcao != 1) {
+					setSequence(1, 4);// sprite 4 e 8 do personagem
+					direcao = 1;
 
-		if (caminho == RIGHT && this.x < origemX + ALCANCE_TIRO) {
-			this.x += VELOCIDADE_TIRO;
-			moveTo(x, y, VELOCIDADE_TIRO);
-			if (direcao != 2) {
-				setSequence(1, 5);
-			}
-			movendo = true;
-		}
+				}
+				movendo = true;
+		    } else if (caminho == RIGHT && this.x < origemX + ALCANCE_TIRO) {
+		    	if (direcao != 2) {
+					setSequence(1, 4);
+					direcao = 2;
 
-		if (caminho == UP && this.y > origemY - ALCANCE_TIRO) {
-			this.y -= VELOCIDADE_TIRO;
-			moveTo(x, y, VELOCIDADE_TIRO);
-			if (direcao != 4) {
-				setSequence(1, 5);
-			}
-			movendo = true;
-		}
+				}
+				movendo = true;
+		    } else if (caminho == UP && this.y > origemY - ALCANCE_TIRO) {
+		    	if (direcao != 4) {
+					setSequence(1, 4);
+					direcao = 4;
 
-		if (caminho == DOWN && this.y < origemY + ALCANCE_TIRO) {
-			this.y += VELOCIDADE_TIRO;
-			moveTo(x, y, VELOCIDADE_TIRO);
-			if (direcao != 5) {
-				setSequence(1, 5);
-			}
-			movendo = true;
+				}
+				movendo = true;
+		    } else if (caminho == DOWN && this.y < origemY + ALCANCE_TIRO) {
+		    	if (direcao != 5) {
+					setSequence(1, 4);
+					direcao = 5;
+
+				}
+				movendo = true;
+		    } else {
+		    	movendo = false;
+		    }
 		}
 
 		// Validar se a distância percorrida atingiu o alcance máximo

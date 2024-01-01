@@ -44,7 +44,7 @@ public class Pantano extends Cenario {
 		while (getPause()) {
 			jogadorLogica(backupJogador != null ? backupJogador : jogador);
 			mobLogica(backupJogador != null ? backupJogador : jogador);
-			spawnarMob(backupMobs);
+			//spawnarMob(backupMobs);
 
 			if (window != null) {
 				setJanela(window);
