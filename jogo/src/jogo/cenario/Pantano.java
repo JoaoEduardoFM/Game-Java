@@ -134,6 +134,7 @@ public class Pantano extends Cenario {
 		personagem.x += cena.getXOffset();
 		personagem.y += cena.getYOffset();
 		personagem.atirarPistola(janela, cena, teclado, mobs);
+		personagem.ataqueEmArea(janela, cena, teclado, mobs);
 		personagem.draw();
 		personagem.vida(janela);
 	}
@@ -154,6 +155,7 @@ public class Pantano extends Cenario {
 		player.x += cena.getXOffset();
 		player.y += cena.getYOffset();
 		player.atirarPistola(janela, cena, teclado, mobs);
+		player.ataqueEmArea(janela, cena, teclado, mobs);
 		player.draw();
 		player.vida(janela);
 

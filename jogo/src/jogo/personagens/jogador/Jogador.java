@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+import jogo.combate.ControleAtaqueEmArea;
 import jogo.combate.ControleEspada;
 import jogo.combate.ControleTiros;
 import jogo.personagens.npc.Mob;
@@ -34,6 +35,7 @@ public class Jogador extends Ator {
 
 	ControleTiros tiros = new ControleTiros();
 	ControleEspada espada = new ControleEspada();
+	ControleAtaqueEmArea atkArea = new ControleAtaqueEmArea();
 
 	private int proximaSequencia = -1;
 	private float interpolacao = 0.0f;
@@ -70,6 +72,18 @@ public class Jogador extends Ator {
 		}
 
 		tiros.run(mobs, janela, teclado);
+		atualizarAnimacao();
+	}
+	
+	public void ataqueEmArea(Window janela, Scene cena, Keyboard teclado, Mob[] mobs) {
+		if (teclado.keyDown(KeyEvent.VK_S) && System.currentTimeMillis() - ultimoDisparo > delayEntreTiros) {
+			proximaSequencia = (direcao == 1) ? 17
+					: (direcao == 2) ? 18 : (direcao == 5) ? 16 : (direcao == 4) ? 19 : 1;
+			atkArea.atacarEmArea(x + 5, y + 12, direcao, cena);
+			ultimoDisparo = System.currentTimeMillis();
+		}
+
+		atkArea.run(mobs, janela, teclado);
 		atualizarAnimacao();
 	}
 
