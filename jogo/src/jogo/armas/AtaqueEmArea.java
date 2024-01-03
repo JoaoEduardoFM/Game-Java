@@ -21,7 +21,7 @@ public class AtaqueEmArea extends Sprite {
 	private double origemY;
 
 	public AtaqueEmArea(double x, double y, int caminho) {
-		super(URL.sprite("atkArea.png"), 5);
+		super(URL.sprite("atakAreaGrande.png"), 5);
 		this.caminho = caminho;
 		this.x = x;
 		this.y = y;

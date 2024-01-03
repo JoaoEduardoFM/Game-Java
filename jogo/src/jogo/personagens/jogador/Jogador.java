@@ -39,7 +39,7 @@ public class Jogador extends Ator {
 
 	private int proximaSequencia = -1;
 	private float interpolacao = 0.0f;
-	private static final float VELOCIDADE_INTERPOLACAO = 0.001f;
+	private static final float VELOCIDADE_INTERPOLACAO = 0.05f;
 
 	public void atualizarAnimacao() {
 		if (proximaSequencia != -1) {
@@ -65,7 +65,7 @@ public class Jogador extends Ator {
 	
 	public void ataqueEmArea(Window janela, Scene cena, Keyboard teclado, Mob[] mobs) {
 		if (teclado.keyDown(KeyEvent.VK_S) && System.currentTimeMillis() - ultimoDisparo > delayEntreTiros) {
-			atkArea.atacarEmArea(x - 25, y - 40, direcao, cena);
+			atkArea.atacarEmArea(x - 80, y - 120, direcao, cena);
 			ultimoDisparo = System.currentTimeMillis();
 		}
 
