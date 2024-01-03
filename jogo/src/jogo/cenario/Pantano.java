@@ -35,7 +35,7 @@ public class Pantano extends Cenario {
 		mobs = new Mob[] { new Mob(800, 900, "esqueleto.png", 0.5, 250.0) };
 		cena.loadFromFile(URL.scenario("Cenario1.scn"));
 		teclado = janela.getKeyboard();
-		// Som.play("musica1.mid");
+		// som.play("musica1.mid");
 		run(window, backupJogador, backupMobs, backupNomesCenarios, backupTempoInicialCenario, vidaJogador);
 	}
 
@@ -134,7 +134,8 @@ public class Pantano extends Cenario {
 		personagem.x += cena.getXOffset();
 		personagem.y += cena.getYOffset();
 		personagem.atirarPistola(janela, cena, teclado, mobs);
-		personagem.ataqueEmArea(janela, cena, teclado, mobs);
+		personagem.ataqueEmAreaExplosao(janela, cena, teclado, mobs);
+		personagem.ataqueEmAreaAgua(janela, cena, teclado, mobs);
 		personagem.draw();
 		personagem.vida(janela);
 	}
@@ -155,7 +156,8 @@ public class Pantano extends Cenario {
 		player.x += cena.getXOffset();
 		player.y += cena.getYOffset();
 		player.atirarPistola(janela, cena, teclado, mobs);
-		player.ataqueEmArea(janela, cena, teclado, mobs);
+		player.ataqueEmAreaExplosao(janela, cena, teclado, mobs);
+		player.ataqueEmAreaAgua(janela, cena, teclado, mobs);
 		player.draw();
 		player.vida(janela);
 

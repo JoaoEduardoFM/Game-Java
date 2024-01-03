@@ -15,8 +15,8 @@ public class ControleAtaqueEmArea {
 
     LinkedList<AtaqueEmArea> atkArea = new LinkedList<>();
 
-    public AtaqueEmArea atacarEmArea(double x, double y, int caminho, Scene cena) {
-        AtaqueEmArea tiro = new AtaqueEmArea(x, y, caminho);
+    public AtaqueEmArea atacarEmArea(double x, double y, int caminho, Scene cena, String tipoAtaque, int nrSprite) {
+        AtaqueEmArea tiro = new AtaqueEmArea(x, y, caminho,tipoAtaque,nrSprite);
         atkArea.add(tiro);
         // adiciona animação na tela
         cena.addOverlay(tiro);
@@ -24,7 +24,7 @@ public class ControleAtaqueEmArea {
         return tiro;
     }
 
-    public void run(Mob[] mobs, Window janela, Keyboard teclado) {
+    public void run(Mob[] mobs, Window janela, Keyboard teclado, int nrSprite) {
         List<AtaqueEmArea> tirosToRemove = new ArrayList<>();
 
         for (Iterator<AtaqueEmArea> iterator = atkArea.iterator(); iterator.hasNext();) {
@@ -39,7 +39,7 @@ public class ControleAtaqueEmArea {
                 continue; // Skip further processing for this attack area
             }
 
-            tiro.mover(janela, teclado, tiro);
+            tiro.mover(teclado, nrSprite);
 
             for (Mob inimigo : mobs) {
                 if (inimigo.vidaMob > 0) {
