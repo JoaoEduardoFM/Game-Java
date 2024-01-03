@@ -28,6 +28,7 @@ public class AtaqueEmArea extends Sprite {
 		this.origemX = x + 50;
 		this.origemY = y;
 		this.tempoInicial = System.currentTimeMillis();
+		setTotalDuration(800);
 	}
 
 	public void mover(Window janela, Keyboard teclado, AtaqueEmArea tiro) {
@@ -35,28 +36,28 @@ public class AtaqueEmArea extends Sprite {
 		for (int i = 1; i <= 6; i++) {
 		    if (caminho == LEFT && this.x > origemX - ALCANCE_TIRO) {
 		    	if (direcao != 1) {
-					setSequence(1, 4);// sprite 4 e 8 do personagem
+					setSequence(1, 5);// sprite 4 e 8 do personagem
 					direcao = 1;
 
 				}
 				movendo = true;
 		    } else if (caminho == RIGHT && this.x < origemX + ALCANCE_TIRO) {
 		    	if (direcao != 2) {
-					setSequence(1, 4);
+					setSequence(1, 5);
 					direcao = 2;
 
 				}
 				movendo = true;
 		    } else if (caminho == UP && this.y > origemY - ALCANCE_TIRO) {
 		    	if (direcao != 4) {
-					setSequence(1, 4);
+					setSequence(1, 5);
 					direcao = 4;
 
 				}
 				movendo = true;
 		    } else if (caminho == DOWN && this.y < origemY + ALCANCE_TIRO) {
 		    	if (direcao != 5) {
-					setSequence(1, 4);
+					setSequence(1, 5);
 					direcao = 5;
 
 				}

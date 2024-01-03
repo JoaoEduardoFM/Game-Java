@@ -39,7 +39,7 @@ public class Jogador extends Ator {
 
 	private int proximaSequencia = -1;
 	private float interpolacao = 0.0f;
-	private static final float VELOCIDADE_INTERPOLACAO = 0.1f;
+	private static final float VELOCIDADE_INTERPOLACAO = 0.001f;
 
 	public void atualizarAnimacao() {
 		if (proximaSequencia != -1) {
@@ -62,6 +62,16 @@ public class Jogador extends Ator {
 
 		}
 	}
+	
+	public void ataqueEmArea(Window janela, Scene cena, Keyboard teclado, Mob[] mobs) {
+		if (teclado.keyDown(KeyEvent.VK_S) && System.currentTimeMillis() - ultimoDisparo > delayEntreTiros) {
+			atkArea.atacarEmArea(x - 25, y - 40, direcao, cena);
+			ultimoDisparo = System.currentTimeMillis();
+		}
+
+		atkArea.run(mobs, janela, teclado);
+		atualizarAnimacao();
+	}
 
 	public void atirarPistola(Window janela, Scene cena, Keyboard teclado, Mob[] mobs) {
 		if (teclado.keyDown(KeyEvent.VK_A) && System.currentTimeMillis() - ultimoDisparo > delayEntreTiros) {
@@ -74,16 +84,6 @@ public class Jogador extends Ator {
 		atualizarAnimacao();
 	}
 	
-	public void ataqueEmArea(Window janela, Scene cena, Keyboard teclado, Mob[] mobs) {
-		if (teclado.keyDown(KeyEvent.VK_S) && System.currentTimeMillis() - ultimoDisparo > delayEntreTiros) {
-			atkArea.atacarEmArea(x - 25, y - 40, direcao, cena);
-			ultimoDisparo = System.currentTimeMillis();
-		}
-
-		atkArea.run(mobs, janela, teclado);
-		atualizarAnimacao();
-	}
-
 	public Boolean controle(Window janela, Keyboard teclado) {
 
 		if (teclado.keyDown(Keyboard.UP_KEY) || teclado.keyDown(Keyboard.DOWN_KEY)
