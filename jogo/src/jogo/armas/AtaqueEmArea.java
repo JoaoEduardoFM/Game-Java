@@ -84,6 +84,30 @@ public class AtaqueEmArea extends Sprite {
 		}
 	}
 
+	public double getOrigemX() {
+		return origemX;
+	}
+
+	public void setOrigemX(double origemX) {
+		this.origemX = origemX;
+	}
+
+	public double getOrigemY() {
+		return origemY;
+	}
+
+	public void setOrigemY(double origemY) {
+		this.origemY = origemY;
+	}
+
+	public long getTempoInicial() {
+		return tempoInicial;
+	}
+
+	public void setTempoInicial(long tempoInicial) {
+		this.tempoInicial = tempoInicial;
+	}
+
 	public boolean getAtingiuLimite() {
 		return atingiuLimite;
 	}

@@ -1,60 +1,66 @@
 package jogo.combate;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
 import jogo.armas.AtaqueEmArea;
-import jogo.armas.Tiro;
 import jogo.personagens.npc.Mob;
 import jplay.Keyboard;
 import jplay.Scene;
-import jplay.Sound;
-import jplay.URL;
 import jplay.Window;
 
 public class ControleAtaqueEmArea {
 
-	LinkedList<AtaqueEmArea> atkArea = new LinkedList<>();
+    LinkedList<AtaqueEmArea> atkArea = new LinkedList<>();
 
-	public AtaqueEmArea atacarEmArea(double x, double y, int caminho, Scene cena) {
-		AtaqueEmArea tiro = new AtaqueEmArea(x, y, caminho);
-		atkArea.add(tiro);
-		// adiciona animação na tela
-		cena.addOverlay(tiro);
-		// somAtaque();
-		return tiro;
-	}
+    public AtaqueEmArea atacarEmArea(double x, double y, int caminho, Scene cena) {
+        AtaqueEmArea tiro = new AtaqueEmArea(x, y, caminho);
+        atkArea.add(tiro);
+        // adiciona animação na tela
+        cena.addOverlay(tiro);
+        // somAtaque();
+        return tiro;
+    }
 
-	boolean ataqueMob = false;
+    public void run(Mob[] mobs, Window janela, Keyboard teclado) {
+        List<AtaqueEmArea> tirosToRemove = new ArrayList<>();
 
-	public void run(Mob[] mobs, Window janela, Keyboard teclado) {
-		List<AtaqueEmArea> tirosToRemove = new ArrayList<>();
+        for (Iterator<AtaqueEmArea> iterator = atkArea.iterator(); iterator.hasNext();) {
+            AtaqueEmArea tiro = iterator.next();
 
-		for (AtaqueEmArea tiro : atkArea) {
-			tiro.mover(janela, teclado, tiro);
+            // Check if 1 second has passed since the attack area was created
+            long currentTime = System.currentTimeMillis();
+            if (currentTime - tiro.getTempoInicial() >= 1000) {
+                // Teleport after 1 second
+                tiro.setOrigemX(10_000);
+                iterator.remove(); // Remove the attack area from the list
+                continue; // Skip further processing for this attack area
+            }
 
-			for (Mob inimigo : mobs) {
-				if (inimigo.vidaMob > 0) {
-					if (tiro.collided(inimigo)) {
-						tiro.x = 10_000;
-						inimigo.vidaMob -= 250;
+            tiro.mover(janela, teclado, tiro);
 
-						if (inimigo.vidaMob >= 0) {
-							inimigo.morrer();
-							inimigo.sofrerRecuo(50);
-						}
+            for (Mob inimigo : mobs) {
+                if (inimigo.vidaMob > 0) {
+                    if (tiro.collided(inimigo)) {
+                        inimigo.vidaMob -= 250;
 
-						tirosToRemove.add(tiro);
-					}
-				}
-			}
-		}
-		
-		atkArea.removeAll(tirosToRemove);
-	}
+                        if (inimigo.vidaMob >= 0) {
+                            inimigo.morrer();
+                            inimigo.sofrerRecuo(50);
+                        }
+                    }
+                }
+            }
+        }
 
-	private void somAtaque() {
-		new Sound(URL.audio("tiro.WAV")).play();
-	}
+        // Remove the attack areas that hit mobs
+        atkArea.removeAll(tirosToRemove);
+    }
+
+    private void somAtaque() {
+        // Add your sound logic here
+        // new Sound(URL.audio("tiro.WAV")).play();
+    }
 }
