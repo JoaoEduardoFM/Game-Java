@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import jogo.armas.Tiro;
+import jogo.armas.Ataque;
 import jogo.personagens.npc.Mob;
 import jplay.Keyboard;
 import jplay.Scene;
@@ -14,10 +14,10 @@ import jplay.Window;
 
 public class ControleTiros {
 
-	LinkedList<Tiro> tiros = new LinkedList<>();
+	LinkedList<Ataque> tiros = new LinkedList<>();
 
-	public Tiro adicionaTiro(double x, double y, int caminho, Scene cena) {
-		Tiro tiro = new Tiro(x, y, caminho);
+	public Ataque adicionaTiro(double x, double y, int caminho, Scene cena) {
+		Ataque tiro = new Ataque(x, y, caminho);
 		tiros.add(tiro);
 		// adiciona tiro da tela
 		cena.addOverlay(tiro);
@@ -28,9 +28,9 @@ public class ControleTiros {
 	boolean ataqueMob = false;
 
 	public void run(Mob[] mobs, Window janela, Keyboard teclado) {
-		List<Tiro> tirosToRemove = new ArrayList<>();
+		List<Ataque> tirosToRemove = new ArrayList<>();
 
-		for (Tiro tiro : tiros) {
+		for (Ataque tiro : tiros) {
 			tiro.mover(janela, teclado, tiro);
 
 			for (Mob inimigo : mobs) {
