@@ -64,7 +64,7 @@ public class Jogador extends Ator {
 	}
 	
 	public void ataqueEmAreaExplosao(Window janela, Scene cena, Keyboard teclado, Mob[] mobs) {
-		if (teclado.keyDown(KeyEvent.VK_S) && System.currentTimeMillis() - ultimoDisparo > delayEntreTiros) {
+		if (direcao != 0 &&  teclado.keyDown(KeyEvent.VK_S) && System.currentTimeMillis() - ultimoDisparo > delayEntreTiros) {
 			atkArea.atacarEmArea(x - 80, y - 120, direcao, cena, "atakAreaGrande.png", 5);
 			ultimoDisparo = System.currentTimeMillis();
 		}
@@ -74,7 +74,7 @@ public class Jogador extends Ator {
 	}
 	
 	public void ataqueEmAreaAgua(Window janela, Scene cena, Keyboard teclado, Mob[] mobs) {
-		if (teclado.keyDown(KeyEvent.VK_D) && System.currentTimeMillis() - ultimoDisparo > delayEntreTiros) {
+		if (direcao != 0 && teclado.keyDown(KeyEvent.VK_D) && System.currentTimeMillis() - ultimoDisparo > delayEntreTiros) {
 			atkArea.atacarEmArea(x - 100, y - 120, direcao, cena, "aguaAtaqueGrande.png", 9);
 			ultimoDisparo = System.currentTimeMillis();
 		}
@@ -86,7 +86,7 @@ public class Jogador extends Ator {
 	}
 
 	public void atirarPistola(Window janela, Scene cena, Keyboard teclado, Mob[] mobs) {
-		if (teclado.keyDown(KeyEvent.VK_A) && System.currentTimeMillis() - ultimoDisparo > delayEntreTiros) {
+		if (direcao != 0 && teclado.keyDown(KeyEvent.VK_A) && System.currentTimeMillis() - ultimoDisparo > delayEntreTiros) {
 			proximaSequencia = (direcao == 1) ? 17 : (direcao == 2) ? 18 : (direcao == 5) ? 16 : (direcao == 4) ? 19 : 1;
 			tiros.adicionaTiro(x + 5, y + 12, direcao, cena);
 			ultimoDisparo = System.currentTimeMillis();
