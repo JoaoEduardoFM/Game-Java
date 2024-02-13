@@ -12,6 +12,3 @@
     <td>Java</td>
   </tr>
   <tr>
-    <td>11</td>
-  </tr>
-</table>
