@@ -7,8 +7,4 @@
 
 ## Technologies Used:
 ![header](https://user-images.githubusercontent.com/90796699/228732700-385f1245-70e2-4afa-8fcb-3838c43cc3d1.png)
-<table>
-  <tr>
-    <td>Java</td>
-  </tr>
-  <tr>
+
