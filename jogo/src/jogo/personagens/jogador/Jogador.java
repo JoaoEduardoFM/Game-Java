@@ -74,16 +74,16 @@ public class Jogador extends Ator {
 	}
 	
 	public void ataqueEmAreaAgua(Window janela, Scene cena, Keyboard teclado, Mob[] mobs) {
-		if (direcao != 0 && teclado.keyDown(KeyEvent.VK_D) && System.currentTimeMillis() - ultimoDisparo > delayEntreTiros) {
-			atkArea.atacarEmArea(x - 100, y - 120, direcao, cena, "atakAgua.png", 5);
+		if (direcao != 0 &&  teclado.keyDown(KeyEvent.VK_D) && System.currentTimeMillis() - ultimoDisparo > delayEntreTiros) {
+			atkArea.atacarEmArea(x - 80, y - 80, direcao, cena, "atakAgua.png", 5);
 			ultimoDisparo = System.currentTimeMillis();
 		}
 
-		atkArea.run(mobs, janela, teclado, 7);
+		atkArea.run(mobs, janela, teclado , 5);
 		atualizarAnimacao();
-		
-		
 	}
+	
+	
 
 	public void atirarPistola(Window janela, Scene cena, Keyboard teclado, Mob[] mobs) {
 		if (direcao != 0 && teclado.keyDown(KeyEvent.VK_A) && System.currentTimeMillis() - ultimoDisparo > delayEntreTiros) {
