@@ -23,6 +23,7 @@ public class Pantano extends Cenario {
 	private int indiceCenarioAtual = 0;
 	private long tempoInicialCenario = System.currentTimeMillis();
 	private Boolean pause = true;
+	private Boolean jogadorVivo = true;
 	private int pontosAnteriores  = 0;
 
 	public Pantano(Window window, Jogador backupJogador, Mob[] backupMobs, String[] backupNomesCenarios,
@@ -71,6 +72,10 @@ public class Pantano extends Cenario {
 	            backupMobs = null;
 	        }
 			pause();
+			
+			if(Ator.vida == 0) {
+				return;
+			}
 			// mudarCenario();
 			try {
 				Thread.sleep(16); // 60 FPS
@@ -81,7 +86,7 @@ public class Pantano extends Cenario {
 
 		if (getPause().equals(false)) {
 			try {
-				Menu.manuLogica(janela, teclado, getJogador(), getMobs(), getNomesCenarios(), 0, vidaJogador, pontos);
+				Menu.manuLogica(janela, teclado, getJogador(), getMobs(), getNomesCenarios(), 0, vidaJogador, pontos);	
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -139,7 +144,7 @@ public class Pantano extends Cenario {
 		cena.moveScene(personagem);
 		personagem.x += cena.getXOffset();
 		personagem.y += cena.getYOffset();
-		personagem.atirarPistola(janela, cena, teclado, mobs);
+		personagem.ataquePadrao(janela, cena, teclado, mobs);
 		personagem.ataqueEmAreaExplosao(janela, cena, teclado, mobs);
 		personagem.ataqueEmAreaAgua(janela, cena, teclado, mobs);
 		personagem.draw();
@@ -161,7 +166,7 @@ public class Pantano extends Cenario {
 		// Desenha o jogador por último
 		player.x += cena.getXOffset();
 		player.y += cena.getYOffset();
-		player.atirarPistola(janela, cena, teclado, mobs);
+		player.ataquePadrao(janela, cena, teclado, mobs);
 		player.ataqueEmAreaExplosao(janela, cena, teclado, mobs);
 		player.ataqueEmAreaAgua(janela, cena, teclado, mobs);
 		player.pontoDeVida(janela);
@@ -187,14 +192,8 @@ public class Pantano extends Cenario {
 	}
 
 	private void spawnarMob(Mob[] backupMobs) {
-	    long tempoAtual = System.currentTimeMillis();
-	    long tempoDecorrido = (tempoAtual - tempoInicialCenario) / 1000; // converta para segundos
-
 	    int pontosAtuais = Mob.pontos;
-
-	    // Determine quantos mobs devem ser spawnados com base nos pontos atuais
-	    int mobsASpawnar = 2 * (pontosAtuais - pontosAnteriores); // Dois mobs para cada ponto ganho
-
+	    int mobsASpawnar = 2 * (pontosAtuais - pontosAnteriores);
 	    int tipoDeMob = 0;
 	    for (int i = 0; i < mobsASpawnar; i++) {
 	        if (tipoDeMob == 0) {
@@ -205,17 +204,21 @@ public class Pantano extends Cenario {
 	            adicionarNovoMob("javali.png", backupMobs, 1.0, 750.0);
 	        }
 	        
-	        tipoDeMob = (tipoDeMob + 1) % 3; // Avança para o próximo tipo de mob, garantindo que fiquemos dentro dos limites
+	        tipoDeMob = (tipoDeMob + 1) % 3; 
 	    }
 
-	    
-	    // Atualizar os pontos anteriores para os pontos atuais
 	    pontosAnteriores = pontosAtuais;
 	}
+	
+	
 
+	public Boolean getJogadorVivo() {
+		return jogadorVivo;
+	}
 
-
-
+	public void setJogadorVivo(Boolean jogadorVivo) {
+		this.jogadorVivo = jogadorVivo;
+	}
 
 	public Boolean getPause() {
 		return pause;
