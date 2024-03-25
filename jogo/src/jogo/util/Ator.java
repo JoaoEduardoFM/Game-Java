@@ -18,7 +18,9 @@ public class Ator extends Sprite {
 
 	Controle controle = new Controle();
 
-	public static double vida = 1000;
+	public static int vida = 1000;
+	
+	public static int pontos = 0;
 
 	public void caminho(Scene cena) {
 		Point min = new Point((int) this.x, (int) this.y);

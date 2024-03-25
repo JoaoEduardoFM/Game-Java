@@ -9,7 +9,6 @@ public class Mob extends Ator {
 	private double ataque = 1;
 	private double velocidade = 1;
 	public double vidaMob = 250;
-	public Integer pontos = 0;
 	private long tempoInicial = System.currentTimeMillis();
 	private boolean isDead = false;
 	private boolean morto;
@@ -63,37 +62,35 @@ public class Mob extends Ator {
 		}
 	}
 
-		public Boolean morrer() {
-		    if (vidaMob <= 0) {
-		        long tempoAtual = System.currentTimeMillis();
-		        long tempoDecorrido = (tempoAtual - tempoInicial) / 5000; // convert to seconds
-	
-		        if (!isDead) {
-		            isDead = true;  // Set a flag to ensure points are added only once
-		            pontos += 1;  
-		            System.out.println(pontos);
-		        }else {
-		        	isDead = false;
-		        }
-	
-		        moveTo(x, y, velocidade);
-		        setSequence(19, 20);
-		        update();
-		        this.ataque = 0;
-		        this.velocidade = 0;
-		        this.direcao = 0;
-		        movendo = false;
-	
-		        // When the mob dies, teleport it after 6 seconds
-		        if (tempoDecorrido > 6) {
-		            hide();
-		            x = -10_000_000;
-		        }
-		    }else {
-		    	isDead = false;
-		    }
-			return isDead;
-		}
+	public boolean morrer() {
+	    if (vidaMob <= 0) {
+	        long tempoAtual = System.currentTimeMillis();
+	        long tempoDecorrido = (tempoAtual - tempoInicial) / 5000; // convert to seconds
+
+	        if (!isDead) {
+	            isDead = true; 
+	            Ator.pontos += 1;
+	        }
+
+	        moveTo(x, y, velocidade);
+	        setSequence(19, 20);
+	        update();
+	        this.ataque = 0;
+	        this.velocidade = 0;
+	        this.direcao = 0;
+	        movendo = false;
+
+	        // When the mob dies, teleport it after 6 seconds
+	        if (tempoDecorrido > 6) {
+	            hide();
+	            x = -10_000_000;
+	        }
+	    } else {
+	        isDead = false;
+	    }
+	    return isDead;
+	}
+
 
 
 	boolean ataqueMob = false;
@@ -164,15 +161,4 @@ public class Mob extends Ator {
 	public void setTempoInicial(long tempoInicial) {
 		this.tempoInicial = tempoInicial;
 	}
-
-	public Integer getPontos() {
-		return pontos;
-	}
-
-	public void setPontos(Integer pontos) {
-		this.pontos = pontos;
-	}
-	
-	
-
 }

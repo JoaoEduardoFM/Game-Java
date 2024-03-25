@@ -5,6 +5,7 @@ import java.util.Arrays;
 
 import jogo.personagens.jogador.Jogador;
 import jogo.personagens.npc.Mob;
+import jogo.util.Ator;
 import jogo.util.Menu;
 import jplay.Keyboard;
 import jplay.Scene;
@@ -22,28 +23,33 @@ public class Pantano extends Cenario {
 	private int indiceCenarioAtual = 0;
 	private long tempoInicialCenario = System.currentTimeMillis();
 	private Boolean pause = true;
+	private int pontosAnteriores  = 0;
 
 	public Pantano(Window window, Jogador backupJogador, Mob[] backupMobs, String[] backupNomesCenarios,
-			long backupTempoInicialCenario, double vidaJogador) {
+			long backupTempoInicialCenario, int vidaJogador, int pontos, boolean novoJogo) {
+		if(novoJogo == true) {
+		Mob.pontos = 0;
+		}
 		janela = window;
 		cena = new Scene();
 		if(backupJogador != null) {
-		jogador = new Jogador(500, 350, vidaJogador);
+		jogador = new Jogador(500, 350, Ator.vida);
 		}else {
 		jogador = new Jogador(500, 350, 1500);	
 		}
-		mobs = new Mob[] { new Mob(800, 900, "esqueleto.png", 0.5, 250.0) };
+		mobs = new Mob[] { new Mob(500, 800, "esqueleto.png", 0.5, 250.0) };
 		cena.loadFromFile(URL.scenario("Cenario1.scn"));
 		teclado = janela.getKeyboard();
 		// som.play("musica1.mid");
-		run(window, backupJogador, backupMobs, backupNomesCenarios, backupTempoInicialCenario, vidaJogador);
+		run(window, backupJogador, backupMobs, backupNomesCenarios, backupTempoInicialCenario, vidaJogador, pontos);
 	}
 
 	private void run(Window window, Jogador backupJogador, Mob[] backupMobs, String[] backupNomesCenarios,
-			long backupTempoInicialCenario, double vidaJogador) {
+			long backupTempoInicialCenario, int vidaJogador, int pontos) {
 		while (getPause()) {
 			jogadorLogica(backupJogador != null ? backupJogador : jogador);
 			mobLogica(backupJogador != null ? backupJogador : jogador);
+		
 			spawnarMob(backupMobs);
 
 			if (window != null) {
@@ -75,7 +81,7 @@ public class Pantano extends Cenario {
 
 		if (getPause().equals(false)) {
 			try {
-				Menu.manuLogica(janela, teclado, getJogador(), getMobs(), getNomesCenarios(), 0, vidaJogador);
+				Menu.manuLogica(janela, teclado, getJogador(), getMobs(), getNomesCenarios(), 0, vidaJogador, pontos);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -137,7 +143,7 @@ public class Pantano extends Cenario {
 		personagem.ataqueEmAreaExplosao(janela, cena, teclado, mobs);
 		personagem.ataqueEmAreaAgua(janela, cena, teclado, mobs);
 		personagem.draw();
-		personagem.vida(janela);
+		
 	}
 
 	private void mobLogica(Jogador player) {
@@ -158,8 +164,10 @@ public class Pantano extends Cenario {
 		player.atirarPistola(janela, cena, teclado, mobs);
 		player.ataqueEmAreaExplosao(janela, cena, teclado, mobs);
 		player.ataqueEmAreaAgua(janela, cena, teclado, mobs);
+		player.pontoDeVida(janela);
+		player.pontoDeJogo(janela);
 		player.draw();
-		player.vida(janela);
+		
 
 		janela.update();
 	}
@@ -179,16 +187,26 @@ public class Pantano extends Cenario {
 	}
 
 	private void spawnarMob(Mob[] backupMobs) {
-		long tempoAtual = System.currentTimeMillis();
-		long tempoDecorrido = (tempoAtual - tempoInicialCenario) / 1000; // converta para segundos
+	    long tempoAtual = System.currentTimeMillis();
+	    long tempoDecorrido = (tempoAtual - tempoInicialCenario) / 1000; // converta para segundos
 
-		if (tempoDecorrido >= 1) {
-			adicionarNovoMob("esqueleto.png", backupMobs,0.5, 250.0);
-			adicionarNovoMob("orcPequeno.png", backupMobs,2.0, 250.0);
-			adicionarNovoMob("javali.png", backupMobs,1.0, 750.0);
-			tempoInicialCenario = System.currentTimeMillis();
-		}
+	    int pontosAtuais = Mob.pontos;
+
+	    // Determine quantos mobs devem ser spawnados com base nos pontos atuais
+	    int mobsASpawnar = pontosAtuais - pontosAnteriores;
+
+	    for (int i = 0; i < mobsASpawnar; i++) {
+	        adicionarNovoMob("esqueleto.png", backupMobs, 0.5, 250.0);
+	        adicionarNovoMob("orcPequeno.png", backupMobs, 2.0, 250.0);
+	        adicionarNovoMob("javali.png", backupMobs, 1.0, 750.0);
+	    }
+	    
+	    // Atualizar os pontos anteriores para os pontos atuais
+	    pontosAnteriores = pontosAtuais;
 	}
+
+
+
 
 	public Boolean getPause() {
 		return pause;

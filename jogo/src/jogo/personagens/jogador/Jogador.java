@@ -16,7 +16,7 @@ import jplay.Window;
 
 public class Jogador extends Ator {
 
-	public double vidaJogador;
+	public int vidaJogador;
 	private boolean movendo = true;
 	private long ultimoDisparo = 0;
 	private long delayEntreTiros = 700;
@@ -24,7 +24,7 @@ public class Jogador extends Ator {
 	private long animationDelay = 1000; // Ajuste conforme necessário (em milissegundos)
 	private String sprite;
 
-	public Jogador(int x, int y, double vidaJogador) {
+	public Jogador(int x, int y, int vidaJogador) {
 		super(URL.sprite("magoMarrom.png"), 20);
 		this.x = x;
 		this.y = y;
@@ -255,8 +255,13 @@ public class Jogador extends Ator {
 		movendo = true;
 	}
 
-	public void vida(Window janela) {
+	public void pontoDeVida(Window janela) {
 		janela.drawText("Vida: " + Ator.vida, 30, 30, Color.green);
+	}
+	
+	public double pontoDeJogo(Window janela) {
+		janela.drawText("Pontos: " + Mob.pontos, 30, 60, Color.RED);
+		return Mob.pontos;
 	}
 
 	public String getSprite() {
