@@ -193,17 +193,26 @@ public class Pantano extends Cenario {
 	    int pontosAtuais = Mob.pontos;
 
 	    // Determine quantos mobs devem ser spawnados com base nos pontos atuais
-	    int mobsASpawnar = pontosAtuais - pontosAnteriores;
+	    int mobsASpawnar = 2 * (pontosAtuais - pontosAnteriores); // Dois mobs para cada ponto ganho
 
+	    int tipoDeMob = 0;
 	    for (int i = 0; i < mobsASpawnar; i++) {
-	        adicionarNovoMob("esqueleto.png", backupMobs, 0.5, 250.0);
-	        adicionarNovoMob("orcPequeno.png", backupMobs, 2.0, 250.0);
-	        adicionarNovoMob("javali.png", backupMobs, 1.0, 750.0);
+	        if (tipoDeMob == 0) {
+	            adicionarNovoMob("esqueleto.png", backupMobs, 0.5, 250.0);
+	        } else if (tipoDeMob == 1) {
+	            adicionarNovoMob("orcPequeno.png", backupMobs, 2.0, 250.0);
+	        } else {
+	            adicionarNovoMob("javali.png", backupMobs, 1.0, 750.0);
+	        }
+	        
+	        tipoDeMob = (tipoDeMob + 1) % 3; // Avança para o próximo tipo de mob, garantindo que fiquemos dentro dos limites
 	    }
+
 	    
 	    // Atualizar os pontos anteriores para os pontos atuais
 	    pontosAnteriores = pontosAtuais;
 	}
+
 
 
 
