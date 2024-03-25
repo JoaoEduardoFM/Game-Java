@@ -75,7 +75,7 @@ public class Jogador extends Ator {
 	
 	public void ataqueEmAreaAgua(Window janela, Scene cena, Keyboard teclado, Mob[] mobs) {
 		if (direcao != 0 && teclado.keyDown(KeyEvent.VK_D) && System.currentTimeMillis() - ultimoDisparo > delayEntreTiros) {
-			atkArea.atacarEmArea(x - 100, y - 120, direcao, cena, "aguaAtaqueGrande.png", 9);
+			atkArea.atacarEmArea(x - 100, y - 120, direcao, cena, "atakAgua.png", 5);
 			ultimoDisparo = System.currentTimeMillis();
 		}
 
