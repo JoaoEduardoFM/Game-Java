@@ -21,8 +21,8 @@ public class Ataque extends Sprite {
 	private double origemX; // Coordenada x onde o tiro foi disparado
 	private double origemY; // Coordenada y onde o tiro foi disparado
 
-	public Ataque(double x, double y, int caminho) {
-		super(URL.sprite("tiro.png"), 16);
+	public Ataque(double x, double y, int caminho, String sprite) {
+		super(URL.sprite(sprite), 16);
 		this.caminho = caminho;
 		this.x = x;
 		this.y = y;

@@ -45,6 +45,7 @@ public class Menu {
 				} else if (currentMenu == menuExit) {
 					currentMenu = menuOptions;
 				}
+				
 
 				while (teclado.keyDown(Keyboard.UP_KEY)) {
 					Thread.sleep(10);
@@ -59,9 +60,11 @@ public class Menu {
 				if (currentMenu == menuStart) {
 					new Pantano(janela, null, null, null, 0, 1500, pontos, true);
 				} else if (currentMenu == menuOptions) {
-					// logica options
+					currentMenu = options;
 				} else if (currentMenu == menuExit) {
 					System.exit(0);
+				} else if(currentMenu == options) {
+					currentMenu = menuStart;
 				}
 
 			}
@@ -79,6 +82,8 @@ public class Menu {
 				} else if (currentMenu == menuOptions) {
 					currentMenu = menuExit;
 				} else if (currentMenu == menuExit) {
+					currentMenu = menuStart;
+				} else if(currentMenu == options) {
 					currentMenu = menuStart;
 				}
 

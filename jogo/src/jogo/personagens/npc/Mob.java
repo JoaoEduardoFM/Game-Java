@@ -7,7 +7,7 @@ import jplay.URL;
 public class Mob extends Ator {
 
 	private double ataque = 1;
-	private double velocidade = 1;
+	public double velocidade = 1;
 	public double vidaMob = 250;
 	private long tempoInicial = System.currentTimeMillis();
 	private boolean isDead = false;
