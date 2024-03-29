@@ -9,8 +9,8 @@ public class Ataque extends Sprite {
 
 	public static final int LEFT = 1, RIGHT = 2, STOP = 3, UP = 4, DOWN = 5;
 
-	protected static final int VELOCIDADE_TIRO = 10;
-	protected static final int ALCANCE_TIRO = 500; // Ajuste conforme necessário
+	protected static final int VELOCIDADE_TIRO = 3;
+	protected static final int ALCANCE_TIRO = 3000; // Ajuste conforme necessário
 	public int caminho = STOP;
 	protected boolean movendo = false;
 	protected int direcao = 3;
