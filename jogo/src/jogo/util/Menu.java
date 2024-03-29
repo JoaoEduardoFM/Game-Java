@@ -15,6 +15,7 @@ public class Menu {
 	static GameImage menuStart = menu("menu1Start.png");
 	static GameImage menuOptions = menu("menu1Options.png");
 	static GameImage menuExit = menu("menu1Exit.png");
+	static GameImage options = menu("options.png");
 
 	static GameImage currentMenu = menuStart;
 
@@ -103,9 +104,11 @@ public class Menu {
 				if (currentMenu == menuStart) {
 					new Pantano(janela, null, null, null, 0, 1500, 0, true);
 				} else if (currentMenu == menuOptions) {
-					// logica options
+					currentMenu = options;
 				} else if (currentMenu == menuExit) {
 					System.exit(0);
+				} else if(currentMenu == options) {
+					currentMenu = menuStart;
 				}
 
 			}
