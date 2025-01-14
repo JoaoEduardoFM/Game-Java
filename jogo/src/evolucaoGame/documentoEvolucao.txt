@@ -10,6 +10,6 @@ Configurar a barra de vida - OK
 
 Ao morrer o mob deve rodar a animação completa da morte 
 
-Fazer com que o jogo respawne varioas mobs em locais diferentes
+Fazer com que o jogo respawne varios mobs em locais diferentes - OK
 
 Fazer a parte lógica da vida. Ao passar em cima do coração regenera avida e implementar os corracoes como vida.
